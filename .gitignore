@@ -4,6 +4,7 @@
 node_modules/
 .idea/
 .env
+eslint.config.mjs
 
 # Expo
 .expo/
