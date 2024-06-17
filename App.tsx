@@ -9,19 +9,20 @@ import {Stats} from "@/screens/Stats";
 import {IconButton} from "@/components/UI/IconButton";
 import {AddEntryButton} from "@/components/UI/AddEntryButton";
 import {PlusScreen} from "@/screens/PlusScreen";
+import {SafeAreaProvider} from "react-native-safe-area-context";
 const Stack = createNativeStackNavigator()
 const BottomTab = createBottomTabNavigator()
 
 function BottomTabsNavigation(){
     return (
         <BottomTab.Navigator screenOptions={{
+            headerShown: false
         }}>
             <BottomTab.Screen name='Dashboard' component={Dashboard} options={{
                 tabBarIcon: ({size, color}) => <IconButton icon={'water'} color={color} size={size} />
             }}/>
             <BottomTab.Screen name='AddFluid' component={PlusScreen} options={{
                 title: '',
-                tabBarShowLabel: false,
                 tabBarLabelStyle: {
                     display: 'none'
                 },
@@ -38,13 +39,15 @@ export default function App() {
 
     return (
         <QueryClientProvider client={queryClient}>
-        <NavigationContainer>
-            <Stack.Navigator>
-                <Stack.Screen name='index' component={BottomTabsNavigation} options={{
-                    headerShown: false
-                }}/>
-            </Stack.Navigator>
-        </NavigationContainer>
+            <SafeAreaProvider>
+                <NavigationContainer>
+                    <Stack.Navigator>
+                        <Stack.Screen name='index' component={BottomTabsNavigation} options={{
+                            headerShown: false
+                        }}/>
+                    </Stack.Navigator>
+                </NavigationContainer>
+            </SafeAreaProvider>
         </QueryClientProvider>
     );
 }
