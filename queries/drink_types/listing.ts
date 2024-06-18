@@ -1,5 +1,5 @@
 import {useQuery} from "@tanstack/react-query";
-import {supabase} from "../../lib/supabase";
+import {supabase} from "@/lib/supabase";
 
 const listDrinks = async () => {
     const supaResult = await supabase.from('drink_types').select('name')
