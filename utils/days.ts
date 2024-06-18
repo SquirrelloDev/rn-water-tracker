@@ -26,3 +26,10 @@ export const generateDays = (date: Date | dayjs.Dayjs, count: number, direction:
     }
     return outputArr
 }
+export const dayToString = (day: Day): string => {
+    const month = day.month < 10 ? '0' + day.month : day.month
+    return `${day.year}-${month}-${day.date}`
+}
+export const getCurrentTimeString = () => {
+  return `${dayjs().hour()}:${dayjs().minute()}:${dayjs().second()}`
+}
