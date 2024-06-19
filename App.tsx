@@ -10,6 +10,11 @@ import {IconButton} from "@/components/UI/IconButton";
 import {AddEntryButton} from "@/components/UI/AddEntryButton";
 import {PlusScreen} from "@/screens/PlusScreen";
 import {SafeAreaProvider} from "react-native-safe-area-context";
+import {IntroScreen} from "@/screens/Auth/IntroScreen";
+import appRoutes from "@/utils/routes";
+import {SignupPersonalDataScreen} from "@/screens/Auth/SignupPersonalDataScreen";
+import {SignupCredentialsScreen} from "@/screens/Auth/SignupCredentialsScreen";
+import {LoginScreen} from "@/screens/Auth/LoginScreen";
 const Stack = createNativeStackNavigator()
 const BottomTab = createBottomTabNavigator()
 
@@ -42,7 +47,11 @@ export default function App() {
             <SafeAreaProvider>
                 <NavigationContainer>
                     <Stack.Navigator>
-                        <Stack.Screen name='index' component={BottomTabsNavigation} options={{
+                        <Stack.Screen name={appRoutes.intro} component={IntroScreen}/>
+                        <Stack.Screen name={appRoutes.signupPersonalData} component={SignupPersonalDataScreen} />
+                        <Stack.Screen name={appRoutes.signupCredentials} component={SignupCredentialsScreen} />
+                        <Stack.Screen name={appRoutes.login} component={LoginScreen} />
+                        <Stack.Screen name={appRoutes.index} component={BottomTabsNavigation} options={{
                             headerShown: false
                         }}/>
                     </Stack.Navigator>
