@@ -11,7 +11,7 @@ const usePersonalDataStore = create<PersonalDataStore>()((setState, getState) =>
         data: {weight: -1},
         setPersonalData: (data) => {
             setState((state) => {
-                return {...state, data}
+                return {...state, data: {weight: data.weight}}
             })
         },
         clearPersonalData: () => {

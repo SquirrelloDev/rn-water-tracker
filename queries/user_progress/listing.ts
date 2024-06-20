@@ -13,6 +13,9 @@ type ListProgressResponse = {
 }
 const listProgress:QueryFunction<ListProgressResponse, ListProgressQK> = async () => {
     const {data, error} = await supabase.from('user_progress').select("*")
+    if(error){
+        throw new Error(error.message)
+    }
     return {progress: data}
 }
 const listuserQKString = 'List-Progress-User'
@@ -33,10 +36,13 @@ const listUserProgress:QueryFunction<UserProgressResponse, ListUserQK> = async (
     date,
     intake
     `).eq('user_id', userId).eq('date', date)
+    if(error){
+        throw new Error(error.message)
+    }
     return {progress: data}
 }
 export default function useProgressListing(){
-    const {data, isError, isLoading} = useQuery({queryKey: ['List-progress'], queryFn: listProgress})
+    const {data, isError, isLoading} = useQuery({queryKey: ['List-Progress'], queryFn: listProgress})
     return {data, isLoading, isError}
 }
 export function useUserProgressListing(params: ListUserParams){

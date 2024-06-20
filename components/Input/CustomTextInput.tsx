@@ -6,7 +6,7 @@ import {ForwardedRef, forwardRef} from "react";
 import {Control, Controller, FieldValues, Path} from "react-hook-form";
 import {StyledText, StyledTextInput, StyledView} from "@/components/StyledComponents/StyledComponents";
 
-interface CustomTextInputProps<T extends FieldValues> extends TextInputProps {
+interface CustomTextInputProps<T extends FieldValues> extends TextInputProps  {
     iconName?: keyof typeof Ionicons.glyphMap,
     isRequired?: boolean
     name: string,
