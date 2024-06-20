@@ -4,6 +4,7 @@
   "main": "expo/AppEntry.js",
   "scripts": {
     "start": "expo start",
+    "compile": "tsc",
     "start-clean-cache": "expo start -c",
     "android": "expo start --android",
     "ios": "expo start --ios",
