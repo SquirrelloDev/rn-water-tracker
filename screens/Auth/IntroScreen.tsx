@@ -1,10 +1,11 @@
-import {View} from "react-native";
 import CustomButton from "@/components/UI/CustomButton";
 import {IntroCarousel} from "@/components/Auth/IntroCarousel";
 import useSafeAreaStyle from "@/hooks/useSafeAreaStyle";
-import {styled} from "nativewind";
-const StyledView = styled(View)
-export function IntroScreen({navigation}) {
+import {StyledView} from "@/components/StyledComponents/StyledComponents";
+import {NativeStackScreenProps} from "@react-navigation/native-stack";
+import {RootStackParamList} from "@/types/navigation";
+
+export function IntroScreen({navigation}: NativeStackScreenProps<RootStackParamList, 'Intro'>) {
 	const insets = useSafeAreaStyle()
 	return (
 		<StyledView style={[insets]} className='flex-1'>
