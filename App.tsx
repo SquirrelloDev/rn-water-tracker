@@ -1,7 +1,7 @@
 import {Alert, Pressable, StyleSheet, Text, View} from 'react-native';
 import {QueryClientProvider} from "@tanstack/react-query";
 import {queryClient} from "./utils/api";
-import {NavigationContainer} from "@react-navigation/native";
+import {NavigationContainer, NavigationProp} from "@react-navigation/native";
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
 import Dashboard from "./screens/Dashboard";
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
@@ -11,12 +11,15 @@ import {AddEntryButton} from "@/components/UI/AddEntryButton";
 import {PlusScreen} from "@/screens/PlusScreen";
 import {SafeAreaProvider} from "react-native-safe-area-context";
 import {IntroScreen} from "@/screens/Auth/IntroScreen";
-import appRoutes from "@/utils/routes";
+import appRoutes, {ScreenNames} from "@/utils/routes";
 import {SignupPersonalDataScreen} from "@/screens/Auth/SignupPersonalDataScreen";
 import {SignupCredentialsScreen} from "@/screens/Auth/SignupCredentialsScreen";
 import {LoginScreen} from "@/screens/Auth/LoginScreen";
-const Stack = createNativeStackNavigator()
+import {RootStackParamList} from "@/types/navigation";
+
+const Stack = createNativeStackNavigator<RootStackParamList>()
 const BottomTab = createBottomTabNavigator()
+
 
 function BottomTabsNavigation(){
     return (
@@ -47,11 +50,18 @@ export default function App() {
             <SafeAreaProvider>
                 <NavigationContainer>
                     <Stack.Navigator>
-                        <Stack.Screen name={appRoutes.intro} component={IntroScreen}/>
-                        <Stack.Screen name={appRoutes.signupPersonalData} component={SignupPersonalDataScreen} />
-                        <Stack.Screen name={appRoutes.signupCredentials} component={SignupCredentialsScreen} />
-                        <Stack.Screen name={appRoutes.login} component={LoginScreen} />
-                        <Stack.Screen name={appRoutes.index} component={BottomTabsNavigation} options={{
+                        <Stack.Screen name='Intro' component={IntroScreen} options={{
+                            headerShown: false,
+                        }}/>
+                        <Stack.Screen name={'SignUpPersonalData'} component={SignupPersonalDataScreen} options={{
+                            title: 'Rejestracja',
+                            headerBackTitle: 'Powrót',
+                        }} />
+                        <Stack.Screen name={'SignupCredentials'} component={SignupCredentialsScreen} options={{
+                            title: 'Rejestracja'
+                        }}/>
+                        <Stack.Screen name={'Login'} component={LoginScreen} />
+                        <Stack.Screen name={'index'} component={BottomTabsNavigation} options={{
                             headerShown: false
                         }}/>
                     </Stack.Navigator>
