@@ -7,7 +7,7 @@ export type ScreenNames = [
     'Dashboard',
     'AddFluid'
 ]
-const appRoutes = {
+const appRoutes: Record<string, ScreenNames[number]> = {
     index: 'index',
     intro: 'Intro',
     signupPersonalData: 'SignUpPersonalData',
