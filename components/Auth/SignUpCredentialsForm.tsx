@@ -1,14 +1,29 @@
 import {StyledText, StyledView} from "@/components/StyledComponents/StyledComponents";
-import {CustomTextInput} from "@/components/Input/CustomTextInput";
+import {FormTextInput} from "@/components/Input/FormTextInput";
 import {FormProvider, useForm} from "react-hook-form";
 import CustomButton from "@/components/UI/CustomButton";
-import {KeyboardAvoidingView} from "react-native";
+import {zodResolver} from "@hookform/resolvers/zod";
+import {SignUpFormType, SignUpPostData, signUpSchema} from "@/queries/auth/auth";
+import {PasswdRequirements} from "@/components/Auth/PasswdRequirements";
+import useAuth from "@/hooks/useAuth";
+interface SignUpCredentialsFormProps {
+    demand: number
+}
 
-export function SignUpCredentialsForm() {
-    const methods = useForm()
-    const {control, handleSubmit} = methods
-    const createAccount = () => {
-
+export function SignUpCredentialsForm({demand}: SignUpCredentialsFormProps) {
+    const {authStatus: {signUpStatus}, signupHandler} = useAuth()
+    const methods = useForm<SignUpFormType>({
+        resolver: zodResolver(signUpSchema),
+        mode: 'onTouched'
+    })
+    const {control, handleSubmit, watch} = methods
+    const passwdWatch = watch('password')
+    const createAccount = (data: SignUpFormType) => {
+        const newUser: SignUpPostData = {
+            ...data,
+            dailyFluidIntake: demand
+        }
+        signupHandler(newUser)
     }
     return (
             <StyledView className={'mt-4'}>
@@ -16,11 +31,12 @@ export function SignUpCredentialsForm() {
                     logować</StyledText>
                 <FormProvider {...methods}>
                     <StyledView className={'mt-3'}>
-                        <CustomTextInput placeholder={'Adres e-mail'} name={'email'} control={control} isRequired
+                        <FormTextInput placeholder={'Adres e-mail'} name={'email'} control={control} isRequired
                                          textContentType={'emailAddress'}/>
-                        <CustomTextInput placeholder={'Hasło'} name={'password'} control={control} isRequired
+                        <FormTextInput placeholder={'Hasło'} name={'password'} control={control} isRequired
                                          textContentType={'password'} secureTextEntry/>
-                        <CustomButton title={'Utwórz konto'} onPress={handleSubmit(createAccount)}/>
+                        <PasswdRequirements value={passwdWatch} />
+                        <CustomButton title={'Utwórz konto'} isLoading={signUpStatus.isSignupPending} onPress={handleSubmit(createAccount)} />
                     </StyledView>
                 </FormProvider>
             </StyledView>

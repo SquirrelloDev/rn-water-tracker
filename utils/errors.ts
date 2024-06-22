@@ -8,5 +8,8 @@ export const formErrorMessages = {
             return `Maksymalna wartość ${max}`
         }
         return `Wartość powinna być w przedziale ${min} - ${max}`
-    }
+    },
+    invalidEmail: 'To nie wygląda jak adres e-mail...',
+    passwdMin: (min: number) => `Hasło musi składać się z ${min} znaków`,
+    incorrectPasswd: 'Hasło nie spełnia wymogów'
 }

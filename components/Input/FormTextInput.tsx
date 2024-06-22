@@ -15,7 +15,7 @@ interface CustomTextInputProps<T extends FieldValues> extends TextInputProps  {
 
 const StyledIcon = styled(Ionicons)
 
-export const CustomTextInput = forwardRef(<T extends FieldValues>({placeholder, keyboardType, name, control, iconName, isRequired = false, ...props}: CustomTextInputProps<T>, ref:ForwardedRef<TextInput>) => (
+export const FormTextInput = <T extends FieldValues>({placeholder, keyboardType, name, control, iconName, isRequired = false, ...props}: CustomTextInputProps<T>) => (
     <Controller render={({field: {value, onBlur, onChange}, formState: {errors}, fieldState: {isTouched}}) => {
         const isError = errors[name!]
         return (
@@ -23,7 +23,7 @@ export const CustomTextInput = forwardRef(<T extends FieldValues>({placeholder, 
                 <StyledText className={clsx('ml-6 mb-1 font-bold text-base')}>{placeholder} {isRequired && <StyledText className='text-orange-400'>*</StyledText>}</StyledText>
                 {iconName && <StyledIcon name={iconName} size={24}
                                          className={clsx('absolute z-10 top-1/2 left-5 -translate-y-1.5 text-slate-400', isError && '-translate-y-4 text-red-400')}/>}
-                <StyledTextInput placeholder={placeholder} value={value} ref={ref} onChangeText={(value) => onChange(value)}
+                <StyledTextInput placeholder={placeholder} value={value} onChangeText={(value) => onChange(value)}
                            onBlur={onBlur} keyboardType={keyboardType} {...props}
                            className={clsx('py-4  mx-3 mt-1 mb-2 bg-slate-200 rounded-full focus:border focus:border-blue-400',
                                iconName ? 'pl-9 pr-5' : 'px-5', isError && 'border border-red-400 bg-red-200')}/>
@@ -31,4 +31,4 @@ export const CustomTextInput = forwardRef(<T extends FieldValues>({placeholder, 
             </StyledView>
         )
     }} name={name as Path<T>} control={control}/>
-))
+)

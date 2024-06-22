@@ -1,6 +1,6 @@
 import {Control, FieldValues, FormProvider, useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
-import {CustomTextInput} from "@/components/Input/CustomTextInput";
+import {FormTextInput} from "@/components/Input/FormTextInput";
 import CustomButton from "@/components/UI/CustomButton";
 import {useNavigation} from "@react-navigation/native";
 import {z} from "zod";
@@ -32,7 +32,7 @@ export function SignUpPersonalForm() {
 	return (
 		<FormProvider {...methods}>
 		<StyledView>
-			<CustomTextInput name={'weight'} control={(control as unknown) as Control<FieldValues>} placeholder={'Waga (w kg)'} isRequired keyboardType={"number-pad"}/>
+			<FormTextInput name={'weight'} control={control} placeholder={'Waga (w kg)'} isRequired keyboardType={"number-pad"}/>
 			<CustomButton title={'Dalej'} onPress={handleSubmit(submitValues)} />
 		</StyledView>
 		</FormProvider>
