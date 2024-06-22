@@ -32,7 +32,7 @@ export function SignUpCredentialsForm({demand}: SignUpCredentialsFormProps) {
                 <FormProvider {...methods}>
                     <StyledView className={'mt-3'}>
                         <FormTextInput placeholder={'Adres e-mail'} name={'email'} control={control} isRequired
-                                         textContentType={'emailAddress'}/>
+                                         textContentType={'emailAddress'} autoCapitalize={'none'}/>
                         <FormTextInput placeholder={'Hasło'} name={'password'} control={control} isRequired
                                          textContentType={'password'} secureTextEntry/>
                         <PasswdRequirements value={passwdWatch} />
