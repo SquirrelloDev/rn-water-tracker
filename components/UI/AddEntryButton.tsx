@@ -1,16 +1,17 @@
-import {Alert, Pressable, View} from "react-native";
+import {Alert} from "react-native";
 import {Ionicons} from "@expo/vector-icons";
+import {StyledPressable} from "@/components/StyledComponents/StyledComponents";
 
 export function AddEntryButton() {
     const outerPressableHandler = () => {
       return
     }
     return (
-        <Pressable className='w-full items-center' onPress={outerPressableHandler}>
-            <Pressable className="h-full w-12 justify-center items-center bg-teal-500 rounded-full"
+        <StyledPressable className='w-full items-center' onPress={outerPressableHandler}>
+            <StyledPressable className="h-full w-12 justify-center items-center bg-teal-500 rounded-full"
                        onPress={() => Alert.alert('test')}>
                 <Ionicons name={'add'} size={40} color={'#0000ff'}/>
-            </Pressable>
-        </Pressable>
+            </StyledPressable>
+        </StyledPressable>
     )
 }

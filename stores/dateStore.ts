@@ -12,12 +12,12 @@ const initializeState = () => {
     const date = dayjs().date()
     return `${year}-${month}-${date}`
 }
-const useDateStore = create<DateStore>((setState, getState) => (
+const useDateStore = create<DateStore>()((setState, getState) => (
     {
         selectedDate: initializeState(),
         setSelectedDate: (date) => {
-            setState(() => {
-                return {selectedDate: date}
+            setState((state) => {
+                return {...state, selectedDate: date}
             })
         }
     }
