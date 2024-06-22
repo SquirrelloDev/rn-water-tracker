@@ -50,7 +50,7 @@ export default function App() {
         <QueryClientProvider client={queryClient}>
             <SafeAreaProvider>
                 <NavigationContainer>
-                    <Stack.Navigator>
+                    <Stack.Navigator initialRouteName={'index'}>
                         <Stack.Screen name='Intro' component={IntroScreen} options={{
                             headerShown: false,
                         }}/>
