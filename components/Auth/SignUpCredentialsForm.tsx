@@ -6,6 +6,7 @@ import {zodResolver} from "@hookform/resolvers/zod";
 import {SignUpFormType, SignUpPostData, signUpSchema} from "@/queries/auth/auth";
 import {PasswdRequirements} from "@/components/Auth/PasswdRequirements";
 import useAuth from "@/hooks/useAuth";
+import {ErrorBox} from "@/components/Auth/ErrorBox";
 interface SignUpCredentialsFormProps {
     demand: number
 }
@@ -29,6 +30,7 @@ export function SignUpCredentialsForm({demand}: SignUpCredentialsFormProps) {
             <StyledView className={'mt-4'}>
                 <StyledText className={'text-center text-xl font-bold'}>Podaj swoje dane, którymi będziesz się
                     logować</StyledText>
+                {signUpStatus.isSignupError && <ErrorBox errorMessage={signUpStatus.signUpError!.message} />}
                 <FormProvider {...methods}>
                     <StyledView className={'mt-3'}>
                         <FormTextInput placeholder={'Adres e-mail'} name={'email'} control={control} isRequired

@@ -7,6 +7,7 @@ import {loginSchema, LoginSchema} from "@/queries/auth/auth";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {useEffect} from "react";
 import {Alert} from "react-native";
+import {ErrorBox} from "@/components/Auth/ErrorBox";
 
 export function LoginForm() {
 	const methods = useForm<LoginSchema>({
@@ -17,14 +18,10 @@ export function LoginForm() {
 	const logIn = (data: LoginSchema) => {
 	  loginHandler(data)
 	}
-	useEffect(() => {
-		if (loginStatus.isLoginError){
-			Alert.alert(loginStatus.loginError?.message)
-		}
-	}, [loginStatus.isLoginError, loginStatus.loginError])
 	return (
 		<>
 			<StyledText className={'text-3xl text-center font-bold'}>Zaloguj się</StyledText>
+			{loginStatus.isLoginError && <ErrorBox errorMessage={loginStatus.loginError!.message} />}
 			<FormProvider {...methods}>
 			<StyledView className={'pt-4'}>
 				<FormTextInput name={'email'} control={control} placeholder={'Adres e-mail'} isRequired autoCapitalize={'none'} textContentType={'emailAddress'}/>
