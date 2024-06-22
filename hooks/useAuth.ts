@@ -1,5 +1,4 @@
-import {AuthParams, SignUpFormType, SignUpPostData, useLoginAuth, useSignOut, useSignupAuth} from "@/queries/auth/auth";
-import {useState} from "react";
+import {AuthParams, SignUpPostData, useLoginAuth, useSignOut, useSignupAuth} from "@/queries/auth/auth";
 import useAuthStore from "@/stores/authStore";
 import {useNavigation} from "@react-navigation/native";
 import appRoutes from "@/utils/routes";
@@ -9,9 +8,10 @@ import {StackNavigation} from "@/types/navigation";
 export default function useAuth() {
     const setIsLoggedIn = useAuthStore(state => state.setIsLoggedIn)
     const setSession = useAuthStore(state => state.setSession)
+    const clearSession = useAuthStore(state => state.clearSession)
     const navigation = useNavigation<StackNavigation>()
     const navigateToDashboard = () => {
-        navigation.navigate(appRoutes.dashboard)
+        navigation.navigate(appRoutes.index)
     }
     const {mutate: signUp, isPending: isSignupPending, isError: isSignupError, error: signUpError} = useSignupAuth((data, variables) => {
         if(!data.session){
@@ -19,13 +19,19 @@ export default function useAuth() {
                 {text: 'OK', isPreferred: true, onPress: () =>  navigation.reset({index: 1, routes: [{name: appRoutes.intro}, {name: appRoutes.login}]})}
             ])
         }
+        else{
+            navigation.reset({index: 1, routes: [{name: appRoutes.intro}, {name: appRoutes.login}]})
+        }
     })
     const {mutate: logIn, isPending: isLoginPending, isError: isLoginError, error: loginError} = useLoginAuth((data, variables) => {
         setSession(data.session)
         setIsLoggedIn(true)
         navigateToDashboard()
     })
-    const {mutate: signOut, isPending: isSingOutPending, isError: isSignOutError, error: signOutError} = useSignOut()
+    const {mutate: signOut, isPending: isSingOutPending, isError: isSignOutError, error: signOutError} = useSignOut((data) => {
+        clearSession()
+        setIsLoggedIn(false)
+    })
 
     const authStatus = {
         signUpStatus: {

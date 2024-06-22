@@ -15,35 +15,37 @@ import {SignupPersonalDataScreen} from "@/screens/Auth/SignupPersonalDataScreen"
 import {SignupCredentialsScreen} from "@/screens/Auth/SignupCredentialsScreen";
 import {LoginScreen} from "@/screens/Auth/LoginScreen";
 import {RootStackParamList} from "@/types/navigation";
+import useAuthStore from "@/stores/authStore";
 
 const Stack = createNativeStackNavigator<RootStackParamList>()
 const BottomTab = createBottomTabNavigator()
 
 
-function BottomTabsNavigation(){
+function BottomTabsNavigation() {
     return (
         <BottomTab.Navigator screenOptions={{
             headerShown: false
         }}>
             <BottomTab.Screen name='Dashboard' component={Dashboard} options={{
-                tabBarIcon: ({size, color}) => <IconButton icon={'water'} color={color} size={size} />
+                tabBarIcon: ({size, color}) => <IconButton icon={'water'} color={color} size={size}/>
             }}/>
             <BottomTab.Screen name='AddFluid' component={PlusScreen} options={{
                 title: '',
                 tabBarLabelStyle: {
                     display: 'none'
                 },
-                tabBarIcon: () => <AddEntryButton />
+                tabBarIcon: () => <AddEntryButton/>
             }}/>
             <BottomTab.Screen name='Stats' component={Stats} options={{
                 title: 'Statystyki',
-                tabBarIcon: ({color, size}) => <IconButton icon={'stats-chart'} color={color} size={size} />
+                tabBarIcon: ({color, size}) => <IconButton icon={'stats-chart'} color={color} size={size}/>
             }}/>
         </BottomTab.Navigator>
     )
 }
-export default function App() {
 
+export default function App() {
+    const session = useAuthStore(state => state.session)
     return (
         <QueryClientProvider client={queryClient}>
             <SafeAreaProvider>
@@ -55,15 +57,19 @@ export default function App() {
                         <Stack.Screen name={'SignUpPersonalData'} component={SignupPersonalDataScreen} options={{
                             title: 'Rejestracja',
                             headerBackTitle: 'Powrót',
-                        }} />
+                        }}/>
                         <Stack.Screen name={'SignupCredentials'} component={SignupCredentialsScreen} options={{
                             title: 'Rejestracja',
                             headerBackTitle: 'Powrót',
                         }}/>
-                        <Stack.Screen name={'Login'} component={LoginScreen} />
-                        <Stack.Screen name={'index'} component={BottomTabsNavigation} options={{
-                            headerShown: false
-                        }}/>
+                        <Stack.Screen name={'Login'} component={LoginScreen}/>
+                        {
+                            session && (
+                                <Stack.Screen name={'index'} component={BottomTabsNavigation} options={{
+                                    headerShown: false
+                                }}/>
+                            )
+                        }
                     </Stack.Navigator>
                 </NavigationContainer>
             </SafeAreaProvider>

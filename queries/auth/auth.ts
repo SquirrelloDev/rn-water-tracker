@@ -29,6 +29,9 @@ type LoginResponse = {
   user: User
   session: Session
 }
+type SignoutResponse = {
+  message: string
+}
 const signInWithEmail:MutationFunction<LoginResponse, AuthParams> = async ({email, password}: AuthParams) => {
   const {error, data} = await supabase.auth.signInWithPassword({email, password})
   if(error){
@@ -61,11 +64,11 @@ const signOut = async () => {
   if(error){
     Alert.alert(error.message)
   }
-  console.log('signed out')
+  return {message: 'Successfully signed out!'}
 }
 type SuccessSignUp<T> = (data: SignUpResponse, variables: T) => unknown
 type SuccessLogIn<T> = (data: LoginResponse, variables: T) => unknown
-type SuccessSignOut = () => unknown
+type SuccessSignOut = (data: SignoutResponse) => unknown
 export type ErrorFunctionMutation<T> = (err: AuthError, variables: T) => unknown
 export function useLoginAuth(onSuccess?: SuccessLogIn<LoginSchema>, onError?: ErrorFunctionMutation<LoginSchema>) {
   const {mutate, isPending, isError, error, isSuccess} = useMutation({mutationKey: ['Log-in'], mutationFn: signInWithEmail, onSuccess, onError})
