@@ -1,7 +1,7 @@
-import {Alert, Pressable, StyleSheet, Text, View} from 'react-native';
+import {StyleSheet} from 'react-native';
 import {QueryClientProvider} from "@tanstack/react-query";
 import {queryClient} from "./utils/api";
-import {NavigationContainer, NavigationProp} from "@react-navigation/native";
+import {NavigationContainer} from "@react-navigation/native";
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
 import Dashboard from "./screens/Dashboard";
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
@@ -11,7 +11,6 @@ import {AddEntryButton} from "@/components/UI/AddEntryButton";
 import {PlusScreen} from "@/screens/PlusScreen";
 import {SafeAreaProvider} from "react-native-safe-area-context";
 import {IntroScreen} from "@/screens/Auth/IntroScreen";
-import appRoutes, {ScreenNames} from "@/utils/routes";
 import {SignupPersonalDataScreen} from "@/screens/Auth/SignupPersonalDataScreen";
 import {SignupCredentialsScreen} from "@/screens/Auth/SignupCredentialsScreen";
 import {LoginScreen} from "@/screens/Auth/LoginScreen";
@@ -58,7 +57,8 @@ export default function App() {
                             headerBackTitle: 'Powrót',
                         }} />
                         <Stack.Screen name={'SignupCredentials'} component={SignupCredentialsScreen} options={{
-                            title: 'Rejestracja'
+                            title: 'Rejestracja',
+                            headerBackTitle: 'Powrót',
                         }}/>
                         <Stack.Screen name={'Login'} component={LoginScreen} />
                         <Stack.Screen name={'index'} component={BottomTabsNavigation} options={{

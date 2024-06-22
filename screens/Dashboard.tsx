@@ -22,11 +22,6 @@ export default function Dashboard(){
 		<StyledView style={[insetsStyles]} className="flex-1">
 			<TopBar />
 			<RowCalendar />
-			<Button title={'sign up'} onPress={() => signUp({email: 'saxen28678@lisoren.com', password: "5kfpkmwdffpmaa@#$s"})}/>
-			<Button title={'log in'} onPress={() => mutate({email: 'testlogin@example.com', password: "1qaz2wsx!"})}/>
-			<Button title={'sign out'} onPress={() => signOut()}/>
-			<Button title={'sign as anon'} onPress={() => signAnon()}/>
-			<Button title={'get key'} onPress={getKeyAsync}/>
 		</StyledView>
 	)
 }
