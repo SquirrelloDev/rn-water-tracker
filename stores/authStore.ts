@@ -1,6 +1,7 @@
 import {create} from "zustand";
-import {supabase} from "@/lib/supabase";
 import {Session} from "@supabase/supabase-js";
+import {createJSONStorage, persist} from "zustand/middleware";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 interface AuthStore {
     isLoggedIn: boolean
@@ -9,7 +10,7 @@ interface AuthStore {
     setSession: (session: Session) => void
     clearSession: () => void
 }
-const useAuthStore = create<AuthStore>()((setState, getState) => (
+const useAuthStore = create<AuthStore>()(persist<AuthStore>((setState, getState) => (
     {
         isLoggedIn: false,
         session: null,
@@ -29,5 +30,5 @@ const useAuthStore = create<AuthStore>()((setState, getState) => (
             }))
         }
     }
-))
+), {name: 'authState', storage: createJSONStorage(() => AsyncStorage) }))
 export default useAuthStore
