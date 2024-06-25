@@ -13,7 +13,7 @@ export default function Dashboard(){
 	const insetsStyles = useSafeAreaStyle()
 	const userData = useAuthStore(state => state.userData)
 	const selectedDate = useDateStore(state => state.selectedDate)
-	const {data, isLoading} = useUserProgressListing({date: selectedDate, userId: userData.id})
+	const {data, isLoading} = useUserProgressListing({date: selectedDate, userId: userData!.id})
 	useEffect(() => {
 		if(!isLoading){
 			console.log(data!.progress)
@@ -27,10 +27,10 @@ export default function Dashboard(){
 			const allIntakes = data!.progress.reduce((acc, item) => {
 				return acc + item.intake
 			}, 0)
-			return percents(userData.dailyFluidIntake, allIntakes) / 100
+			return percents(userData!.dailyFluidIntake, allIntakes) / 100
 		}
 		return 0
-	}, [isLoading, userData.dailyFluidIntake, data])
+	}, [isLoading, userData?.dailyFluidIntake, data])
 	return (
 		<StyledView style={[insetsStyles, {paddingBottom: 0}]} className="flex-1">
 			<TopBar />

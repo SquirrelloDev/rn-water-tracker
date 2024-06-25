@@ -42,7 +42,7 @@ const listUserProgress:QueryFunction<UserProgressResponse, ListUserQK> = async (
     if(error){
         throw new Error(error.message)
     }
-    const finalData = data?.map(item => ({date: item.date, intake: item.intake, time: item.time, drink: {id: item.drink_types.id, name: item.drink_types.name}}))
+    const finalData:UserProgressEntry[] = data!.length > 0 ? data!.map(item => ({date: item.date, intake: item.intake, time: item.time, drink: {id: Number(item.drink_types[0].id), name: String(item.drink_types[0].name)}})) : []
     return {progress: finalData}
 }
 export default function useProgressListing(){
