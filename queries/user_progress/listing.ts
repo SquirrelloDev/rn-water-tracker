@@ -26,8 +26,17 @@ type ListUserParams = {
 }
 type ListUserQK = [typeof listuserQKString, ListUserParams]
 type UserProgressResponse = {
-    progress: UserProgressEntry[]
+    progress: {
+        date: Date,
+        intake: number,
+        time: string,
+        drink_types: {
+            id: number,
+            name: string
+        }
+    }[]
 }
+// @ts-expect-error the drink_types is only one object, not an array of objects
 const listUserProgress:QueryFunction<UserProgressResponse, ListUserQK> = async ({queryKey}) => {
     const [,{date, userId}] = queryKey
     const {data, error} = await supabase.from('user_progress').select(`
@@ -42,8 +51,7 @@ const listUserProgress:QueryFunction<UserProgressResponse, ListUserQK> = async (
     if(error){
         throw new Error(error.message)
     }
-    const finalData:UserProgressEntry[] = data!.length > 0 ? data!.map(item => ({date: item.date, intake: item.intake, time: item.time, drink: {id: Number(item.drink_types[0].id), name: String(item.drink_types[0].name)}})) : []
-    return {progress: finalData}
+    return {progress: data}
 }
 export default function useProgressListing(){
     const {data, isError, isLoading} = useQuery({queryKey: ['List-Progress'], queryFn: listProgress})
