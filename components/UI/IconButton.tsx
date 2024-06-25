@@ -1,6 +1,5 @@
-import {Pressable} from "react-native";
 import {Ionicons} from "@expo/vector-icons";
-import {styled} from "nativewind";
+import {StyledPressable} from "@/components/StyledComponents/StyledComponents";
 interface IconButtonProps {
 	icon: keyof typeof Ionicons.glyphMap,
 	color: string,
@@ -8,7 +7,6 @@ interface IconButtonProps {
 	onPress?: () => void
 	classNames?: string
 }
-const StyledPressable = styled(Pressable)
 export function IconButton({icon, size, color, onPress, classNames}:IconButtonProps) {
 	return (
 		<StyledPressable onPress={onPress} className={classNames}>
