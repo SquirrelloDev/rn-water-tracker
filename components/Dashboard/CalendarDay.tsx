@@ -6,15 +6,18 @@ import dayjs from "dayjs";
 import {StyledLinearGradient, StyledPressable, StyledText} from "@/components/StyledComponents/StyledComponents";
 interface CalendarDayProps {
 	day: Day
+	index:number,
+	snapToDay: (index: number) => void
 	isCompleted?: boolean
 }
-export function CalendarDay({day, isCompleted}:CalendarDayProps) {
+export function CalendarDay({day, isCompleted, index, snapToDay}:CalendarDayProps) {
 	const selectedDate = useDateStore(state => state.selectedDate)
 	const setSelectedDate = useDateStore(state => state.setSelectedDate)
 	const isSameDate = dayjs(selectedDate).isSame(dayToString(day))
 	const isAfter = dayjs(dayToString(day)).isAfter(dayjs())
 	const onPressHandler = () => {
 		setSelectedDate(dayToString(day))
+		snapToDay(index)
 	}
 	//TODO: Add the completed state in the future
 
