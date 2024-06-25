@@ -8,6 +8,7 @@ import {StackNavigation} from "@/types/navigation";
 export default function useAuth() {
     const setIsLoggedIn = useAuthStore(state => state.setIsLoggedIn)
     const setSession = useAuthStore(state => state.setSession)
+    const setUserData = useAuthStore(state => state.setUserData)
     const clearSession = useAuthStore(state => state.clearSession)
     const navigation = useNavigation<StackNavigation>()
     const navigateToDashboard = () => {
@@ -25,6 +26,10 @@ export default function useAuth() {
     })
     const {mutate: logIn, isPending: isLoginPending, isError: isLoginError, error: loginError} = useLoginAuth((data, variables) => {
         setSession(data.session)
+        setUserData({
+            id: data.userData[0].id,
+            dailyFluidIntake: data.userData[0].daily_fluid_intake
+        })
         setIsLoggedIn(true)
         navigateToDashboard()
     })
