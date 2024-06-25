@@ -12,7 +12,7 @@ export function RowCalendar() {
 		<StyledView className='my-4'>
 			<FlatList horizontal={true} getItemLayout={(data, index) => (
 				{length: RowCalendarConsts.ITEM_WIDTH, offset: RowCalendarConsts.ITEM_WIDTH * index, index}
-			) } initialScrollIndex={days.length - 1} data={days} renderItem={({item}) => <CalendarDay day={item} isCompleted/>} />
+			) } initialScrollIndex={days.length - 1} showsHorizontalScrollIndicator={false} data={days} renderItem={({item}) => <CalendarDay day={item}/>} />
 		</StyledView>
 	)
 }
