@@ -27,6 +27,7 @@ type ListUserParams = {
 type ListUserQK = [typeof listuserQKString, ListUserParams]
 type UserProgressResponse = {
     progress: {
+        id: number,
         date: Date,
         intake: number,
         time: string,
@@ -40,6 +41,7 @@ type UserProgressResponse = {
 const listUserProgress:QueryFunction<UserProgressResponse, ListUserQK> = async ({queryKey}) => {
     const [,{date, userId}] = queryKey
     const {data, error} = await supabase.from('user_progress').select(`
+    id,
     date,
     intake,
     time,

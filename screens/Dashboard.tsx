@@ -22,7 +22,7 @@ export default function Dashboard(){
 	const {data, isLoading} = useUserProgressListing({date: selectedDate, userId: userData!.id})
 	const transformedData = useMemo<UserProgressEntry[]>(() => {
 		if(!isLoading && data){
-			return data.progress.map(item => ({date: item.date, intake: item.intake, time: item.time, drink: {id: Number(item.drink_types.id), name: String(item.drink_types.name)}}))
+			return data.progress.map(item => ({id: item.id, date: item.date, intake: item.intake, time: item.time, drink: {id: Number(item.drink_types.id), name: String(item.drink_types.name)}}))
 		}
 		return []
 	}, [isLoading, data])
