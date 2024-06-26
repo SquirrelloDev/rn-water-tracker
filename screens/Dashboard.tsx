@@ -12,6 +12,7 @@ import useAuthStore from "@/stores/authStore";
 import {useBottomSheetStore} from "@/stores/bottomSheetStore";
 import {UserProgressEntry} from "@/types/progress";
 import BottomSheet, {BottomSheetBackdrop, BottomSheetModal, BottomSheetView} from "@gorhom/bottom-sheet";
+import useDashboardData from "@/hooks/useDashboardData";
 export default function Dashboard(){
 	const insetsStyles = useSafeAreaStyle()
 	const userData = useAuthStore(state => state.userData)
@@ -20,21 +21,7 @@ export default function Dashboard(){
 	const isSheetOpen = useBottomSheetStore(state => state.isSheetOpen)
 	const modalRef = useRef<BottomSheetModal>(null)
 	const {data, isLoading} = useUserProgressListing({date: selectedDate, userId: userData!.id})
-	const transformedData = useMemo<UserProgressEntry[]>(() => {
-		if(!isLoading && data){
-			return data.progress.map(item => ({id: item.id, date: item.date, intake: item.intake, time: item.time, drink: {id: Number(item.drink_types.id), name: String(item.drink_types.name)}}))
-		}
-		return []
-	}, [isLoading, data])
-	const percentage = useMemo<number>(() => {
-		if(!isLoading){
-			const allIntakes = transformedData.reduce((acc, item) => {
-				return acc + item.intake
-			}, 0)
-			return percents(userData!.dailyFluidIntake, allIntakes) / 100
-		}
-		return 0
-	}, [isLoading, transformedData])
+	const {transformedData, percentage} = useDashboardData(data, isLoading, userData)
 	useEffect(() => {
 		if(isSheetOpen){
 			modalRef.current.present()

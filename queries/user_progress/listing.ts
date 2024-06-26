@@ -25,7 +25,7 @@ type ListUserParams = {
     userId: number
 }
 type ListUserQK = [typeof listuserQKString, ListUserParams]
-type UserProgressResponse = {
+export type UserProgressResponse = {
     progress: {
         id: number,
         date: Date,
