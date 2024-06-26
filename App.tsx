@@ -16,6 +16,9 @@ import {SignupCredentialsScreen} from "@/screens/Auth/SignupCredentialsScreen";
 import {LoginScreen} from "@/screens/Auth/LoginScreen";
 import {RootStackParamList} from "@/types/navigation";
 import useAuthStore from "@/stores/authStore";
+import {StatusBar} from "expo-status-bar";
+import {GestureHandlerRootView} from "react-native-gesture-handler";
+import {BottomSheetModalProvider} from "@gorhom/bottom-sheet";
 
 const Stack = createNativeStackNavigator<RootStackParamList>()
 const BottomTab = createBottomTabNavigator()
@@ -48,31 +51,38 @@ export default function App() {
     const session = useAuthStore(state => state.session)
     return (
         <QueryClientProvider client={queryClient}>
-            <SafeAreaProvider>
-                <NavigationContainer>
-                    <Stack.Navigator initialRouteName={'index'}>
-                        <Stack.Screen name='Intro' component={IntroScreen} options={{
-                            headerShown: false,
-                        }}/>
-                        <Stack.Screen name={'SignUpPersonalData'} component={SignupPersonalDataScreen} options={{
-                            title: 'Rejestracja',
-                            headerBackTitle: 'Powrót',
-                        }}/>
-                        <Stack.Screen name={'SignupCredentials'} component={SignupCredentialsScreen} options={{
-                            title: 'Rejestracja',
-                            headerBackTitle: 'Powrót',
-                        }}/>
-                        <Stack.Screen name={'Login'} component={LoginScreen}/>
-                        {
-                            session && (
-                                <Stack.Screen name={'index'} component={BottomTabsNavigation} options={{
-                                    headerShown: false
+            <StatusBar style={'dark'}/>
+            <GestureHandlerRootView>
+                <BottomSheetModalProvider>
+                    <SafeAreaProvider>
+                        <NavigationContainer>
+                            <Stack.Navigator initialRouteName={'index'}>
+                                <Stack.Screen name='Intro' component={IntroScreen} options={{
+                                    headerShown: false,
                                 }}/>
-                            )
-                        }
-                    </Stack.Navigator>
-                </NavigationContainer>
-            </SafeAreaProvider>
+                                <Stack.Screen name={'SignUpPersonalData'} component={SignupPersonalDataScreen}
+                                              options={{
+                                                  title: 'Rejestracja',
+                                                  headerBackTitle: 'Powrót',
+                                              }}/>
+                                <Stack.Screen name={'SignupCredentials'} component={SignupCredentialsScreen} options={{
+                                    title: 'Rejestracja',
+                                    headerBackTitle: 'Powrót',
+                                }}/>
+                                <Stack.Screen name={'Login'} component={LoginScreen}/>
+                                {
+                                    session && (
+                                        <Stack.Screen name={'index'} component={BottomTabsNavigation} options={{
+                                            headerShown: false
+                                        }}/>
+                                    )
+                                }
+                            </Stack.Navigator>
+                        </NavigationContainer>
+                    </SafeAreaProvider>
+                </BottomSheetModalProvider>
+
+            </GestureHandlerRootView>
         </QueryClientProvider>
     );
 }

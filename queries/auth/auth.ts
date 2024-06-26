@@ -1,7 +1,6 @@
 import {supabase} from "@/lib/supabase";
 import {Alert} from "react-native";
 import {MutationFunction, useMutation} from "@tanstack/react-query";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import {z} from "zod";
 import {formErrorMessages} from "@/utils/errors";
 import {AuthError, Session, User} from "@supabase/supabase-js";
@@ -27,6 +26,7 @@ type SignUpResponse = {
 }
 type LoginResponse = {
   user: User
+  userData: {id: number, daily_fluid_intake: number}[]
   session: Session
 }
 type SignoutResponse = {
@@ -37,7 +37,11 @@ const signInWithEmail:MutationFunction<LoginResponse, AuthParams> = async ({emai
   if(error){
     throw new Error(error.message)
   }
-  return {user: data.user, session: data.session}
+  const {error: queryError, data: userData} = await supabase.from('users').select('id, daily_fluid_intake').eq('email', email)
+  if(queryError){
+    throw new Error(queryError.message)
+  }
+  return {user: data.user, session: data.session, userData: userData}
 }
 const signUpWithEmail:MutationFunction<SignUpResponse, SignUpPostData> = async ({email, password, dailyFluidIntake}: SignUpPostData) => {
   const {error, data: {user, session}} = await supabase.auth.signUp({email, password})

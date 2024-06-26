@@ -1,5 +1,6 @@
 import {supabase} from "@/lib/supabase";
 import {QueryFunction, useQuery} from "@tanstack/react-query";
+import {UserProgressEntry} from "@/types/progress";
 const listprogressQKString = 'List-Progress'
 type ListProgressQK = [typeof listprogressQKString]
 type ListProgressResponse = {
@@ -24,17 +25,30 @@ type ListUserParams = {
     userId: number
 }
 type ListUserQK = [typeof listuserQKString, ListUserParams]
-type UserProgressResponse = {
+export type UserProgressResponse = {
     progress: {
+        id: number,
         date: Date,
         intake: number,
+        time: string,
+        drink_types: {
+            id: number,
+            name: string
+        }
     }[]
 }
+// @ts-expect-error the drink_types is only one object, not an array of objects
 const listUserProgress:QueryFunction<UserProgressResponse, ListUserQK> = async ({queryKey}) => {
     const [,{date, userId}] = queryKey
     const {data, error} = await supabase.from('user_progress').select(`
+    id,
     date,
-    intake
+    intake,
+    time,
+    drink_types (
+        id,
+        name
+    )
     `).eq('user_id', userId).eq('date', date)
     if(error){
         throw new Error(error.message)
