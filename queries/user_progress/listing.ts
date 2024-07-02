@@ -1,6 +1,5 @@
 import {supabase} from "@/lib/supabase";
 import {QueryFunction, useQuery} from "@tanstack/react-query";
-import {UserProgressEntry} from "@/types/progress";
 const listprogressQKString = 'List-Progress'
 type ListProgressQK = [typeof listprogressQKString]
 type ListProgressResponse = {
@@ -19,7 +18,7 @@ const listProgress:QueryFunction<ListProgressResponse, ListProgressQK> = async (
     }
     return {progress: data}
 }
-const listuserQKString = 'List-Progress-User'
+export const listuserQKString = 'List-Progress-User'
 type ListUserParams = {
     date: string,
     userId: number
@@ -55,11 +54,48 @@ const listUserProgress:QueryFunction<UserProgressResponse, ListUserQK> = async (
     }
     return {progress: data}
 }
+
+const listOneQKString = 'List-One-Progress'
+type ListOneProgressParams = {
+    entryId: number | null
+}
+type ListOneQK = [typeof listOneQKString, ListOneProgressParams]
+export type OneProgressResponse = {
+    progress: {
+        id: number,
+        date: Date,
+        intake: number,
+        time: string,
+        drink_id: number
+    }[]
+}
+const listOneProgress:QueryFunction<OneProgressResponse, ListOneQK> = async ({queryKey}) => {
+    const [, {entryId}] = queryKey
+    if (!entryId){
+        throw new Error('No drink identifier provided!')
+    }
+    console.log(entryId)
+    const {data, error} = await supabase.from('user_progress').select(`    
+    id,
+    date,
+    intake,
+    time,
+    drink_id
+`).eq('id', entryId)
+    if(error){
+        throw new Error(error.message)
+    }
+    return {progress: data}
+}
 export default function useProgressListing(){
-    const {data, isError, isLoading} = useQuery({queryKey: ['List-Progress'], queryFn: listProgress})
+    const {data, isError, isLoading} = useQuery({queryKey: [listprogressQKString], queryFn: listProgress})
     return {data, isLoading, isError}
 }
 export function useUserProgressListing(params: ListUserParams){
-    const {data, isError, isLoading} = useQuery({queryKey: ['List-Progress-User', params], queryFn: listUserProgress})
+    const {data, isError, isLoading} = useQuery({queryKey: [listuserQKString, params], queryFn: listUserProgress})
+    return {data, isLoading, isError}
+}
+export function useOneProgressListing(params: ListOneProgressParams){
+    const {data, isError, isLoading} = useQuery({queryKey: [listOneQKString, params], queryFn: listOneProgress})
     return {data, isLoading, isError}
 }
