@@ -23,7 +23,7 @@ export function CreateEntryForm() {
     const modalRef = useRef<BottomSheetModal>(null)
     const {data, isLoading} = useDrinkListing()
     const {mutate, isPending} = useProgressCreate(() => {
-        modalRef.current.dismiss()
+        modalRef.current?.dismiss()
         queryClient.invalidateQueries({queryKey: [listuserQKString]})
         setDatepickerShown(false)
     })
@@ -39,7 +39,7 @@ export function CreateEntryForm() {
         const testObj: AddEntryPostData = {
             date: data.date ? getDateWithoutTime(data.date) : getDateWithoutTime(new Date()),
             intake: data.intake,
-            userId: userData.id,
+            userId: userData!.id,
             drinkId: data.drinkId,
             time: data.time ? data.time.toLocaleTimeString() : getCurrentTimeString()
         }

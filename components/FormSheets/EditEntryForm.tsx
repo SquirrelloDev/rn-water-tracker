@@ -27,7 +27,7 @@ export function EditEntryForm({drinkId}: EditEntryFormProps) {
 	const modalRef = useRef<BottomSheetModal>(null)
 	const {data: entryData, isLoading: isEntryDataLoading} = useOneProgressListing({entryId: drinkId})
 	const {mutate, isPending, isError} = useProgressEdit(() => {
-		modalRef.current.dismiss()
+		modalRef.current?.dismiss()
 		queryClient.invalidateQueries({queryKey: [listuserQKString]})
 		setDatepickerShown(false)
 	})
@@ -56,9 +56,9 @@ export function EditEntryForm({drinkId}: EditEntryFormProps) {
 			id: drinkId,
 			date: data.date ? getDateWithoutTime(data.date) : getDateWithoutTime(new Date()),
 			intake: data.intake,
-			userId: userData.id,
+			userId: userData!.id,
 			drinkId: data.drinkId,
-			time: data.time ? data.time.toLocaleTimeString() : getCurrentTimeString()
+			time: data.time ? (data.time as Date).toLocaleTimeString() : getCurrentTimeString()
 		}
 
 		mutate(testObj)

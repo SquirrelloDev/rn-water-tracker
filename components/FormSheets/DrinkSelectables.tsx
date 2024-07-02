@@ -14,7 +14,7 @@ export function DrinkSelectables<T extends FieldValues>({data, name, control}: D
 			<StyledView className={'my-5 mx-5'}>
 				<FlatList data={data.drinks} horizontal showsHorizontalScrollIndicator={false} renderItem={({item}) => (
 					<DrinkType name={item.name} id={item.id} onChange={onChange}/>
-				)} keyExtractor={(item) => item.id}/>
+				)} keyExtractor={(item) => String(item.id)}/>
 			</StyledView>
 		)} name={name as Path<T>} />
 

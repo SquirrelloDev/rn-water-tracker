@@ -18,7 +18,7 @@ export default function Dashboard(){
 	const sheetType = useBottomSheetStore(state => state.sheetType)
 	const selectedDrinkId = useBottomSheetStore(state => state.selectedDrinkId)
 	const {data, isLoading} = useUserProgressListing({date: selectedDate, userId: userData!.id})
-	const {transformedData, percentage} = useDashboardData(data, isLoading, userData)
+	const {transformedData, percentage} = useDashboardData(data, isLoading, userData!)
 
 
 	return (

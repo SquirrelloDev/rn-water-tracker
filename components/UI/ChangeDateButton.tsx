@@ -12,7 +12,7 @@ interface ChangeDateButtonProps {
 export function ChangeDateButton({date, time, onPress}: ChangeDateButtonProps) {
     const [createTime, setCreateTime] = useState<string>(getCurrentTimeString())
     useEffect(() => {
-        let timer;
+        let timer: NodeJS.Timeout;
         if(!time){
             timer = setInterval(() => {
             setCreateTime(getCurrentTimeString())

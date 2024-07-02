@@ -2,8 +2,9 @@ import {UserProgressEntry} from "@/types/progress";
 import {UserProgressResponse} from "@/queries/user_progress/listing";
 import {useMemo} from "react";
 import {percents} from "@/utils/calculations";
+import {UserData} from "@/stores/authStore";
 
-export default function useDashboardData(data: UserProgressResponse | undefined, isLoading: boolean, userData){
+export default function useDashboardData(data: UserProgressResponse | undefined, isLoading: boolean, userData: UserData){
     const transformedData = useMemo<UserProgressEntry[]>(() => {
         if(!isLoading && data){
             return data.progress.map(item => ({id: item.id, date: item.date, intake: item.intake, time: item.time, drink: {id: Number(item.drink_types.id), name: String(item.drink_types.name)}}))
