@@ -16,6 +16,7 @@ import CustomButton from "@/components/UI/CustomButton";
 import useProgressEdit, {editEntrySchema, EditEntrySchema, EntryPutData} from "@/queries/user_progress/edit";
 import {queryClient} from "@/utils/api";
 import {listuserQKString, useOneProgressListing} from "@/queries/user_progress/listing";
+import {ErrorBox} from "@/components/Auth/ErrorBox";
 
 interface EditEntryFormProps {
 	drinkId: number | null
@@ -25,8 +26,8 @@ export function EditEntryForm({drinkId}: EditEntryFormProps) {
 	const [datepickerShown, setDatepickerShown] = useState<boolean>(false)
 	const {data, isLoading} = useDrinkListing()
 	const modalRef = useRef<BottomSheetModal>(null)
-	const {data: entryData, isLoading: isEntryDataLoading} = useOneProgressListing({entryId: drinkId})
-	const {mutate, isPending, isError} = useProgressEdit(() => {
+	const {data: entryData, isLoading: isEntryDataLoading, isError: isProgressError, error: progressError} = useOneProgressListing({entryId: drinkId})
+	const {mutate, isPending, isError: isEditError, error: editError} = useProgressEdit(() => {
 		modalRef.current?.dismiss()
 		queryClient.invalidateQueries({queryKey: [listuserQKString]})
 		setDatepickerShown(false)
@@ -71,6 +72,8 @@ export function EditEntryForm({drinkId}: EditEntryFormProps) {
 			{entryData && (
 				<TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
 					<FormProvider {...methods}>
+					{isProgressError && <ErrorBox errorMessage={'Nie można pobrać danych'} />}
+					{isEditError && <ErrorBox errorMessage={`Wystąpił problem z wysłaniem danych: ${editError}`} />}
 						<StyledText className={'text-center font-bold text-xl'}>Edytuj wpis</StyledText>
 						{(!isLoading && !isEntryDataLoading) && <DrinkSelectables data={data!} name={'drinkId'} control={control}/>}
 						<FormTextInput name={'intake'} defaultValue={`${getValues('intake')}`} control={control} placeholder={'Wartość w ml'} isRequired

@@ -16,13 +16,14 @@ import useDrinkListing from "@/queries/drink_types/listing";
 import {Keyboard, TouchableWithoutFeedback} from "react-native";
 import {DrinkSelectables} from "@/components/FormSheets/DrinkSelectables";
 import {ChangeDateButton} from "@/components/UI/ChangeDateButton";
+import {ErrorBox} from "@/components/Auth/ErrorBox";
 
 export function CreateEntryForm() {
     const userData = useAuthStore(state => state.userData)
     const [datepickerShown, setDatepickerShown] = useState<boolean>(false)
     const modalRef = useRef<BottomSheetModal>(null)
-    const {data, isLoading} = useDrinkListing()
-    const {mutate, isPending} = useProgressCreate(() => {
+    const {data, isLoading, isError, error} = useDrinkListing()
+    const {mutate, isPending, isError: isCreateError, error: createError} = useProgressCreate(() => {
         modalRef.current?.dismiss()
         queryClient.invalidateQueries({queryKey: [listuserQKString]})
         setDatepickerShown(false)
@@ -30,7 +31,6 @@ export function CreateEntryForm() {
     const methods = useForm({
         defaultValues: {
             drinkId: 1,
-            intake: 1
         },
         resolver: zodResolver(addEntrySchema)
     })
@@ -52,6 +52,8 @@ export function CreateEntryForm() {
         <CustomBottomSheet ref={modalRef} onDismiss={onDismiss}>
             <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
                 <FormProvider {...methods}>
+                {isCreateError && <ErrorBox errorMessage={'Nie można dodać rekordu'} />}
+                {isError && <ErrorBox errorMessage={'Nie można pobrać napojów'} />}
                     <StyledText className={'text-center font-bold text-xl'}>Dodaj wpis</StyledText>
                     {!isLoading && <DrinkSelectables data={data!} name={'drinkId'} control={control}/>}
                     <FormTextInput name={'intake'} control={control} placeholder={'Wartość w ml'} isRequired

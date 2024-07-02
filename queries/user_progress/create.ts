@@ -4,7 +4,7 @@ import {z} from "zod";
 import {formErrorMessages} from "@/utils/errors";
 export const addEntrySchema = z.object({
     date: z.coerce.date().optional(),
-    intake: z.coerce.number().min(1, formErrorMessages.minMax(1, 3000)).max(3000, formErrorMessages.minMax(1,3000)),
+    intake: z.coerce.number({message: formErrorMessages.required}).min(1, formErrorMessages.minMax(1, 3000)).max(3000, formErrorMessages.minMax(1,3000)),
     drinkId: z.coerce.number({message: formErrorMessages.required}),
     time: z.coerce.date().optional()
 })
@@ -25,6 +25,6 @@ const addProgress = async ({date, intake, userId, time, drinkId}: AddEntryPostDa
 }
 type SuccessFunctionMutation = () => unknown
 export default function useProgressCreate(onSuccess?:SuccessFunctionMutation) {
-    const {isError, isPending, mutate} = useMutation({mutationFn: addProgress, mutationKey: ['Add-progress'], onSuccess})
-    return {mutate, isError, isPending}
+    const {isError, isPending, mutate, error} = useMutation({mutationFn: addProgress, mutationKey: ['Add-progress'], onSuccess})
+    return {mutate, isError, isPending, error}
 }

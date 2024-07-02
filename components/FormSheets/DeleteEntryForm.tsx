@@ -8,6 +8,7 @@ import useProgressDelete from "@/queries/user_progress/delete";
 import {queryClient} from "@/utils/api";
 import {listuserQKString} from "@/queries/user_progress/listing";
 import {useBottomSheetStore} from "@/stores/bottomSheetStore";
+import {ErrorBox} from "@/components/Auth/ErrorBox";
 interface DeleteEntryFormProps {
 	drinkId: number | null
 }
@@ -29,6 +30,7 @@ export function DeleteEntryForm({drinkId}: DeleteEntryFormProps) {
 		<CustomBottomSheet ref={bottomSheetRef}>
 			<TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
 				<StyledView>
+				{isError && <ErrorBox errorMessage={`Nie można usunąć wpisu: ${error}`}/>}
 					<StyledText className={'text-center font-bold text-xl'}>Czy na pewno chcesz usunąć wpis?</StyledText>
 					<CustomButton title={'Usuń'} onPress={confirmDelete} isLoading={isPending}/>
 					<CustomButton title={'Anuluj'} onPress={() => bottomSheetRef.current?.dismiss()} variant={'outline'} isLoading={isPending} />

@@ -5,7 +5,7 @@ import {supabase} from "@/lib/supabase";
 
 export const editEntrySchema = z.object({
     date: z.coerce.date(),
-    intake: z.coerce.number().min(1, formErrorMessages.minMax(1, 3000)).max(3000, formErrorMessages.minMax(1,3000)),
+    intake: z.coerce.number({message: formErrorMessages.required}).min(1, formErrorMessages.minMax(1, 3000)).max(3000, formErrorMessages.minMax(1,3000)),
     drinkId: z.coerce.number({message: formErrorMessages.required}),
     time: z.union([z.coerce.date(), z.coerce.string()])
 })
@@ -27,6 +27,6 @@ const editProgress = async ({date, time, drinkId, intake, id}: EntryPutData) => 
 }
 type SuccessFunctionMutation = () => unknown
 export default function useProgressEdit(onSuccess?:SuccessFunctionMutation) {
-    const {isError, isPending, mutate} = useMutation({mutationFn: editProgress, mutationKey: ['Edit-progress'], onSuccess})
-    return {mutate, isError, isPending}
+    const {isError, isPending, mutate, error} = useMutation({mutationFn: editProgress, mutationKey: ['Edit-progress'], onSuccess})
+    return {mutate, isError, isPending, error}
 }

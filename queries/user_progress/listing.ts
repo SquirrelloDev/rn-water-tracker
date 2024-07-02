@@ -95,6 +95,6 @@ export function useUserProgressListing(params: ListUserParams){
     return {data, isLoading, isError}
 }
 export function useOneProgressListing(params: ListOneProgressParams){
-    const {data, isError, isLoading} = useQuery({queryKey: [listOneQKString, params], queryFn: listOneProgress})
-    return {data, isLoading, isError}
+    const {data, isError, isLoading, error} = useQuery({queryKey: [listOneQKString, params], queryFn: listOneProgress})
+    return {data, isLoading, isError, error}
 }
