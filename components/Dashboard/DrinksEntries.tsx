@@ -22,7 +22,7 @@ export function DrinksEntries({isLoading, userProgress}:DrinksEntriesProps) {
 			setExpanded(false)
 		}
 	}, [])
-	const renderItem = useCallback(({item}) => {
+	const renderItem = useCallback(({item}: {item: UserProgressEntry}) => {
 		return <DrinkEntry item={item} isExpanded={expanded} />
 	}, [expanded])
 	return (
@@ -37,7 +37,7 @@ export function DrinksEntries({isLoading, userProgress}:DrinksEntriesProps) {
 					<StyledText className={clsx('font-medium text-xl')}>Nic tu jeszcze nie ma</StyledText>
 				</StyledView>
 			) }
-			{!isLoading && userProgress!.length > 0 && <FlatList data={userProgress} keyExtractor={(item) => item.id } renderItem={renderItem} /> }
+			{!isLoading && userProgress!.length > 0 && <FlatList data={userProgress} keyExtractor={(item) => String(item.id) } renderItem={renderItem} /> }
 		</StyledView>
 		</BottomSheet>
 	)

@@ -12,7 +12,7 @@ export function RowCalendar() {
 	const flatListRef = useRef<FlatList>(null)
 	const screen = Dimensions.get('screen')
 	const snapToDay = (index: number) => {
-		flatListRef.current.scrollToIndex({index, viewOffset: ((screen.width / 2) - 80 )})
+		flatListRef.current?.scrollToIndex({index, viewOffset: ((screen.width / 2) - 80 )})
 	}
 	return (
 		<StyledView className='my-4'>

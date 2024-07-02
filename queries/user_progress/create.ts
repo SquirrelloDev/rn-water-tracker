@@ -1,12 +1,30 @@
 import {supabase} from "@/lib/supabase";
 import {useMutation} from "@tanstack/react-query";
-
-
-const addProgress = async () => {
-    const {count, status, data} = await supabase.from('user_progress').insert({date: new Date(), time: `11:27:34`})
+import {z} from "zod";
+import {formErrorMessages} from "@/utils/errors";
+export const addEntrySchema = z.object({
+    date: z.coerce.date().optional(),
+    intake: z.coerce.number({message: formErrorMessages.required}).min(1, formErrorMessages.minMax(1, 3000)).max(3000, formErrorMessages.minMax(1,3000)),
+    drinkId: z.coerce.number({message: formErrorMessages.required}),
+    time: z.coerce.date().optional()
+})
+export type AddEntrySchema = z.infer<typeof addEntrySchema>
+export type AddEntryPostData = {
+    date?: string,
+    intake: number,
+    userId: number,
+    drinkId: number,
+    time?: string
+}
+const addProgress = async ({date, intake, userId, time, drinkId}: AddEntryPostData) => {
+    const {count, error} = await supabase.from('user_progress').insert({date, time, intake, user_id: userId, drink_id: drinkId})
+    if (error){
+        throw new Error(error.message)
+    }
     return count
 }
-export default function useProgressCreate() {
-    const {isError, isPending, mutate} = useMutation({mutationFn: addProgress, mutationKey: ['Add-progress'], onSuccess: () => console.log("query complete")})
-    return {mutate, isError, isPending}
+type SuccessFunctionMutation = () => unknown
+export default function useProgressCreate(onSuccess?:SuccessFunctionMutation) {
+    const {isError, isPending, mutate, error} = useMutation({mutationFn: addProgress, mutationKey: ['Add-progress'], onSuccess})
+    return {mutate, isError, isPending, error}
 }
