@@ -17,7 +17,9 @@ import {Keyboard, TouchableWithoutFeedback} from "react-native";
 import {DrinkSelectables} from "@/components/FormSheets/DrinkSelectables";
 import {ChangeDateButton} from "@/components/UI/ChangeDateButton";
 import {ErrorBox} from "@/components/Auth/ErrorBox";
-
+type CreateValues = {
+    intake: number; drinkId: number; time?: Date; date?: Date;
+}
 export function CreateEntryForm() {
     const userData = useAuthStore(state => state.userData)
     const [datepickerShown, setDatepickerShown] = useState<boolean>(false)
@@ -28,9 +30,10 @@ export function CreateEntryForm() {
         queryClient.invalidateQueries({queryKey: [listuserQKString]})
         setDatepickerShown(false)
     })
-    const methods = useForm({
+    const methods = useForm<CreateValues>({
         defaultValues: {
             drinkId: 1,
+            intake: -1
         },
         resolver: zodResolver(addEntrySchema)
     })
