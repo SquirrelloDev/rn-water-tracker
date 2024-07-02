@@ -30,6 +30,9 @@ export const dayToString = (day: Day): string => {
     const month = day.month < 10 ? '0' + day.month : day.month
     return `${day.year}-${month}-${day.date}`
 }
+export const getDateWithoutTime = (date: Date) => {
+    return dayjs(date).endOf('day').toISOString().substring(0, 10)
+}
 export const getCurrentTimeString = () => {
-  return `${dayjs().hour()}:${dayjs().minute()}:${dayjs().second()}`
+  return `${dayjs().hour()}:${dayjs().minute() < 10 ? '0' + dayjs().minute() : dayjs().minute()}:${dayjs().second() < 10 ? '0' + dayjs().second() : dayjs().second()}`
 }
