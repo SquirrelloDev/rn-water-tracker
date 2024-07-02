@@ -74,7 +74,6 @@ const listOneProgress:QueryFunction<OneProgressResponse, ListOneQK> = async ({qu
     if (!entryId){
         throw new Error('No drink identifier provided!')
     }
-    console.log(entryId)
     const {data, error} = await supabase.from('user_progress').select(`    
     id,
     date,
