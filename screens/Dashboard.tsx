@@ -11,6 +11,7 @@ import useDashboardData from "@/hooks/useDashboardData";
 import {CreateEntryForm} from "@/components/FormSheets/CreateEntryForm";
 import {useBottomSheetStore} from "@/stores/bottomSheetStore";
 import {EditEntryForm} from "@/components/FormSheets/EditEntryForm";
+import {DeleteEntryForm} from "@/components/FormSheets/DeleteEntryForm";
 export default function Dashboard(){
 	const insetsStyles = useSafeAreaStyle()
 	const userData = useAuthStore(state => state.userData)
@@ -29,6 +30,7 @@ export default function Dashboard(){
 			<DrinksEntries isLoading={isLoading} userProgress={transformedData} />
 			{sheetType === 'create' && <CreateEntryForm /> }
 			{sheetType === 'edit' && <EditEntryForm drinkId={selectedDrinkId}/>}
+			{sheetType === 'delete' && <DeleteEntryForm drinkId={selectedDrinkId}/>}
 		</StyledView>
 	)
 }
