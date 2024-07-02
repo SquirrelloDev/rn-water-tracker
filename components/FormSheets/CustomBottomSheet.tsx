@@ -1,12 +1,19 @@
-import {forwardRef, PropsWithChildren, useCallback, useEffect, useImperativeHandle, useRef} from "react";
-import {BottomSheetBackdrop, BottomSheetBackdropProps, BottomSheetModal, BottomSheetView} from "@gorhom/bottom-sheet";
+import {forwardRef, ReactNode, useCallback, useEffect, useImperativeHandle, useRef} from "react";
+import {
+    BottomSheetBackdrop,
+    BottomSheetBackdropProps,
+    BottomSheetModal,
+    BottomSheetProps,
+    BottomSheetView
+} from "@gorhom/bottom-sheet";
 import {useBottomSheetStore} from "@/stores/bottomSheetStore";
 
-interface CustomBottomSheetProps extends PropsWithChildren {
+interface CustomBottomSheetProps extends BottomSheetProps{
     onDismiss?: () => void
+    children: ReactNode
 }
 
-export const CustomBottomSheet = forwardRef<BottomSheetModal, CustomBottomSheetProps>(({children, onDismiss}, forwardedRef) => {
+export const CustomBottomSheet = forwardRef<BottomSheetModal, CustomBottomSheetProps>(({children, onDismiss, snapPoints, ...props}, forwardedRef) => {
     const toggleSheet = useBottomSheetStore(state => state.toggleSheet)
     const setSheetType = useBottomSheetStore(state => state.setSheetType)
     const isSheetOpen = useBottomSheetStore(state => state.isSheetOpen)
@@ -30,7 +37,7 @@ export const CustomBottomSheet = forwardRef<BottomSheetModal, CustomBottomSheetP
         return <BottomSheetBackdrop appearsOnIndex={0} disappearsOnIndex={-1} {...props}/>
     }, [])
     return (
-        <BottomSheetModal ref={ref} snapPoints={['85%']} onChange={handleSheetChanges} backdropComponent={renderBackdrop}>
+        <BottomSheetModal ref={ref} snapPoints={snapPoints ? snapPoints : ['85%']} onChange={handleSheetChanges} backdropComponent={renderBackdrop} {...props}>
             <BottomSheetView>
 				{children}
             </BottomSheetView>

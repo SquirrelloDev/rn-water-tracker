@@ -27,7 +27,7 @@ export function DeleteEntryForm({drinkId}: DeleteEntryFormProps) {
 	  mutate(drinkId)
 	}
 	return (
-		<CustomBottomSheet ref={bottomSheetRef}>
+		<CustomBottomSheet ref={bottomSheetRef} snapPoints={['30%']}>
 			<TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
 				<StyledView>
 				{isError && <ErrorBox errorMessage={`Nie można usunąć wpisu: ${error}`}/>}
