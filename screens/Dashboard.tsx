@@ -1,22 +1,22 @@
 import useSafeAreaStyle from "@/hooks/useSafeAreaStyle";
 import {TopBar} from "@/components/Dashboard/TopBar";
 import {RowCalendar} from "@/components/Dashboard/RowCalendar";
-import {StyledText, StyledView} from "@/components/StyledComponents/StyledComponents";
+import {StyledView} from "@/components/StyledComponents/StyledComponents";
 import {useUserProgressListing} from "@/queries/user_progress/listing";
-import {useRef} from "react";
 import useDateStore from "@/stores/dateStore";
 import {DasboardSummary} from "@/components/Dashboard/DasboardSummary";
 import {DrinksEntries} from "@/components/Dashboard/DrinksEntries";
 import useAuthStore from "@/stores/authStore";
-import {BottomSheetModal} from "@gorhom/bottom-sheet";
 import useDashboardData from "@/hooks/useDashboardData";
-import {CustomBottomSheet} from "@/components/FormSheets/CustomBottomSheet";
+import {CreateEntryForm} from "@/components/FormSheets/CreateEntryForm";
+import {useBottomSheetStore} from "@/stores/bottomSheetStore";
+import {EditEntryForm} from "@/components/FormSheets/EditEntryForm";
 export default function Dashboard(){
 	const insetsStyles = useSafeAreaStyle()
 	const userData = useAuthStore(state => state.userData)
 	const selectedDate = useDateStore(state => state.selectedDate)
-
-	const modalRef = useRef<BottomSheetModal>(null)
+	const sheetType = useBottomSheetStore(state => state.sheetType)
+	const selectedDrinkId = useBottomSheetStore(state => state.selectedDrinkId)
 	const {data, isLoading} = useUserProgressListing({date: selectedDate, userId: userData!.id})
 	const {transformedData, percentage} = useDashboardData(data, isLoading, userData)
 
@@ -27,9 +27,8 @@ export default function Dashboard(){
 			<RowCalendar />
 			<DasboardSummary percentage={percentage}/>
 			<DrinksEntries isLoading={isLoading} userProgress={transformedData} />
-			<CustomBottomSheet ref={modalRef}>
-				<StyledText>From the component</StyledText>
-			</CustomBottomSheet>
+			{sheetType === 'create' && <CreateEntryForm /> }
+			{sheetType === 'edit' && <EditEntryForm drinkId={selectedDrinkId}/>}
 		</StyledView>
 	)
 }

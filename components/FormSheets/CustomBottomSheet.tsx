@@ -1,15 +1,14 @@
-import {StyledText, StyledView} from "@/components/StyledComponents/StyledComponents";
 import {forwardRef, PropsWithChildren, useCallback, useEffect} from "react";
-import clsx from "clsx";
 import {BottomSheetBackdrop, BottomSheetModal, BottomSheetView} from "@gorhom/bottom-sheet";
 import {useBottomSheetStore} from "@/stores/bottomSheetStore";
 
 interface CustomBottomSheetProps extends PropsWithChildren {
-
+    onDismiss?: () => void
 }
 
-export const CustomBottomSheet = forwardRef<BottomSheetModal, CustomBottomSheetProps>(({children}, ref) => {
+export const CustomBottomSheet = forwardRef<BottomSheetModal, CustomBottomSheetProps>(({children, onDismiss}, ref) => {
     const toggleSheet = useBottomSheetStore(state => state.toggleSheet)
+    const setSheetType = useBottomSheetStore(state => state.setSheetType)
     const isSheetOpen = useBottomSheetStore(state => state.isSheetOpen)
     useEffect(() => {
         if(isSheetOpen){
@@ -18,9 +17,13 @@ export const CustomBottomSheet = forwardRef<BottomSheetModal, CustomBottomSheetP
     }, [isSheetOpen])
     const handleSheetChanges = useCallback((index: number) => {
         if(index === -1){
+            setSheetType(null)
             toggleSheet()
+            if (onDismiss) {
+                onDismiss()
+            }
         }
-    }, [toggleSheet])
+    }, [setSheetType, toggleSheet, onDismiss])
     const renderBackdrop = useCallback((props) => {
         return <BottomSheetBackdrop appearsOnIndex={0} disappearsOnIndex={-1} {...props}/>
     }, [])
