@@ -34,10 +34,10 @@ export function EditEntryForm({drinkId}: EditEntryFormProps) {
 	})
 	const methods = useForm({
 		defaultValues: {
-			drinkId: (!isEntryDataLoading && entryData) ? entryData.progress[0].drink_id : 1,
-			intake: (!isEntryDataLoading && entryData) ? entryData.progress[0].intake : 1,
-			date: (!isEntryDataLoading && entryData) ? entryData.progress[0].date : new Date(),
-			time: (!isEntryDataLoading && entryData) ? entryData.progress[0].time : new Date()
+			drinkId: (!isEntryDataLoading && entryData) ? entryData.progress.drink_id : 1,
+			intake: (!isEntryDataLoading && entryData) ? entryData.progress.intake : 1,
+			date: (!isEntryDataLoading && entryData) ? entryData.progress.date : new Date(),
+			time: (!isEntryDataLoading && entryData) ? entryData.progress.time : new Date()
 		},
 		resolver: zodResolver(editEntrySchema)
 	})
@@ -45,10 +45,10 @@ export function EditEntryForm({drinkId}: EditEntryFormProps) {
 	useEffect(() => {
 		if(entryData){
 			reset({
-				intake: entryData.progress[0].intake,
-				drinkId: entryData.progress[0].drink_id,
-				time: new Date(`${entryData.progress[0].date} ${entryData.progress[0].time}`),
-				date: new Date(entryData.progress[0].date)
+				intake: entryData.progress.intake,
+				drinkId: entryData.progress.drink_id,
+				time: new Date(`${entryData.progress.date} ${entryData.progress.time}`),
+				date: new Date(entryData.progress.date)
 			})
 		}
 	}, [entryData])
@@ -82,7 +82,7 @@ export function EditEntryForm({drinkId}: EditEntryFormProps) {
 								<FormDatePicker name={'date'} control={control} mode={'date'}/>
 								<FormDatePicker name={'time'} mode={'time'} control={control}/>
 							</StyledView> :
-							<ChangeDateButton date={getDateWithoutTime(entryData.progress[0].date)} time={entryData.progress[0].time}
+							<ChangeDateButton date={getDateWithoutTime(entryData.progress.date)} time={entryData.progress.time}
 											  onPress={() => setDatepickerShown(true)}/>}
 						<CustomButton title={'Edytuj wpis'} onPress={handleSubmit(editEntry)} isLoading={isPending}/>
 					</FormProvider>
