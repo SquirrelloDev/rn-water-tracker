@@ -28,11 +28,16 @@ export const generateDays = (date: Date | dayjs.Dayjs, count: number, direction:
 }
 export const dayToString = (day: Day): string => {
     const month = day.month < 10 ? '0' + day.month : day.month
-    return `${day.year}-${month}-${day.date}`
+    const date = day.date < 10 ? '0' + day.date : day.date
+    return `${day.year}-${month}-${date}`
 }
 export const getDateWithoutTime = (date: Date) => {
     return dayjs(date).endOf('day').toISOString().substring(0, 10)
 }
 export const getCurrentTimeString = () => {
   return `${dayjs().hour()}:${dayjs().minute() < 10 ? '0' + dayjs().minute() : dayjs().minute()}:${dayjs().second() < 10 ? '0' + dayjs().second() : dayjs().second()}`
+}
+export const isToday = (date) => {
+  const dayjsDate = dayjs(date)
+    return dayjsDate.date() === dayjs().date() && dayjsDate.month() === dayjs().month() && dayjsDate.year() === dayjs().year()
 }
