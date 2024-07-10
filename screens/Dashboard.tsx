@@ -1,3 +1,4 @@
+import React from "react";
 import useSafeAreaStyle from "@/hooks/useSafeAreaStyle";
 import {TopBar} from "@/components/Dashboard/TopBar";
 import {RowCalendar} from "@/components/Dashboard/RowCalendar";
@@ -12,6 +13,8 @@ import {CreateEntryForm} from "@/components/FormSheets/CreateEntryForm";
 import {useBottomSheetStore} from "@/stores/bottomSheetStore";
 import {EditEntryForm} from "@/components/FormSheets/EditEntryForm";
 import {DeleteEntryForm} from "@/components/FormSheets/DeleteEntryForm";
+import useStreak from "@/hooks/useStreak";
+
 export default function Dashboard(){
 	const insetsStyles = useSafeAreaStyle()
 	const userData = useAuthStore(state => state.userData)
@@ -20,7 +23,7 @@ export default function Dashboard(){
 	const selectedDrinkId = useBottomSheetStore(state => state.selectedDrinkId)
 	const {data, isLoading} = useUserProgressListing({date: selectedDate, userId: userData!.id})
 	const {transformedData, percentage} = useDashboardData(data, isLoading, userData!)
-
+	const {isStreakActive} = useStreak(percentage, selectedDate)
 
 	return (
 		<StyledView style={[insetsStyles, {paddingBottom: 0}]} className="flex-1">
@@ -28,9 +31,9 @@ export default function Dashboard(){
 			<RowCalendar />
 			<DasboardSummary percentage={percentage}/>
 			<DrinksEntries isLoading={isLoading} userProgress={transformedData} />
-			{sheetType === 'create' && <CreateEntryForm /> }
+			{sheetType === 'create' && <CreateEntryForm percentage={percentage} /> }
 			{sheetType === 'edit' && <EditEntryForm drinkId={selectedDrinkId}/>}
-			{sheetType === 'delete' && <DeleteEntryForm drinkId={selectedDrinkId}/>}
+			{sheetType === 'delete' && <DeleteEntryForm drinkId={selectedDrinkId} isStreakActive={isStreakActive}/>}
 		</StyledView>
 	)
 }
