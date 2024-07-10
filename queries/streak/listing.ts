@@ -1,13 +1,13 @@
 import {QueryFunction, useQuery} from "@tanstack/react-query";
 import {supabase} from "@/lib/supabase";
 import {StreakData} from "@/types/streaks";
-type ListStreakParams = { userId: string }
+type ListStreakParams = { userId: number | null}
 
 export const listStreakQKString = 'List-streak'
 type ListStreakQK = [typeof listStreakQKString, ListStreakParams]
 type ListStreakResponse = {
     list: StreakData[]
-    count: number
+    count: number | null
 }
 const listStreak: QueryFunction<ListStreakResponse, ListStreakQK> = async ({queryKey}) => {
     const [, {userId}] = queryKey

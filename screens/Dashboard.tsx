@@ -31,7 +31,7 @@ export default function Dashboard(){
 			<RowCalendar />
 			<DasboardSummary percentage={percentage}/>
 			<DrinksEntries isLoading={isLoading} userProgress={transformedData} />
-			{sheetType === 'create' && <CreateEntryForm percentage={percentage} /> }
+			{sheetType === 'create' && <CreateEntryForm /> }
 			{sheetType === 'edit' && <EditEntryForm drinkId={selectedDrinkId}/>}
 			{sheetType === 'delete' && <DeleteEntryForm drinkId={selectedDrinkId} isStreakActive={isStreakActive}/>}
 		</StyledView>

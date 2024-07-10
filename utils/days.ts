@@ -37,7 +37,7 @@ export const getDateWithoutTime = (date: Date) => {
 export const getCurrentTimeString = () => {
   return `${dayjs().hour()}:${dayjs().minute() < 10 ? '0' + dayjs().minute() : dayjs().minute()}:${dayjs().second() < 10 ? '0' + dayjs().second() : dayjs().second()}`
 }
-export const isToday = (date) => {
+export const isToday = (date: Date | string) => {
   const dayjsDate = dayjs(date)
     return dayjsDate.date() === dayjs().date() && dayjsDate.month() === dayjs().month() && dayjsDate.year() === dayjs().year()
 }

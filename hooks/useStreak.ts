@@ -7,11 +7,14 @@ import useDeleteStreakEntry from "@/queries/streak/delete";
 import {queryClient} from "@/utils/api";
 
 export default function useStreak(percentage: number, selectedDate: string) {
+    //isStreakActive state represents activated streak
     const [isStreakActive, setIsStreakActive] = useState<boolean>(false)
+    //isStreakActivatedToday state represents streak activation for current day. This state prevents adding other days to the streak
     const [isStreakActivatedToday, setIsStreakActivatedToday] = useState<boolean>(false)
+    //isActiveStreakInitialized state represents streak initialization flag.
     const [isActiveStreakInitialized, setIsActiveStreakInitialized] = useState<boolean>(false)
     const userData = useAuthStore(state => state.userData)
-    const {data, isError, isLoading, isSuccess} = useStreakListing({userId: userData.id})
+    const {data, isError, isLoading, isSuccess} = useStreakListing({userId: userData!.id})
     const {mutate} = useStreakAdd()
     const {mutate: performDelete} = useDeleteStreakEntry()
     useEffect(() => {
@@ -51,11 +54,11 @@ export default function useStreak(percentage: number, selectedDate: string) {
     }, [isSuccess, percentage])
     const increaseStreak = () => {
         console.log('dodaję')
-        mutate({userId: userData.id, date: selectedDate})
+        mutate({userId: userData!.id, date: selectedDate})
     }
     const decreaseStreak = () => {
         console.log('usuwam')
-        performDelete({userId: userData.id, date: selectedDate})
+        performDelete({userId: userData!.id, date: selectedDate})
     }
     return {increaseStreak, decreaseStreak, isStreakActive}
 }
