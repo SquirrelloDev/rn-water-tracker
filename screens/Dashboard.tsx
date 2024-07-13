@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import useSafeAreaStyle from "@/hooks/useSafeAreaStyle";
 import {TopBar} from "@/components/Dashboard/TopBar";
 import {RowCalendar} from "@/components/Dashboard/RowCalendar";
@@ -15,6 +15,7 @@ import {EditEntryForm} from "@/components/FormSheets/EditEntryForm";
 import {DeleteEntryForm} from "@/components/FormSheets/DeleteEntryForm";
 import useStreak from "@/hooks/useStreak";
 import {StreakModal} from "@/components/UI/StreakModal";
+import {StreakInfoModal} from "@/components/Dashboard/StreakInfoModal";
 
 export default function Dashboard(){
 	const insetsStyles = useSafeAreaStyle()
@@ -25,19 +26,24 @@ export default function Dashboard(){
 	const {data, isLoading} = useUserProgressListing({date: selectedDate, userId: userData!.id})
 	const {transformedData, percentage} = useDashboardData(data, isLoading, userData!)
 	const {isStreakActive, streakModalShown, setStreakModalShown, currentStreak} = useStreak(percentage, selectedDate)
-	const toggleModal = () => {
+	const [infoModalShown, setModalInfoShown] = useState<boolean>(false)
+	const toggleStreakModal = () => {
 		setStreakModalShown(prevState => !prevState)
+	}
+	const toggleInfoModal = () => {
+		setModalInfoShown(prevState => !prevState)
 	}
 	return (
 		<StyledView style={[insetsStyles, {paddingBottom: 0}]} className="flex-1">
-			<StreakModal isVisible={streakModalShown} toggleModal={toggleModal} currentStreak={currentStreak} />
-			<TopBar />
+			<StreakModal isVisible={streakModalShown} toggleModal={toggleStreakModal} currentStreak={currentStreak} />
+			<TopBar toggleInfoModal={toggleInfoModal}/>
 			<RowCalendar />
 			<DasboardSummary percentage={percentage}/>
 			<DrinksEntries isLoading={isLoading} userProgress={transformedData} />
 			{sheetType === 'create' && <CreateEntryForm /> }
 			{sheetType === 'edit' && <EditEntryForm drinkId={selectedDrinkId}/>}
 			{sheetType === 'delete' && <DeleteEntryForm drinkId={selectedDrinkId} isStreakActive={isStreakActive} userProgress={transformedData} userDailyIntake={userData.dailyFluidIntake}/>}
+			<StreakInfoModal isVisible={infoModalShown} currentStreak={currentStreak} toggleInfoModal={toggleInfoModal} />
 		</StyledView>
 	)
 }
