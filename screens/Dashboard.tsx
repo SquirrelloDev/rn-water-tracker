@@ -14,6 +14,7 @@ import {useBottomSheetStore} from "@/stores/bottomSheetStore";
 import {EditEntryForm} from "@/components/FormSheets/EditEntryForm";
 import {DeleteEntryForm} from "@/components/FormSheets/DeleteEntryForm";
 import useStreak from "@/hooks/useStreak";
+import {StreakModal} from "@/components/UI/StreakModal";
 
 export default function Dashboard(){
 	const insetsStyles = useSafeAreaStyle()
@@ -23,10 +24,13 @@ export default function Dashboard(){
 	const selectedDrinkId = useBottomSheetStore(state => state.selectedDrinkId)
 	const {data, isLoading} = useUserProgressListing({date: selectedDate, userId: userData!.id})
 	const {transformedData, percentage} = useDashboardData(data, isLoading, userData!)
-	const {isStreakActive} = useStreak(percentage, selectedDate)
-
+	const {isStreakActive, streakModalShown, setStreakModalShown, currentStreak} = useStreak(percentage, selectedDate)
+	const toggleModal = () => {
+		setStreakModalShown(prevState => !prevState)
+	}
 	return (
 		<StyledView style={[insetsStyles, {paddingBottom: 0}]} className="flex-1">
+			<StreakModal isVisible={streakModalShown} toggleModal={toggleModal} currentStreak={currentStreak} />
 			<TopBar />
 			<RowCalendar />
 			<DasboardSummary percentage={percentage}/>
