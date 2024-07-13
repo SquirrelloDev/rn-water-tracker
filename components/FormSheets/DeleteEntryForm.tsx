@@ -7,18 +7,22 @@ import CustomButton from "@/components/UI/CustomButton";
 import useProgressDelete from "@/queries/user_progress/delete";
 import {queryClient} from "@/utils/api";
 import {listuserQKString} from "@/queries/user_progress/listing";
-import {useBottomSheetStore} from "@/stores/bottomSheetStore";
+import {useBottomSheetFormStore} from "@/stores/bottomSheetStore";
 import {ErrorBox} from "@/components/Auth/ErrorBox";
+import {UserProgressEntry} from "@/types/progress";
+import {percentageSubtractionCheck} from "@/utils/calculations";
 
 interface DeleteEntryFormProps {
     drinkId: number | null
     isStreakActive: boolean
+    userProgress: UserProgressEntry[]
+    userDailyIntake: number
 }
 
-export function DeleteEntryForm({drinkId, isStreakActive}: DeleteEntryFormProps) {
+export function DeleteEntryForm({drinkId, isStreakActive, userProgress, userDailyIntake}: DeleteEntryFormProps) {
     const bottomSheetRef = useRef<BottomSheetModal>(null)
-    const clearDrinkId = useBottomSheetStore(state => state.clearDrinkId)
-    const setSheetType = useBottomSheetStore(state => state.setSheetType)
+    const clearDrinkId = useBottomSheetFormStore(state => state.clearDrinkId)
+    const setSheetType = useBottomSheetFormStore(state => state.setSheetType)
     const {mutate, isPending, error, isError} = useProgressDelete(() => {
         bottomSheetRef.current?.dismiss()
         queryClient.invalidateQueries({queryKey: [listuserQKString]})
@@ -27,7 +31,10 @@ export function DeleteEntryForm({drinkId, isStreakActive}: DeleteEntryFormProps)
 
     })
     const confirmDelete = () => {
-        if (isStreakActive) {
+        const drinkEntry = userProgress.find(item => item.id === drinkId!)
+        const currentIntakes = userProgress.reduce((acc, item) => acc + item.intake, 0)
+        const willBeBelow = percentageSubtractionCheck(currentIntakes, userDailyIntake, drinkEntry?.intake)
+        if (isStreakActive && willBeBelow) {
             Alert.alert('UWAGA!', 'Posiadasz aktywną passę. Usunięcie wpisu spowoduje jej utratę! Czy kontynuować?', [{
                 style: 'default',
                 text: 'Anuluj',
