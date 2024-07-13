@@ -42,7 +42,7 @@ export default function Dashboard(){
 			<DrinksEntries isLoading={isLoading} userProgress={transformedData} />
 			{sheetType === 'create' && <CreateEntryForm /> }
 			{sheetType === 'edit' && <EditEntryForm drinkId={selectedDrinkId}/>}
-			{sheetType === 'delete' && <DeleteEntryForm drinkId={selectedDrinkId} isStreakActive={isStreakActive} userProgress={transformedData} userDailyIntake={userData.dailyFluidIntake}/>}
+			{sheetType === 'delete' && <DeleteEntryForm drinkId={selectedDrinkId} isStreakActive={isStreakActive} userProgress={transformedData} userDailyIntake={userData!.dailyFluidIntake}/>}
 			<StreakInfoModal isVisible={infoModalShown} currentStreak={currentStreak} toggleInfoModal={toggleInfoModal} />
 		</StyledView>
 	)

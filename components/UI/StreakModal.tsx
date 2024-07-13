@@ -66,7 +66,7 @@ export function StreakModal({isVisible, toggleModal, currentStreak}: StreakModal
     }, [positionValue.value, newStreakValue.value, colorValue.value, opacityValue.value, transformButtonValue.value, modalHeightVal.value])
     const nextStreakValue = useRef<number>()
     useEffect(() => {
-        let hapticTimer;
+        let hapticTimer: NodeJS.Timeout;
         if(isVisible){
             applyAnimation()
             hapticTimer = setTimeout(() => {

@@ -33,7 +33,7 @@ export function DeleteEntryForm({drinkId, isStreakActive, userProgress, userDail
     const confirmDelete = () => {
         const drinkEntry = userProgress.find(item => item.id === drinkId!)
         const currentIntakes = userProgress.reduce((acc, item) => acc + item.intake, 0)
-        const willBeBelow = percentageSubtractionCheck(currentIntakes, userDailyIntake, drinkEntry?.intake)
+        const willBeBelow = percentageSubtractionCheck(currentIntakes, userDailyIntake, drinkEntry!.intake)
         if (isStreakActive && willBeBelow) {
             Alert.alert('UWAGA!', 'Posiadasz aktywną passę. Usunięcie wpisu spowoduje jej utratę! Czy kontynuować?', [{
                 style: 'default',
