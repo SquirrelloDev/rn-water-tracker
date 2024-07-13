@@ -6,7 +6,7 @@ import {
     BottomSheetProps,
     BottomSheetView
 } from "@gorhom/bottom-sheet";
-import {useBottomSheetStore} from "@/stores/bottomSheetStore";
+import {useBottomSheetFormStore} from "@/stores/bottomSheetStore";
 
 interface CustomBottomSheetProps extends BottomSheetProps{
     onDismiss?: () => void
@@ -14,9 +14,9 @@ interface CustomBottomSheetProps extends BottomSheetProps{
 }
 
 export const CustomBottomSheet = forwardRef<BottomSheetModal, CustomBottomSheetProps>(({children, onDismiss, snapPoints, ...props}, forwardedRef) => {
-    const toggleSheet = useBottomSheetStore(state => state.toggleSheet)
-    const setSheetType = useBottomSheetStore(state => state.setSheetType)
-    const isSheetOpen = useBottomSheetStore(state => state.isSheetOpen)
+    const toggleSheet = useBottomSheetFormStore(state => state.toggleSheet)
+    const setSheetType = useBottomSheetFormStore(state => state.setSheetType)
+    const isSheetOpen = useBottomSheetFormStore(state => state.isSheetOpen)
     const ref = useRef<BottomSheetModal>(null)
     useImperativeHandle(forwardedRef, () => ref.current as BottomSheetModal, [])
     useEffect(() => {

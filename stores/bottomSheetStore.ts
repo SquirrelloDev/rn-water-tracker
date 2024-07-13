@@ -9,7 +9,7 @@ export interface BottomSheetStore {
     setSheetType: (type: SheetType) => void
     toggleSheet: () => void
 }
-export const useBottomSheetStore = create<BottomSheetStore>()((setState) => ({
+export const useBottomSheetFormStore = create<BottomSheetStore>()((setState) => ({
     isSheetOpen: false,
     sheetType: null,
     selectedDrinkId: null,

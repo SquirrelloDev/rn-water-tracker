@@ -1,10 +1,10 @@
 import {Ionicons} from "@expo/vector-icons";
 import {StyledPressable} from "@/components/StyledComponents/StyledComponents";
-import {useBottomSheetStore} from "@/stores/bottomSheetStore";
+import {useBottomSheetFormStore} from "@/stores/bottomSheetStore";
 
 export function AddEntryButton() {
-    const toggleSheet = useBottomSheetStore(state => state.toggleSheet)
-    const setSheetType = useBottomSheetStore(state => state.setSheetType)
+    const toggleSheet = useBottomSheetFormStore(state => state.toggleSheet)
+    const setSheetType = useBottomSheetFormStore(state => state.setSheetType)
     const outerPressableHandler = () => {
       return
     }

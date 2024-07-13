@@ -67,7 +67,7 @@ export type OneProgressResponse = {
         intake: number,
         time: string,
         drink_id: number
-    }[]
+    }
 }
 const listOneProgress:QueryFunction<OneProgressResponse, ListOneQK> = async ({queryKey}) => {
     const [, {entryId}] = queryKey
@@ -80,7 +80,7 @@ const listOneProgress:QueryFunction<OneProgressResponse, ListOneQK> = async ({qu
     intake,
     time,
     drink_id
-`).eq('id', entryId)
+`).eq('id', entryId).single()
     if(error){
         throw new Error(error.message)
     }

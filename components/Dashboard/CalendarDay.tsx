@@ -3,14 +3,14 @@ import useDateStore from "@/stores/dateStore";
 import clsx from "clsx";
 import {dayToString} from "@/utils/days";
 import dayjs from "dayjs";
-import {StyledLinearGradient, StyledPressable, StyledText} from "@/components/StyledComponents/StyledComponents";
+import {StyledPressable, StyledText} from "@/components/StyledComponents/StyledComponents";
 interface CalendarDayProps {
 	day: Day
 	index:number,
 	snapToDay: (index: number) => void
 	isCompleted?: boolean
 }
-export function CalendarDay({day, isCompleted, index, snapToDay}:CalendarDayProps) {
+export function CalendarDay({day, index, snapToDay}:CalendarDayProps) {
 	const selectedDate = useDateStore(state => state.selectedDate)
 	const setSelectedDate = useDateStore(state => state.setSelectedDate)
 	const isSameDate = dayjs(selectedDate).isSame(dayToString(day))
