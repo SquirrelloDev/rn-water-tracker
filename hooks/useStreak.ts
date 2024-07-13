@@ -5,6 +5,7 @@ import {useCallback, useEffect, useState} from "react";
 import {isToday} from "@/utils/days";
 import useDeleteStreakEntry from "@/queries/streak/delete";
 import {queryClient} from "@/utils/api";
+import {FINAL_VALUES} from "@/constants/animation_values/streakModalValues";
 
 export default function useStreak(percentage: number, selectedDate: string) {
     //isStreakActive state represents activated streak
@@ -18,8 +19,14 @@ export default function useStreak(percentage: number, selectedDate: string) {
     const [streakModalShown, setStreakModalShown] = useState<boolean>(false)
     const userData = useAuthStore(state => state.userData)
     const {data, isError, isLoading, isSuccess} = useStreakListing({userId: userData!.id})
-    const {mutate} = useStreakAdd()
-    const {mutate: performDelete} = useDeleteStreakEntry()
+    const {mutate} = useStreakAdd(() => {
+        setTimeout(() => {
+            queryClient.invalidateQueries({queryKey: [listStreakQKString]})
+        }, FINAL_VALUES.delays.buttonSequence)
+    })
+    const {mutate: performDelete} = useDeleteStreakEntry(() => {
+        queryClient.invalidateQueries({queryKey: [listStreakQKString]})
+    })
     useEffect(() => {
         if (isError) {
             setIsStreakActive(false)
@@ -43,7 +50,7 @@ export default function useStreak(percentage: number, selectedDate: string) {
             increaseStreak()
             setIsStreakActivatedToday(true)
             setIsStreakActive(true)
-            queryClient.invalidateQueries({queryKey: [listStreakQKString]})
+            setStreakModalShown(true)
         }
     }, [percentage, isSuccess, data, selectedDate, isToday])
     useEffect(() => {

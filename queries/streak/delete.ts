@@ -12,7 +12,8 @@ const deleteStreakEntry = async ({userId, date}: DeleteStreakEntryParams) => {
     }
     return count
 }
-export default function useDeleteStreakEntry(){
-    const {mutate, isSuccess, error, isPending, isError} = useMutation({mutationFn: deleteStreakEntry, mutationKey: [deleteStreakEntryKey]})
+type SuccessFunctionMutation = () => unknown
+export default function useDeleteStreakEntry(onSuccess?: SuccessFunctionMutation){
+    const {mutate, isSuccess, error, isPending, isError} = useMutation({mutationFn: deleteStreakEntry, mutationKey: [deleteStreakEntryKey], onSuccess})
     return {mutate, isSuccess, error, isPending, isError}
 }
