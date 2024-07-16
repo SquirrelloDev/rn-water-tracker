@@ -1,5 +1,5 @@
 import dayjs from "dayjs";
-import {Day} from "@/types/days";
+import {DateRangeObject, Day} from "@/types/days";
 
 type Direction = 'backward' | 'forward'
 export const generateDays = (date: Date | dayjs.Dayjs, count: number, direction: Direction = 'forward'): Day[] => {
@@ -13,8 +13,7 @@ export const generateDays = (date: Date | dayjs.Dayjs, count: number, direction:
                 year: dateDiff.year()
             })
         }
-    }
-    else if(direction === 'forward'){
+    } else if (direction === 'forward') {
         for (let i = 1; i <= count; i++) {
             const dateDiff = dayjs().add(i, 'day')
             outputArr.push({
@@ -35,9 +34,20 @@ export const getDateWithoutTime = (date: Date) => {
     return dayjs(date).endOf('day').toISOString().substring(0, 10)
 }
 export const getCurrentTimeString = () => {
-  return `${dayjs().hour()}:${dayjs().minute() < 10 ? '0' + dayjs().minute() : dayjs().minute()}:${dayjs().second() < 10 ? '0' + dayjs().second() : dayjs().second()}`
+    return `${dayjs().hour()}:${dayjs().minute() < 10 ? '0' + dayjs().minute() : dayjs().minute()}:${dayjs().second() < 10 ? '0' + dayjs().second() : dayjs().second()}`
 }
 export const isToday = (date: Date | string) => {
-  const dayjsDate = dayjs(date)
+    const dayjsDate = dayjs(date)
     return dayjsDate.date() === dayjs().date() && dayjsDate.month() === dayjs().month() && dayjsDate.year() === dayjs().year()
+}
+export const getWeekRange = (endingDate: dayjs.Dayjs): DateRangeObject => {
+    const monday = 1 //Date representation of monday
+    const todayDayOfWeek = endingDate.day()
+    const daysToSubtract = todayDayOfWeek - monday
+    const startOfWeek = dayjs().subtract(todayDayOfWeek === 0 ? 6 : daysToSubtract, 'day')
+    return {
+        startingDate: dayToString({date: startOfWeek.date(), month: startOfWeek.month() + 1, year: startOfWeek.year()}),
+        endingDate: dayToString({date: endingDate.date(), month: endingDate.month() + 1, year: endingDate.year()})
+    }
+
 }
