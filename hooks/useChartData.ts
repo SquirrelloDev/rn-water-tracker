@@ -3,6 +3,7 @@ import {useProgressRangeListing} from "@/queries/user_progress/listing";
 import {useMemo} from "react";
 import dayjs from "dayjs";
 const weekDays = ['pon', 'wt', 'śr', 'czw', 'pt', 'sb', 'nd']
+export type ChartData = {date: number, intake: number}[] | {date: string, intake: number}[] | any[]
 export default function useChartData(range: DateRange, currentDate: dayjs.Dayjs, dateRange: DateRangeObject, userId: number, userFluidIntake: number) {
     const {data, isError, error, isLoading, isSuccess} = useProgressRangeListing({userId, dates: dateRange})
     const yearMockData = useMemo(() => {
@@ -26,10 +27,10 @@ export default function useChartData(range: DateRange, currentDate: dayjs.Dayjs,
 
     const mockDataArr = [weekMockData, monthMockData, yearMockData]
 
-    const chartData = useMemo(() => {
+    const chartData: ChartData = useMemo(() => {
         if(isSuccess){
             if(range === 'year'){
-                const monthlyIntake = Array(12).fill(0)
+                const monthlyIntake: number[] = Array(12).fill(0)
                 data?.progress.forEach(entry => {
                     const date = dayjs(entry.date)
                     const month = date.month()
@@ -41,7 +42,7 @@ export default function useChartData(range: DateRange, currentDate: dayjs.Dayjs,
                 }))
             }
             if(range === 'month'){
-                const monthlyIntake = Array(currentDate.daysInMonth()).fill(0)
+                const monthlyIntake: number[]  = Array(currentDate.daysInMonth()).fill(0)
                 data?.progress.forEach(entry => {
                     const date = dayjs(entry.date)
                     const day = date.date() - 1
@@ -53,7 +54,7 @@ export default function useChartData(range: DateRange, currentDate: dayjs.Dayjs,
                 }))
             }
             if(range === 'week'){
-                const weeklyIntake = Array(7).fill(0)
+                const weeklyIntake: number[]  = Array(7).fill(0)
                 data?.progress.forEach(entry => {
                     const date = dayjs(entry.date)
                     const day = date.day()

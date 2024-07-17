@@ -12,6 +12,7 @@ import {DatePagination} from "@/components/Stats/GraphSection/DatePagination";
 import {GraphSkeleton} from "@/components/Stats/GraphSection/GraphSkeleton";
 import {NativeSyntheticEvent} from "react-native";
 import {NativeSegmentedControlIOSChangeEvent} from "@react-native-segmented-control/segmented-control";
+import {AverageConspumtionInfo} from "@/components/Stats/GraphSection/AverageConspumtionInfo";
 
 const segmentedControlValues = ['tygodniowe', 'miesięczne', 'roczne']
 const rangeValues: DateRange[] = ['week', 'month', 'year']
@@ -72,7 +73,7 @@ export function GraphSection() {
                                         right: selectedIndex === 1 ? 10 : 50,
                                         top: 40,
                                         bottom: 40
-                                    }} barWidth={10} cornerRadius={{bottom: 4, top: 4}}/>
+                                    }} barWidth={selectedIndex === 1 ? 5 : 10} cornerRadius={selectedIndex === 1 ? {bottom: 3, top: 3} : {bottom: 4, top: 4}}/>
                         </VictoryChart>
                     </StyledView>
                     <StyledView className={'relative -z-10'}>
@@ -81,12 +82,12 @@ export function GraphSection() {
                             right: selectedIndex === 1 ? 50 : 50,
                             top: 40,
                             bottom: 50
-                        }} barWidth={10} cornerRadius={{bottom: 4, top: 4}} style={{data: {fill: '#6a6a6a'}}}/>
+                        }} barWidth={selectedIndex === 1 ? 5 : 10} cornerRadius={selectedIndex === 1 ? {bottom: 3, top: 3} : {bottom: 4, top: 4}} style={{data: {fill: '#6a6a6a'}}}/>
                     </StyledView>
                 </StyledView>
             )}
             <StyledText>Sekcja rozkładu procentowego wypitych napoi</StyledText>
-            <StyledText>Sekcja średniego spożycia </StyledText>
+            <AverageConspumtionInfo rangeName={segmentedControlValues[selectedIndex]} isLoading={isLoading} chartData={chartData}/>
         </StyledView>
     );
 }
