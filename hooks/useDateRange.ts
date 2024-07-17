@@ -6,7 +6,7 @@ import dayjs from "dayjs";
 export default function useDateRange(range: DateRange, currentDate: dayjs.Dayjs) {
     const dates: DateRangeObject = useMemo(() => {
         if (range === 'week') {
-            return getWeekRange(dayjs(currentDate))
+            return getWeekRange(currentDate)
         }
         if (range === 'month') {
             return {
@@ -28,7 +28,7 @@ export default function useDateRange(range: DateRange, currentDate: dayjs.Dayjs)
                 })
             }
         }
-        return getWeekRange(dayjs(currentDate))
+        return getWeekRange(currentDate)
     }, [range, currentDate])
     return dates
 }

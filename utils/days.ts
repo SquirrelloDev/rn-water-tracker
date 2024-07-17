@@ -40,14 +40,17 @@ export const isToday = (date: Date | string) => {
     const dayjsDate = dayjs(date)
     return dayjsDate.date() === dayjs().date() && dayjsDate.month() === dayjs().month() && dayjsDate.year() === dayjs().year()
 }
-export const getWeekRange = (endingDate: dayjs.Dayjs): DateRangeObject => {
+export const getWeekRange = (currentDate: dayjs.Dayjs): DateRangeObject => {
     const monday = 1 //Date representation of monday
-    const todayDayOfWeek = endingDate.day()
+    const saturday = 6 //Date representation of saturday
+    const todayDayOfWeek = currentDate.day()
     const daysToSubtract = todayDayOfWeek - monday
-    const startOfWeek = dayjs().subtract(todayDayOfWeek === 0 ? 6 : daysToSubtract, 'day')
+    const daysToAdd = (saturday + 1) - todayDayOfWeek //adding 1 because sunady is 0 in JS
+    const startOfWeek = currentDate.subtract(todayDayOfWeek === 0 ? 6 : daysToSubtract, 'day')
+    const endOfWeek = currentDate.add(todayDayOfWeek === 0 ? todayDayOfWeek : daysToAdd, 'day')
     return {
         startingDate: dayToString({date: startOfWeek.date(), month: startOfWeek.month() + 1, year: startOfWeek.year()}),
-        endingDate: dayToString({date: endingDate.date(), month: endingDate.month() + 1, year: endingDate.year()})
+        endingDate: dayToString({date: endOfWeek.date(), month: endOfWeek.month() + 1, year: endOfWeek.year()})
     }
 
 }
