@@ -2,8 +2,8 @@ import {DateRange, DateRangeObject} from "@/types/days";
 import {useProgressRangeListing} from "@/queries/user_progress/listing";
 import {useMemo} from "react";
 import dayjs from "dayjs";
-
-export default function useChartData(range: DateRange, dateRange: DateRangeObject, userId: number, userFluidIntake: number) {
+const weekDays = ['pon', 'wt', 'śr', 'czw', 'pt', 'sb', 'nd']
+export default function useChartData(range: DateRange, currentDate: dayjs.Dayjs, dateRange: DateRangeObject, userId: number, userFluidIntake: number) {
     const {data, isError, error, isLoading, isSuccess} = useProgressRangeListing({userId, dates: dateRange})
     const yearMockData = useMemo(() => {
         return Array(12).fill(userFluidIntake).map((item, idx) => ({
@@ -12,7 +12,7 @@ export default function useChartData(range: DateRange, dateRange: DateRangeObjec
         }))
     }, [userFluidIntake])
     const monthMockData = useMemo(() => {
-        return Array(31).fill(userFluidIntake).map((item, idx) => ({
+        return Array(currentDate.daysInMonth()).fill(userFluidIntake).map((item, idx) => ({
             date: idx + 1,
             intake: item
         }))
@@ -41,7 +41,7 @@ export default function useChartData(range: DateRange, dateRange: DateRangeObjec
                 }))
             }
             if(range === 'month'){
-                const monthlyIntake = Array(31).fill(0)
+                const monthlyIntake = Array(currentDate.daysInMonth()).fill(0)
                 data?.progress.forEach(entry => {
                     const date = dayjs(entry.date)
                     const day = date.date() - 1
@@ -61,7 +61,7 @@ export default function useChartData(range: DateRange, dateRange: DateRangeObjec
 
                 })
                 return weeklyIntake.map((intake, idx) => ({
-                    date: idx,
+                    date: weekDays[idx],
                     intake
                 }))
             }

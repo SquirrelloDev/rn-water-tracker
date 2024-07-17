@@ -1,10 +1,16 @@
 import SegmentedControl, {SegmentedControlProps} from "@react-native-segmented-control/segmented-control";
-interface CustomSegmentedControlProps extends SegmentedControlProps{
+import {StyledText, StyledView} from "@/components/StyledComponents/StyledComponents";
+
+interface CustomSegmentedControlProps extends SegmentedControlProps {
 
 }
+
 export function CustomSegmentedControl({...props}: CustomSegmentedControlProps) {
 
     return (
-        <SegmentedControl {...props}/>
+        <StyledView className={'mx-3'}>
+            <StyledText className={'my-2 text-lg font-medium'}>Wybierz zakres podsumowania</StyledText>
+            <SegmentedControl {...props}/>
+        </StyledView>
     );
 }
