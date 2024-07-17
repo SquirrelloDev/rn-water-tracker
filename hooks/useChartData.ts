@@ -3,8 +3,29 @@ import {useProgressRangeListing} from "@/queries/user_progress/listing";
 import {useMemo} from "react";
 import dayjs from "dayjs";
 
-export default function useChartData(range: DateRange, dateRange: DateRangeObject, userId: number) {
+export default function useChartData(range: DateRange, dateRange: DateRangeObject, userId: number, userFluidIntake: number) {
     const {data, isError, error, isLoading, isSuccess} = useProgressRangeListing({userId, dates: dateRange})
+    const yearMockData = useMemo(() => {
+        return Array(12).fill(userFluidIntake).map((item, idx) => ({
+            date: idx + 1,
+            intake: item
+        }))
+    }, [userFluidIntake])
+    const monthMockData = useMemo(() => {
+        return Array(31).fill(userFluidIntake).map((item, idx) => ({
+            date: idx + 1,
+            intake: item
+        }))
+    }, [userFluidIntake])
+    const weekMockData = useMemo(() => {
+        return Array(7).fill(userFluidIntake).map((item, idx) => ({
+            date: idx + 1,
+            intake: item
+        }))
+    }, [userFluidIntake])
+
+    const mockDataArr = [weekMockData, monthMockData, yearMockData]
+
     const chartData = useMemo(() => {
         if(isSuccess){
             if(range === 'year'){
@@ -15,17 +36,38 @@ export default function useChartData(range: DateRange, dateRange: DateRangeObjec
                     monthlyIntake[month] += entry.intake
                 })
                 return monthlyIntake.map((intake, index) => ({
-                    month: index + 1,
+                    date: index + 1,
                     intake
                 }))
             }
-            return data?.progress.map(item => ({
-                date: item.date,
-                intake: item.intake,
-                drinkTypes: item.drink_types
-            }))
+            if(range === 'month'){
+                const monthlyIntake = Array(31).fill(0)
+                data?.progress.forEach(entry => {
+                    const date = dayjs(entry.date)
+                    const day = date.date() - 1
+                    monthlyIntake[day] += entry.intake
+                })
+                return monthlyIntake.map((intake, idx) => ({
+                    date: idx + 1,
+                    intake
+                }))
+            }
+            if(range === 'week'){
+                const weeklyIntake = Array(7).fill(0)
+                data?.progress.forEach(entry => {
+                    const date = dayjs(entry.date)
+                    const day = date.day()
+                    weeklyIntake[day - 1 < 0 ? 6 : day - 1] += entry.intake
+
+                })
+                return weeklyIntake.map((intake, idx) => ({
+                    date: idx,
+                    intake
+                }))
+            }
         }
         return []
     }, [data, isSuccess])
-    return {chartData, isError, error, isLoading}
+
+    return {chartData, mockDataArr, isError, error, isLoading}
 }
