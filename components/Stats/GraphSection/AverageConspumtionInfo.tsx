@@ -14,7 +14,7 @@ export function AverageConspumtionInfo({rangeName, chartData, isLoading}:Average
         return allIntakes / chartData.length
     }, [chartData])
     return (
-        <StyledView className={'m-3 p-4 bg-white rounded-xl'}>
+        <StyledView className={'mx-3 my-2 mb-1 p-4 bg-white rounded-xl shadow-sm'}>
             <StyledText className={'font-bold text-xl mb-2'}>Średnie {rangeName} spożycie</StyledText>
             {isLoading ? <ActivityIndicator size={"large"}/> : <StyledText className={'font-bold text-2xl'}>{averageConsumption.toFixed(2)} ml</StyledText>}
         </StyledView>
