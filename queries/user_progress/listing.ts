@@ -95,6 +95,7 @@ type ProgressRangeParams = {
     dates: DateRangeObject
 }
 type ListProgressByRangeQK = [typeof listProgressByRangeQKString, ProgressRangeParams]
+// @ts-expect-error the drink_types is only one object, not an array of objects
 const listProgressByRange: QueryFunction<UserProgressResponse, ListProgressByRangeQK> = async ({queryKey}) => {
     const [, {userId, dates}] = queryKey
     const {data, error} = await supabase.from('user_progress').select(`id,
