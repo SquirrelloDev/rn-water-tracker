@@ -35,7 +35,7 @@ export function DatePagination({
     const dateFormatter = new Intl.DateTimeFormat('pl-PL', formatterOptions[selectedIndex] as Intl.DateTimeFormatOptions)
     const formattedDate = selectedIndex === 0 ? `${dateFormatter.format(new Date(dateRange.startingDate))} - ${dateFormatter.format(new Date(dateRange.endingDate))}` : dateFormatter.format(currentDate.toDate())
     return (
-        <StyledView className={'bg-slate-300 py-3 px-4 mt-4 mx-7 rounded-full flex-row justify-between items-center'}>
+        <StyledView className={'bg-slate-300 py-3 px-4 my-4 mx-7 rounded-full flex-row justify-between items-center'}>
             <StyledPressable onPress={previousDateHandler}>
                 <Ionicons name={'chevron-back'} size={24} color={'black'}/>
             </StyledPressable>
