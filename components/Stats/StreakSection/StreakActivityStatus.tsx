@@ -5,8 +5,9 @@ import clsx from "clsx";
 const AnimatedDot = Animated.createAnimatedComponent(StyledView)
 interface StreakActivityStatusProps {
     isActive: boolean
+    isError: boolean
 }
-export function StreakActivityStatus({isActive}: StreakActivityStatusProps) {
+export function StreakActivityStatus({isActive, isError}: StreakActivityStatusProps) {
     const opacityValue = useSharedValue(1)
     const scaleValue = useSharedValue(0)
     useEffect(() => {
@@ -21,10 +22,10 @@ export function StreakActivityStatus({isActive}: StreakActivityStatusProps) {
     }))
     return (
         <StyledView className={'flex-row items-center'}>
-            <StyledView className={clsx('relative z-10 h-3 w-3 mr-3 rounded-full', isActive ? 'bg-green-400' : 'bg-slate-200') }>
-                <AnimatedDot className={clsx('absolute -z-10 h-3 w-3 rounded-full',  isActive ? 'bg-green-400' : 'bg-slate-200')} style={isActive ? animatedDotStyles : []}></AnimatedDot>
+            <StyledView className={clsx('relative z-10 h-3 w-3 mr-3 rounded-full', !isError ? (isActive ? 'bg-green-500' : 'bg-slate-400') : 'bg-red-500') }>
+                <AnimatedDot className={clsx('absolute -z-10 h-3 w-3 rounded-full', !isError ?  (isActive ? 'bg-green-500' : 'bg-slate-400') : 'bg-red-500')} style={(isActive && !isError) ? animatedDotStyles : []}></AnimatedDot>
             </StyledView>
-            <StyledText className={clsx(isActive ? 'text-green-400' : 'text-slate-200')}>{isActive ? 'Aktywna' : 'Nieaktywna'}</StyledText>
+            <StyledText className={clsx(!isError ? (isActive ? 'text-green-500' : 'text-slate-400') : 'text-red-500')}>{!isError ? (isActive ? 'Aktywna' : 'Nieaktywna') : 'Błąd'}</StyledText>
         </StyledView>
     );
 }

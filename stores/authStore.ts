@@ -5,6 +5,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 export type UserData = {
     id: number
     dailyFluidIntake: number
+    longestStreak: number
 }
 interface AuthStore {
     isLoggedIn: boolean
