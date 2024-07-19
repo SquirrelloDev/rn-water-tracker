@@ -65,8 +65,8 @@ export default function useStreak(percentage: number, selectedDate: string) {
     }, [isSuccess, percentage])
     const increaseStreak = useCallback(() => {
         console.log('dodaję')
-        mutate({userId: userData!.id, date: selectedDate})
-    }, [selectedDate, userData])
+        mutate({userId: userData!.id, date: selectedDate, currentStreak})
+    }, [selectedDate, userData, currentStreak])
     const decreaseStreak = useCallback(() => {
             console.log('usuwam')
             performDelete({userId: userData!.id, date: selectedDate})
