@@ -33,7 +33,7 @@ Deno.serve(async (req) => {
         }
         return new Response(
             JSON.stringify({message: 'Longest streak is still higher than current streak'}),
-            {headers: {"Content-Type": "application/json"}, status: 200},
+            {headers: {"Content-Type": "application/json"}, status: 409},
         )
     } catch (err) {
         return new Response(String(err?.message ?? err), {status: 500})
