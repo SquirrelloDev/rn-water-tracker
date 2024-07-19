@@ -86,7 +86,8 @@ export function GraphSection() {
                     </StyledView>
                 </StyledView>
             )}
-            <StyledText>Sekcja rozkładu procentowego wypitych napoi</StyledText>
+            {/*TODO: Add this feature in update in order to practice update process*/}
+            {/*<StyledText>Sekcja rozkładu procentowego wypitych napoi</StyledText>*/}
             <AverageConspumtionInfo rangeName={segmentedControlValues[selectedIndex]} isLoading={isLoading} chartData={chartData}/>
         </StyledView>
     );
