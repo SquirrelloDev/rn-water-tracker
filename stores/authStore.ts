@@ -16,6 +16,7 @@ interface AuthStore {
     setUserData: (userData: UserData) => void
     clearSession: () => void
     clearUserData: () => void
+    updateLongestStreak: (streak: number) => void
 }
 const useAuthStore = create<AuthStore>()(persist<AuthStore>((setState, getState) => (
     {
@@ -45,6 +46,11 @@ const useAuthStore = create<AuthStore>()(persist<AuthStore>((setState, getState)
         clearUserData: () => {
             setState((state) => ({
                 ...state, userData: null
+            }))
+        },
+        updateLongestStreak: (streak) => {
+            setState((state) => ({
+                ...state, userData: {...state.userData, longestStreak: streak}
             }))
         }
     }

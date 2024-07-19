@@ -13,3 +13,6 @@ export const formErrorMessages = {
     passwdMin: (min: number) => `Hasło musi składać się z ${min} znaków`,
     incorrectPasswd: 'Hasło nie spełnia wymogów'
 }
+export const responseErrorMessages = {
+    supabaseStreakFunctionError: 'Longest streak is still higher than current streak'
+}

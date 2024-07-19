@@ -6,6 +6,7 @@ import {isToday} from "@/utils/days";
 import useDeleteStreakEntry from "@/queries/streak/delete";
 import {queryClient} from "@/utils/api";
 import {FINAL_VALUES} from "@/constants/animation_values/streakModalValues";
+import {responseErrorMessages} from "@/utils/errors";
 
 export default function useStreak(percentage: number, selectedDate: string) {
     //isStreakActive state represents activated streak
@@ -18,8 +19,12 @@ export default function useStreak(percentage: number, selectedDate: string) {
     const [currentStreak, setCurrentStreak] = useState<number>(0)
     const [streakModalShown, setStreakModalShown] = useState<boolean>(false)
     const userData = useAuthStore(state => state.userData)
+    const updateLongestStreak = useAuthStore(state => state.updateLongestStreak)
     const {data, isError, isLoading, isSuccess} = useStreakListing({userId: userData!.id})
-    const {mutate} = useStreakAdd(() => {
+    const {mutate} = useStreakAdd((data) => {
+        if (data.message && data.message !== responseErrorMessages.supabaseStreakFunctionError){
+            updateLongestStreak(currentStreak + 1)
+        }
         setTimeout(() => {
             queryClient.invalidateQueries({queryKey: [listStreakQKString]})
         }, FINAL_VALUES.delays.buttonSequence)
