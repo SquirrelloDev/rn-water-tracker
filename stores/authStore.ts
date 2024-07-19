@@ -50,7 +50,7 @@ const useAuthStore = create<AuthStore>()(persist<AuthStore>((setState, getState)
         },
         updateLongestStreak: (streak) => {
             setState((state) => ({
-                ...state, userData: {...state.userData, longestStreak: streak}
+                ...state, userData: {...state.userData!, longestStreak: streak}
             }))
         }
     }

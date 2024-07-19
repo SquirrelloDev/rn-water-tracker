@@ -25,9 +25,14 @@ type SignUpResponse = {
   user: User
   session: Session | null
 }
+type UserDataResponse = {
+  id: number
+  daily_fluid_intake: number
+  longest_streak: number
+}
 type LoginResponse = {
   user: User
-  userData: UserData[]
+  userData: UserDataResponse[]
   session: Session
 }
 type SignoutResponse = {

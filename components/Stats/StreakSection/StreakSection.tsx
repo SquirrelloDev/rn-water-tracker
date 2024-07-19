@@ -31,7 +31,7 @@ export function StreakSection() {
                 </StyledView>
                 <StyledView className={'p-3 border border-slate-200 rounded-xl'}>
                     <StyledText className={'font-bold text-xl'}>Najdłuższa</StyledText>
-                    <StyledText className={'font-bold text-2xl'}>{userData.longestStreak}</StyledText>
+                    <StyledText className={'font-bold text-2xl'}>{userData!.longestStreak}</StyledText>
                 </StyledView>
             </StyledView>
         </Card>

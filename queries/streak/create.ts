@@ -8,11 +8,10 @@ type AddStreakParams = {
     currentStreak: number
 }
 type AddStreakResponse = {
-    count: number
     message: string
 }
 const addStreak = async ({userId, date, currentStreak}: AddStreakParams) => {
-  const {error, count} = await supabase.from('streaks').insert({user_id: userId, date})
+  const {error} = await supabase.from('streaks').insert({user_id: userId, date})
     if(error){
         throw new Error(error.message)
     }
@@ -26,7 +25,7 @@ const addStreak = async ({userId, date, currentStreak}: AddStreakParams) => {
     } else if (functionError instanceof FunctionsFetchError) {
         throw new Error(`Fetch functionError: ${functionError.message}`)
     }
-    return {message: data.message, count}
+    return {message: data.message}
 }
 type SuccessFunctionMutation<T> = (
     data: AddStreakResponse,
