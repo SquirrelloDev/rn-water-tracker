@@ -5,6 +5,7 @@ import {StreakActivityStatus} from "@/components/Stats/StreakSection/StreakActiv
 import {ActivityIndicator, Button} from "react-native";
 import useAuth from "@/hooks/useAuth";
 import {useEffect, useState} from "react";
+import {Card} from "@/components/UI/Card";
 
 
 export function StreakSection() {
@@ -17,7 +18,7 @@ export function StreakSection() {
         }
     }, [isSuccess, data])
     return (
-        <StyledView className={'mx-3 p-4 bg-white rounded-xl shadow-sm'}>
+        <Card>
             <StyledView className={'flex-row justify-between items-center'}>
                 <StyledText className={'font-bold text-xl'}>Twoja passa 🔥</StyledText>
                 <StreakActivityStatus isActive={isActive} isError={isError}/>
@@ -33,6 +34,6 @@ export function StreakSection() {
                     <StyledText className={'font-bold text-2xl'}>{userData.longestStreak}</StyledText>
                 </StyledView>
             </StyledView>
-        </StyledView>
+        </Card>
     );
 }
