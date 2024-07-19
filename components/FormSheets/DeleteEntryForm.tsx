@@ -6,7 +6,7 @@ import {StyledText, StyledView} from "@/components/StyledComponents/StyledCompon
 import CustomButton from "@/components/UI/CustomButton";
 import useProgressDelete from "@/queries/user_progress/delete";
 import {queryClient} from "@/utils/api";
-import {listuserQKString} from "@/queries/user_progress/listing";
+import {listProgressByRangeQKString, listuserQKString} from "@/queries/user_progress/listing";
 import {useBottomSheetFormStore} from "@/stores/bottomSheetStore";
 import {ErrorBox} from "@/components/Auth/ErrorBox";
 import {UserProgressEntry} from "@/types/progress";
@@ -26,6 +26,7 @@ export function DeleteEntryForm({drinkId, isStreakActive, userProgress, userDail
     const {mutate, isPending, error, isError} = useProgressDelete(() => {
         bottomSheetRef.current?.dismiss()
         queryClient.invalidateQueries({queryKey: [listuserQKString]})
+        queryClient.invalidateQueries({queryKey: [listProgressByRangeQKString]})
         clearDrinkId()
         setSheetType(null)
 

@@ -11,7 +11,7 @@ import {FormDatePicker} from "@/components/Input/FormDatePicker";
 import useAuthStore from "@/stores/authStore";
 import {getCurrentTimeString, getDateWithoutTime} from "@/utils/days";
 import {queryClient} from "@/utils/api";
-import {listuserQKString} from "@/queries/user_progress/listing";
+import {listProgressByRangeQKString, listuserQKString} from "@/queries/user_progress/listing";
 import useDrinkListing from "@/queries/drink_types/listing";
 import {Keyboard, TouchableWithoutFeedback} from "react-native";
 import {DrinkSelectables} from "@/components/FormSheets/DrinkSelectables";
@@ -28,6 +28,7 @@ export function CreateEntryForm() {
     const {mutate, isPending, isError: isCreateError, error: createError} = useProgressCreate(() => {
         modalRef.current?.dismiss()
         queryClient.invalidateQueries({queryKey: [listuserQKString]})
+        queryClient.invalidateQueries({queryKey: [listProgressByRangeQKString]})
         setDatepickerShown(false)
     })
     const methods = useForm<CreateValues>({

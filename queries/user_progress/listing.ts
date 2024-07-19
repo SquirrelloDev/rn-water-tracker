@@ -89,7 +89,7 @@ const listOneProgress: QueryFunction<OneProgressResponse, ListOneQK> = async ({q
     }
     return {progress: data}
 }
-const listProgressByRangeQKString = 'List-progress-range'
+export const listProgressByRangeQKString = 'List-progress-range'
 type ProgressRangeParams = {
     userId: number
     dates: DateRangeObject
