@@ -10,7 +10,7 @@ import {DrinksEntries} from "@/components/Dashboard/DrinksEntries";
 import useAuthStore from "@/stores/authStore";
 import useDashboardData from "@/hooks/useDashboardData";
 import {CreateEntryForm} from "@/components/FormSheets/CreateEntryForm";
-import {useBottomSheetFormStore} from "@/stores/bottomSheetStore";
+import {useBottomSheetStore} from "@/stores/bottomSheetStore";
 import {EditEntryForm} from "@/components/FormSheets/EditEntryForm";
 import {DeleteEntryForm} from "@/components/FormSheets/DeleteEntryForm";
 import useStreak from "@/hooks/useStreak";
@@ -21,8 +21,8 @@ export default function Dashboard(){
 	const insetsStyles = useSafeAreaStyle()
 	const userData = useAuthStore(state => state.userData)
 	const selectedDate = useDateStore(state => state.selectedDate)
-	const sheetType = useBottomSheetFormStore(state => state.sheetType)
-	const selectedDrinkId = useBottomSheetFormStore(state => state.selectedDrinkId)
+	const sheetType = useBottomSheetStore(state => state.sheetType)
+	const selectedDrinkId = useBottomSheetStore(state => state.selectedDrinkId)
 	const {data, isLoading} = useUserProgressListing({date: selectedDate, userId: userData!.id})
 	const {transformedData, percentage} = useDashboardData(data, isLoading, userData!)
 	const {isStreakActive, streakModalShown, setStreakModalShown, currentStreak} = useStreak(percentage, selectedDate)
@@ -37,6 +37,7 @@ export default function Dashboard(){
 		<StyledView style={[insetsStyles, {paddingBottom: 0}]} className="flex-1">
 			<StreakModal isVisible={streakModalShown} toggleModal={toggleStreakModal} currentStreak={currentStreak} />
 			<TopBar toggleInfoModal={toggleInfoModal}/>
+			{/*TODO: add card with current temperature and additional info*/}
 			<RowCalendar />
 			<DasboardSummary percentage={percentage}/>
 			<DrinksEntries isLoading={isLoading} userProgress={transformedData} />

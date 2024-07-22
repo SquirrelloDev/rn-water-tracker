@@ -28,7 +28,8 @@ export default function useAuth() {
         setSession(data.session)
         setUserData({
             id: data.userData[0].id,
-            dailyFluidIntake: data.userData[0].daily_fluid_intake
+            dailyFluidIntake: data.userData[0].daily_fluid_intake,
+            longestStreak: data.userData[0].longest_streak
         })
         setIsLoggedIn(true)
         navigateToDashboard()

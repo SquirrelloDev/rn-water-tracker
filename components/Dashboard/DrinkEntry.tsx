@@ -2,7 +2,7 @@ import {StyledText, StyledView} from "@/components/StyledComponents/StyledCompon
 import {UserProgressEntry} from "@/types/progress";
 import {IconButton} from "@/components/UI/IconButton";
 import clsx from "clsx";
-import {SheetType, useBottomSheetFormStore} from "@/stores/bottomSheetStore";
+import {SheetType, useBottomSheetStore} from "@/stores/bottomSheetStore";
 import {useCallback} from "react";
 
 interface DrinkEntryProps {
@@ -11,9 +11,9 @@ interface DrinkEntryProps {
 }
 
 export function DrinkEntry({item, isExpanded}: DrinkEntryProps) {
-    const setDrinkId = useBottomSheetFormStore(state => state.setDrinkId)
-    const setSheetType = useBottomSheetFormStore(state => state.setSheetType)
-    const toggleSheet = useBottomSheetFormStore(state => state.toggleSheet)
+    const setDrinkId = useBottomSheetStore(state => state.setDrinkId)
+    const setSheetType = useBottomSheetStore(state => state.setSheetType)
+    const toggleSheet = useBottomSheetStore(state => state.toggleSheet)
     const setIdAndOpenSheet = useCallback((type: SheetType) => {
         setDrinkId(item.id)
         setSheetType(type)

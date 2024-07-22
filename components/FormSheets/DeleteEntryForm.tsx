@@ -6,8 +6,8 @@ import {StyledText, StyledView} from "@/components/StyledComponents/StyledCompon
 import CustomButton from "@/components/UI/CustomButton";
 import useProgressDelete from "@/queries/user_progress/delete";
 import {queryClient} from "@/utils/api";
-import {listuserQKString} from "@/queries/user_progress/listing";
-import {useBottomSheetFormStore} from "@/stores/bottomSheetStore";
+import {listProgressByRangeQKString, listuserQKString} from "@/queries/user_progress/listing";
+import {useBottomSheetStore} from "@/stores/bottomSheetStore";
 import {ErrorBox} from "@/components/Auth/ErrorBox";
 import {UserProgressEntry} from "@/types/progress";
 import {percentageSubtractionCheck} from "@/utils/calculations";
@@ -21,11 +21,12 @@ interface DeleteEntryFormProps {
 
 export function DeleteEntryForm({drinkId, isStreakActive, userProgress, userDailyIntake}: DeleteEntryFormProps) {
     const bottomSheetRef = useRef<BottomSheetModal>(null)
-    const clearDrinkId = useBottomSheetFormStore(state => state.clearDrinkId)
-    const setSheetType = useBottomSheetFormStore(state => state.setSheetType)
+    const clearDrinkId = useBottomSheetStore(state => state.clearDrinkId)
+    const setSheetType = useBottomSheetStore(state => state.setSheetType)
     const {mutate, isPending, error, isError} = useProgressDelete(() => {
         bottomSheetRef.current?.dismiss()
         queryClient.invalidateQueries({queryKey: [listuserQKString]})
+        queryClient.invalidateQueries({queryKey: [listProgressByRangeQKString]})
         clearDrinkId()
         setSheetType(null)
 

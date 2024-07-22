@@ -4,6 +4,7 @@ import {MutationFunction, useMutation} from "@tanstack/react-query";
 import {z} from "zod";
 import {formErrorMessages} from "@/utils/errors";
 import {AuthError, Session, User} from "@supabase/supabase-js";
+import {UserData} from "@/stores/authStore";
 export const signUpSchema = z.object({
   email: z.string({message: formErrorMessages.required}).min(1, formErrorMessages.required).email(formErrorMessages.invalidEmail),
   password: z.string({message: formErrorMessages.required}).min(8, formErrorMessages.passwdMin(8)).regex(/[0-9]+/, formErrorMessages.incorrectPasswd).regex(/[@$!%*#?&]+/, formErrorMessages.incorrectPasswd)
@@ -24,9 +25,14 @@ type SignUpResponse = {
   user: User
   session: Session | null
 }
+type UserDataResponse = {
+  id: number
+  daily_fluid_intake: number
+  longest_streak: number
+}
 type LoginResponse = {
   user: User
-  userData: {id: number, daily_fluid_intake: number}[]
+  userData: UserDataResponse[]
   session: Session
 }
 type SignoutResponse = {
@@ -37,7 +43,7 @@ const signInWithEmail:MutationFunction<LoginResponse, AuthParams> = async ({emai
   if(error){
     throw new Error(error.message)
   }
-  const {error: queryError, data: userData} = await supabase.from('users').select('id, daily_fluid_intake').eq('email', email)
+  const {error: queryError, data: userData} = await supabase.from('users').select('id, daily_fluid_intake, longest_streak').eq('email', email)
   if(queryError){
     throw new Error(queryError.message)
   }

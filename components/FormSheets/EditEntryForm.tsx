@@ -15,7 +15,7 @@ import {getCurrentTimeString, getDateWithoutTime} from "@/utils/days";
 import CustomButton from "@/components/UI/CustomButton";
 import useProgressEdit, {editEntrySchema, EditEntrySchema, EntryPutData} from "@/queries/user_progress/edit";
 import {queryClient} from "@/utils/api";
-import {listuserQKString, useOneProgressListing} from "@/queries/user_progress/listing";
+import {listProgressByRangeQKString, listuserQKString, useOneProgressListing} from "@/queries/user_progress/listing";
 import {ErrorBox} from "@/components/Auth/ErrorBox";
 
 interface EditEntryFormProps {
@@ -30,6 +30,7 @@ export function EditEntryForm({drinkId}: EditEntryFormProps) {
 	const {mutate, isPending, isError: isEditError, error: editError} = useProgressEdit(() => {
 		modalRef.current?.dismiss()
 		queryClient.invalidateQueries({queryKey: [listuserQKString]})
+		queryClient.invalidateQueries({queryKey: [listProgressByRangeQKString]})
 		setDatepickerShown(false)
 	})
 	const methods = useForm({
