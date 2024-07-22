@@ -12,7 +12,7 @@ import {DatePagination} from "@/components/Stats/GraphSection/DatePagination";
 import {GraphSkeleton} from "@/components/Stats/GraphSection/GraphSkeleton";
 import {NativeSyntheticEvent} from "react-native";
 import {NativeSegmentedControlIOSChangeEvent} from "@react-native-segmented-control/segmented-control";
-import {AverageConspumtionInfo} from "@/components/Stats/GraphSection/AverageConspumtionInfo";
+import {AverageConsumptionInfo} from "@/components/Stats/GraphSection/AverageConsumptionInfo";
 
 const segmentedControlValues = ['tygodniowe', 'miesięczne', 'roczne']
 const rangeValues: DateRange[] = ['week', 'month', 'year']
@@ -88,7 +88,7 @@ export function GraphSection() {
             )}
             {/*TODO: Add this feature in update in order to practice update process*/}
             {/*<StyledText>Sekcja rozkładu procentowego wypitych napoi</StyledText>*/}
-            <AverageConspumtionInfo rangeName={segmentedControlValues[selectedIndex]} isLoading={isLoading} chartData={chartData}/>
+            <AverageConsumptionInfo rangeName={segmentedControlValues[selectedIndex]} isLoading={isLoading} chartData={chartData}/>
         </StyledView>
     );
 }

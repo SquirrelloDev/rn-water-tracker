@@ -8,13 +8,13 @@ interface AverageConspumtionInfoProps {
     chartData: ChartData
     isLoading: boolean
 }
-export function AverageConspumtionInfo({rangeName, chartData, isLoading}:AverageConspumtionInfoProps) {
+export function AverageConsumptionInfo({rangeName, chartData, isLoading}:AverageConspumtionInfoProps) {
     const averageConsumption = useMemo(() => {
         const allIntakes = chartData.reduce((acc, item) => acc + item.intake, 0)
         return allIntakes / chartData.length
     }, [chartData])
     return (
-        <StyledView className={'mx-3 my-2 mb-1 p-4 bg-white rounded-xl shadow-sm'}>
+        <StyledView className={'mx-3 p-4 bg-white rounded-xl shadow-sm'}>
             <StyledText className={'font-bold text-xl mb-2'}>Średnie {rangeName} spożycie</StyledText>
             {isLoading ? <ActivityIndicator size={"large"}/> : <StyledText className={'font-bold text-2xl'}>{averageConsumption.toFixed(2)} ml</StyledText>}
         </StyledView>
