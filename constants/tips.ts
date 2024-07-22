@@ -1,6 +1,6 @@
 import 'react-native-get-random-values';
 import {v4 as uuidv4} from 'uuid'
-type Tip = {
+export type Tip = {
     id: string
     title: string
     description: string
