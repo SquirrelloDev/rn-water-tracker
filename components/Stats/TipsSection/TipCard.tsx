@@ -18,7 +18,7 @@ export function TipCard({title, image, idx, selectTipHandler}: TipCardProps) {
     const toggleSheet = useBottomSheetStore(state => state.toggleSheet)
     const setSheetType = useBottomSheetStore(state => state.setSheetType)
     return (
-        <StyledPressable className={'mx-2 w-32 h-36 rounded-xl items-stretch border-2 p-1 border-sky-500'} onPress={() => {
+        <StyledPressable className={'mx-2 w-32 h-36 rounded-xl items-stretch border-2 p-1 border-sky-500 active:border-sky-600'} onPress={() => {
             selectTipHandler(idx)
             setSheetType('tipsInfo')
             toggleSheet()
@@ -27,8 +27,8 @@ export function TipCard({title, image, idx, selectTipHandler}: TipCardProps) {
             resizeMode: 'cover',
             borderRadius: 8,
         }}>
-            <StyledView className={'bg-black/40 absolute top-0 right-0 bottom-0 left-0 rounded-lg'}></StyledView>
-                <StyledText className={'p-2 text-white font-bold'}>{title}</StyledText>
+            <StyledView className={'bg-black/40 absolute top-0 right-0 bottom-0 left-0 rounded-lg '}></StyledView>
+                <StyledText numberOfLines={2} className={'p-2 text-white font-bold'}>{title}</StyledText>
         </StyledImageBackground>
         </StyledPressable>
     );
