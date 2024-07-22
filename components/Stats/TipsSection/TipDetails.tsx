@@ -7,9 +7,8 @@ import {
 } from "@/components/StyledComponents/StyledComponents";
 import {Tip} from "@/constants/tips";
 import {useRef} from "react";
-import BottomSheet, {BottomSheetModal} from "@gorhom/bottom-sheet";
-import useSafeAreaStyle from "@/hooks/useSafeAreaStyle";
-import {ImageBackground, ImageBackgroundProps} from "react-native";
+import {BottomSheetModal} from "@gorhom/bottom-sheet";
+import {ImageSourcePropType} from "react-native";
 import {Ionicons} from "@expo/vector-icons";
 import {useBottomSheetStore} from "@/stores/bottomSheetStore";
 import {styled} from "nativewind";
@@ -29,7 +28,7 @@ export function TipDetails({tip}: TipDetailsProps) {
             display: 'none'
         }}>
             <StyledView className={'mt-0'}>
-                <StyledImageBackground source={tip.imageName as ImageBackgroundProps} imageStyle={{
+                <StyledImageBackground source={tip.imageName as ImageSourcePropType} imageStyle={{
                     resizeMode: 'cover',
                     borderTopLeftRadius: 8,
                     borderTopRightRadius: 8
