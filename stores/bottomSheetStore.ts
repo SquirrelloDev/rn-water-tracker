@@ -1,5 +1,5 @@
 import {create} from "zustand";
-export type SheetType = 'create' | 'edit' | 'delete' | null
+export type SheetType = 'create' | 'edit' | 'delete' | 'tipsInfo' | null
 export interface BottomSheetStore {
     isSheetOpen: boolean
     sheetType: SheetType,
@@ -9,7 +9,7 @@ export interface BottomSheetStore {
     setSheetType: (type: SheetType) => void
     toggleSheet: () => void
 }
-export const useBottomSheetFormStore = create<BottomSheetStore>()((setState) => ({
+export const useBottomSheetStore = create<BottomSheetStore>()((setState) => ({
     isSheetOpen: false,
     sheetType: null,
     selectedDrinkId: null,
