@@ -19,6 +19,7 @@ import useAuthStore from "@/stores/authStore";
 import {StatusBar} from "expo-status-bar";
 import {GestureHandlerRootView} from "react-native-gesture-handler";
 import {BottomSheetModalProvider} from "@gorhom/bottom-sheet";
+import {SettingsScreen} from "@/screens/SettingsScreen";
 
 const Stack = createNativeStackNavigator<RootStackParamList>()
 const BottomTab = createBottomTabNavigator()
@@ -72,9 +73,15 @@ export default function App() {
                                 <Stack.Screen name={'Login'} component={LoginScreen}/>
                                 {
                                     session && (
+                                        <>
                                         <Stack.Screen name={'index'} component={BottomTabsNavigation} options={{
                                             headerShown: false
                                         }}/>
+                                            <Stack.Screen name={'Settings'} component={SettingsScreen} options={{
+                                                title: 'Ustawienia'
+                                            }}/>
+                                        </>
+
                                     )
                                 }
                             </Stack.Navigator>
