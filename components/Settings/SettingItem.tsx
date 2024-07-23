@@ -12,7 +12,6 @@ interface SettingItemProps {
 const StyledIcon = styled(Ionicons)
 
 export function SettingItem({item}: SettingItemProps) {
-    console.log(item)
     const navigation = useNavigation<StackNavigation>()
     return (
         <StyledPressable className={'flex-row items-center justify-between bg-white p-5 mx-4 my-1.5 rounded-xl border border-slate-300'}
