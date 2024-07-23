@@ -17,7 +17,7 @@ export function SettingItem({item}: SettingItemProps) {
         <StyledPressable className={'flex-row items-center justify-between bg-white p-5 mx-4 my-1.5 rounded-xl border border-slate-300'}
                          onPress={() => navigation.navigate(item.route)}>
             <StyledView className={'flex-row items-center'}>
-                <StyledIcon name={item.icon} size={20}/>
+                {item.icon && <StyledIcon name={item.icon} size={20}/> }
                 <StyledText className={'text-lg ml-3'}>{item.title}</StyledText>
             </StyledView>
             <StyledView className={'p-1 items-center justify-center bg-slate-300 rounded-full'}>
