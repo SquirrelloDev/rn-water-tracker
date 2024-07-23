@@ -5,13 +5,28 @@ export type ScreenNames = [
     'SignupCredentials',
     'Login',
     'Dashboard',
-    'AddFluid'
+    'AddFluid',
+    'Settings',
+    'Account',
+    'Preferences',
+    'Notifications',
+    'Updates',
+    'BugReport',
+    'FAQ'
 ]
-const appRoutes: Record<string, ScreenNames[number]> = {
+type AppRoutes = Record<string, ScreenNames[number]>
+const appRoutes: AppRoutes = {
     index: 'index',
     intro: 'Intro',
     signupPersonalData: 'SignUpPersonalData',
     signupCredentials: 'SignupCredentials',
-    login: 'Login'
+    login: 'Login',
+    settings: 'Settings',
+    account: 'Account',
+    prefs: 'Preferences',
+    notifications: 'Notifications',
+    updates: 'Updates',
+    bugReport: 'BugReport',
+    faq: 'FAQ'
 }
 export default appRoutes
