@@ -14,7 +14,7 @@ export function AccountDeleteBox() {
     const {mutate, isError, isPending, error} = useUserDelete(() => {
         signOutHandler()
     }, () => setIsRequestPerformed(false))
-    const userData: UserData = useAuthStore(state => state.userData)
+    const userData: UserData = useAuthStore(state => state.userData)!
     const deleteAlert = () => {
         Alert.alert('Ostatnia szansa!', 'To twoja ostatnia szansa na przemyślenie tej decyzji. Po kliknięciu przycisku "Usuń" danych nie będzie dało się odzyskać!', [
             {text: 'Anuluj', isPreferred: true},

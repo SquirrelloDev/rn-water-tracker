@@ -1,5 +1,5 @@
 import {useWindowDimensions} from "react-native";
-import {SceneMap, TabBar, TabView} from "react-native-tab-view";
+import {NavigationState, Route, SceneMap, SceneRendererProps, TabBar, TabView} from "react-native-tab-view";
 import {useState} from "react";
 import AccountSettings from "@/components/AccountSettings/AccountSettings";
 import PersonalSettings from "@/components/AccountSettings/PersonalSettings";
@@ -10,7 +10,7 @@ const renderScene = SceneMap({
     accountInformation: AccountSettings,
     personalInformation: PersonalSettings,
 });
-const renderTabBar = (props) => {
+const renderTabBar = <T extends Route>(props: SceneRendererProps & {navigationState: NavigationState<T>}) => {
     return (
         <TabBar {...props} renderLabel={({route, focused, color}) => (
             <StyledText

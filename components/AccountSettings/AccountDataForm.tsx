@@ -19,16 +19,17 @@ import {PasswdRequirements} from "@/components/Auth/PasswdRequirements";
 import useAccountSettingsStore from "@/stores/accountSettingsStore";
 
 interface AccountDataFormProps {
-    email?: string
+    email?: string | null
 }
 
 type FormValues = {
     email: string
+    password: string
 }
 
 export function AccountDataForm({email}: AccountDataFormProps) {
     const [updatePasswordActivated, setUpdatePasswordActivated] = useState<boolean>(false)
-    const userData: UserData = useAuthStore(state => state.userData)
+    const userData: UserData = useAuthStore(state => state.userData)!
     const setIsRequestPerformed = useAccountSettingsStore(state => state.setIsRequestPerformed)
     const isRequestPerformed = useAccountSettingsStore(state => state.isRequestPerformed)
     const methods = useForm<FormValues>({

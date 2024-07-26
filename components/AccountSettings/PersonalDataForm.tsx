@@ -16,7 +16,7 @@ type FormValues = {
 }
 
 export function PersonalDataForm() {
-    const userData: UserData = useAuthStore(state => state.userData)
+    const userData: UserData = useAuthStore(state => state.userData)!
     const setUserData = useAuthStore(state => state.setUserData)
     const setIsRequestPerformed = useAccountSettingsStore(state => state.setIsRequestPerformed)
     const isRequestPerformed = useAccountSettingsStore(state => state.isRequestPerformed)

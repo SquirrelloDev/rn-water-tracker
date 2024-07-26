@@ -8,8 +8,8 @@ import useAuthStore from "@/stores/authStore";
 import {Keyboard, ScrollView, TouchableWithoutFeedback} from "react-native";
 
 function AccountSettings() {
-    const session: Session = useAuthStore(state => state.session)
-    const userEmail = session.user.email
+    const session = useAuthStore(state => state.session)
+    const userEmail = session && session.user.email
     const [accountDataProccessActive, setAccountDataProccessActive] = useState<boolean>(false)
     const activeEditHandler = () => {
         setAccountDataProccessActive(true)
@@ -21,7 +21,7 @@ function AccountSettings() {
                 {!accountDataProccessActive ?
                     <AccountDataCard activateEdit={activeEditHandler} displayEmail={userEmail}/> :
                     <AccountDataForm email={userEmail}/>}
-                <AccountDeleteBox isLoadingState={false}/>
+                <AccountDeleteBox />
             </StyledView>
             </TouchableWithoutFeedback>
         </ScrollView>

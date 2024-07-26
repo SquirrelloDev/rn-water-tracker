@@ -7,7 +7,7 @@ import {styled} from "nativewind";
 const StyledIcon = styled(Ionicons)
 interface AccountDataCardProps {
     activateEdit: () => void
-    displayEmail?: string
+    displayEmail?: string | null
 }
 export function AccountDataCard({activateEdit, displayEmail}: AccountDataCardProps) {
     return (
