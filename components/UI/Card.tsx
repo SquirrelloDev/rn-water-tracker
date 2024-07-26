@@ -1,11 +1,12 @@
 import {StyledView} from "@/components/StyledComponents/StyledComponents";
 import {PropsWithChildren} from "react";
+import clsx from "clsx";
 interface CardProps extends PropsWithChildren {
-
+    classNames?: string
 }
-export function Card({children}: CardProps) {
+export function Card({children, classNames}: CardProps) {
     return (
-        <StyledView className={'m-3 p-4 bg-white rounded-xl shadow-sm'}>
+        <StyledView className={clsx('m-3 p-4 bg-white rounded-xl shadow-sm', classNames)}>
             {children}
         </StyledView>
     );

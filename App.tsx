@@ -25,6 +25,8 @@ import {NotificationsScreen} from "@/screens/Settings/NotificationsScreen";
 import {UpdatesScreen} from "@/screens/Settings/UpdatesScreen";
 import {BugReportScreen} from "@/screens/Settings/BugReportScreen";
 import {FaqScreen} from "@/screens/Settings/FaqScreen";
+import {LogOutBtn} from "@/components/Auth/LogOutBtn";
+import Toast from "react-native-toast-message";
 
 const Stack = createNativeStackNavigator<RootStackParamList>()
 const BottomTab = createBottomTabNavigator()
@@ -77,12 +79,13 @@ export default function App() {
                                 {
                                     session && (
                                         <>
-                                        <Stack.Screen name={'index'} component={BottomTabsNavigation} options={{
-                                            headerShown: false
-                                        }}/>
+                                            <Stack.Screen name={'index'} component={BottomTabsNavigation} options={{
+                                                headerShown: false
+                                            }}/>
                                             <Stack.Screen name={'Settings'} component={SettingsScreen} options={{
                                                 title: 'Ustawienia',
-                                                headerBackTitle: 'Powrót'
+                                                headerBackTitle: 'Powrót',
+                                                headerRight: LogOutBtn
                                             }}/>
                                             <Stack.Screen name={'Account'} component={AccountScreen} options={{
                                                 title: 'Konto',
@@ -116,10 +119,10 @@ export default function App() {
                                     )
                                 }
                             </Stack.Navigator>
+                            <Toast/>
                         </NavigationContainer>
                     </SafeAreaProvider>
                 </BottomSheetModalProvider>
-
             </GestureHandlerRootView>
         </QueryClientProvider>
     );

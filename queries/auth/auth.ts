@@ -4,7 +4,6 @@ import {MutationFunction, useMutation} from "@tanstack/react-query";
 import {z} from "zod";
 import {formErrorMessages} from "@/utils/errors";
 import {AuthError, Session, User} from "@supabase/supabase-js";
-import {UserData} from "@/stores/authStore";
 export const signUpSchema = z.object({
   email: z.string({message: formErrorMessages.required}).min(1, formErrorMessages.required).email(formErrorMessages.invalidEmail),
   password: z.string({message: formErrorMessages.required}).min(8, formErrorMessages.passwdMin(8)).regex(/[0-9]+/, formErrorMessages.incorrectPasswd).regex(/[@$!%*#?&]+/, formErrorMessages.incorrectPasswd)

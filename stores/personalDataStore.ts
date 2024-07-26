@@ -1,5 +1,5 @@
 import {create} from "zustand";
-import {PersonalData} from "@/components/Auth/SignUpPersonalForm";
+import {PersonalData} from "@/queries/user/edit";
 
 interface PersonalDataStore {
     data: PersonalData
