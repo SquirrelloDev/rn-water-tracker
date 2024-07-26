@@ -25,6 +25,7 @@ import {NotificationsScreen} from "@/screens/Settings/NotificationsScreen";
 import {UpdatesScreen} from "@/screens/Settings/UpdatesScreen";
 import {BugReportScreen} from "@/screens/Settings/BugReportScreen";
 import {FaqScreen} from "@/screens/Settings/FaqScreen";
+import {LogOutBtn} from "@/components/Auth/LogOutBtn";
 
 const Stack = createNativeStackNavigator<RootStackParamList>()
 const BottomTab = createBottomTabNavigator()
@@ -82,7 +83,8 @@ export default function App() {
                                         }}/>
                                             <Stack.Screen name={'Settings'} component={SettingsScreen} options={{
                                                 title: 'Ustawienia',
-                                                headerBackTitle: 'Powrót'
+                                                headerBackTitle: 'Powrót',
+                                                headerRight: LogOutBtn
                                             }}/>
                                             <Stack.Screen name={'Account'} component={AccountScreen} options={{
                                                 title: 'Konto',
