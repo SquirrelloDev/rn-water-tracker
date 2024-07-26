@@ -6,16 +6,14 @@ import {Alert} from "react-native";
 import useAuthStore, {UserData} from "@/stores/authStore";
 import {ErrorBox} from "@/components/Auth/ErrorBox";
 import useAuth from "@/hooks/useAuth";
-
-interface AccountDeleteBoxProps {
-    isLoadingState: boolean
-}
-
-export function AccountDeleteBox({isLoadingState}: AccountDeleteBoxProps) {
+import useAccountSettingsStore from "@/stores/accountSettingsStore";
+export function AccountDeleteBox() {
+    const setIsRequestPerformed = useAccountSettingsStore(state => state.setIsRequestPerformed)
+    const isRequestPerformed = useAccountSettingsStore(state => state.isRequestPerformed)
     const {signOutHandler} = useAuth()
     const {mutate, isError, isPending, error} = useUserDelete(() => {
         signOutHandler()
-    })
+    }, () => setIsRequestPerformed(false))
     const userData: UserData = useAuthStore(state => state.userData)
     const deleteAlert = () => {
         Alert.alert('Ostatnia szansa!', 'To twoja ostatnia szansa na przemyślenie tej decyzji. Po kliknięciu przycisku "Usuń" danych nie będzie dało się odzyskać!', [
@@ -23,6 +21,7 @@ export function AccountDeleteBox({isLoadingState}: AccountDeleteBoxProps) {
             {
                 text: 'Usuń', style: 'destructive', onPress: () => {
                     mutate({userId: userData.id})
+                    setIsRequestPerformed(true)
                 }
             }
         ])
@@ -35,7 +34,7 @@ export function AccountDeleteBox({isLoadingState}: AccountDeleteBoxProps) {
                 utracone bezpowrotnie</StyledText>
             <CustomButton title={'Usuń konto'} onPress={() => {
                 deleteAlert()
-            }} actionColor={'danger'} isLoading={(isLoadingState || isPending)}/>
+            }} actionColor={'danger'} isLoading={(isRequestPerformed || isPending)}/>
         </Card>
     );
 }

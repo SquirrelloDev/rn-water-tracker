@@ -53,11 +53,12 @@ const updateUserDemand:MutationFunction<UserDemandResponse, UserDemandParams> = 
 }
 type SuccessEditFunction = () => unknown
 type SuccessEditDemandFn<T> = (data: UserDemandResponse, variables: T) => unknown
-export function useUserEdit(onSuccess?:SuccessEditFunction){
-    const {mutate, isPending, isError, error, isSuccess} = useMutation({mutationKey: ['Update-User'], mutationFn: updateUserData, onSuccess})
+type ErrorFunctionMutation = () => unknown
+export function useUserEdit(onSuccess?:SuccessEditFunction, onError?: ErrorFunctionMutation){
+    const {mutate, isPending, isError, error, isSuccess} = useMutation({mutationKey: ['Update-User'], mutationFn: updateUserData, onSuccess, onError})
     return {mutate, isPending, isError, error, isSuccess}
 }
-export function useUserDemandEdit(onSuccess?:SuccessEditDemandFn<UserDemandParams>){
-    const {mutate, isPending, isError, error, isSuccess} = useMutation({mutationKey: ['Update-User-Demand'], mutationFn: updateUserDemand, onSuccess})
+export function useUserDemandEdit(onSuccess?:SuccessEditDemandFn<UserDemandParams>, onError?: ErrorFunctionMutation){
+    const {mutate, isPending, isError, error, isSuccess} = useMutation({mutationKey: ['Update-User-Demand'], mutationFn: updateUserDemand, onSuccess, onError})
     return {mutate, isPending, isError, error, isSuccess}
 }

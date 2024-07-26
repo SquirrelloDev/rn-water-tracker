@@ -9,6 +9,7 @@ import useAuthStore, {UserData} from "@/stores/authStore";
 import {ErrorBox} from "@/components/Auth/ErrorBox";
 import {queryClient} from "@/utils/api";
 import {Keyboard} from "react-native";
+import useAccountSettingsStore from "@/stores/accountSettingsStore";
 
 type FormValues = {
     weight: number
@@ -17,12 +18,15 @@ type FormValues = {
 export function PersonalDataForm() {
     const userData: UserData = useAuthStore(state => state.userData)
     const setUserData = useAuthStore(state => state.setUserData)
+    const setIsRequestPerformed = useAccountSettingsStore(state => state.setIsRequestPerformed)
+    const isRequestPerformed = useAccountSettingsStore(state => state.isRequestPerformed)
     const {mutate, isPending, isError, error} = useUserDemandEdit((data, variables) => {
         setUserData({
             ...userData,
             dailyFluidIntake: variables.demand
         })
-    })
+        setIsRequestPerformed(false)
+    }, () => setIsRequestPerformed(false))
     const methods = useForm<FormValues>({
         defaultValues: {
             weight: 0
@@ -34,6 +38,7 @@ export function PersonalDataForm() {
     const demand = weightValue * 35
     const onSubmit = () => {
         mutate({demand, id: userData.id})
+        setIsRequestPerformed(true)
         Keyboard.dismiss()
     }
     return (
@@ -42,7 +47,7 @@ export function PersonalDataForm() {
             <StyledText className={'font-bold text-lg ml-6'}>Aktualizacja zapotrzebowania</StyledText>
             <FormTextInput name={'weight'} control={control} placeholder={'Waga w kg'} isRequired keyboardType={'numeric'}/>
             <DemandCard demand={demand === 0 ? userData.dailyFluidIntake : demand}/>
-            <CustomButton title={'Zapisz'} onPress={handleSubmit(onSubmit)} isLoading={isPending}/>
+            <CustomButton title={'Zapisz'} onPress={handleSubmit(onSubmit)} isLoading={(isRequestPerformed || isPending)}/>
         </FormProvider>
     );
 }

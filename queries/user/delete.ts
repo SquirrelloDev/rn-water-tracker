@@ -26,7 +26,8 @@ const deleteUser: MutationFunction<UserDeleteResponse, UserDeleteParams> = async
     return {message: data.message}
 }
 type SuccessDeleteFn = () => unknown
-export default function useUserDelete(onSuccess?: SuccessDeleteFn) {
-    const {mutate, isError, isSuccess, isPending, error} = useMutation({mutationFn: deleteUser, mutationKey: ['Delete-User'], onSuccess})
+type ErrorFunctionMutation = () => unknown
+export default function useUserDelete(onSuccess?: SuccessDeleteFn, onError?:ErrorFunctionMutation) {
+    const {mutate, isError, isSuccess, isPending, error} = useMutation({mutationFn: deleteUser, mutationKey: ['Delete-User'], onSuccess, onError})
     return {mutate, isError, isSuccess, isPending, error}
 }

@@ -16,6 +16,7 @@ import {Alert, Keyboard, Switch} from "react-native";
 import {ErrorBox} from "@/components/Auth/ErrorBox";
 import {useState} from "react";
 import {PasswdRequirements} from "@/components/Auth/PasswdRequirements";
+import useAccountSettingsStore from "@/stores/accountSettingsStore";
 
 interface AccountDataFormProps {
     email?: string
@@ -28,6 +29,8 @@ type FormValues = {
 export function AccountDataForm({email}: AccountDataFormProps) {
     const [updatePasswordActivated, setUpdatePasswordActivated] = useState<boolean>(false)
     const userData: UserData = useAuthStore(state => state.userData)
+    const setIsRequestPerformed = useAccountSettingsStore(state => state.setIsRequestPerformed)
+    const isRequestPerformed = useAccountSettingsStore(state => state.isRequestPerformed)
     const methods = useForm<FormValues>({
         defaultValues: {
             email: email!
@@ -41,13 +44,14 @@ export function AccountDataForm({email}: AccountDataFormProps) {
         Alert.alert('Dane zaktualizowane', '', [
             {text: 'Zamknij'}
         ])
-    })
+    }, () => setIsRequestPerformed(false))
     const onSubmit = (data: EditUserSchema) => {
         const updateObj: UpdateUserParams = {
             ...data,
             id: userData.id
         }
         mutate(updateObj)
+        setIsRequestPerformed(true)
         Keyboard.dismiss()
     }
     const toggleUpdatePassword = () => {
@@ -69,7 +73,7 @@ export function AccountDataForm({email}: AccountDataFormProps) {
                         <PasswdRequirements value={passwdWatch}/>
                     </>
                 )}
-                <CustomButton title={'Zapisz'} onPress={handleSubmit(onSubmit)} isLoading={isPending}/>
+                <CustomButton title={'Zapisz'} onPress={handleSubmit(onSubmit)} isLoading={(isRequestPerformed || isPending)}/>
             </Card>
         </FormProvider>
     );
