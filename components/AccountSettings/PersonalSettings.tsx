@@ -1,12 +1,13 @@
 import {StyledView} from "@/components/StyledComponents/StyledComponents";
-import {memo} from "react";
-import useAuthStore from "@/stores/authStore";
+import {Card} from "@/components/UI/Card";
+import {PersonalDataForm} from "@/components/AccountSettings/PersonalDataForm";
 
 function PersonalSettings() {
-    const userData = useAuthStore(state => state.userData)
     return (
         <StyledView className={'flex-1'}>
-
+            <Card classNames={'px-1'}>
+                <PersonalDataForm />
+            </Card>
         </StyledView>
     );
 }

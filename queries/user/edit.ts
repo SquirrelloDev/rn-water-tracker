@@ -33,8 +33,31 @@ const updateUserData: MutationFunction<UpdateUserResponse, UpdateUserParams> = a
     }
     return {user: data.user}
 }
+export const personalSchema = z.object({
+    weight: z.coerce.number({message: formErrorMessages.required}).min(30, formErrorMessages.minMax(30, 250)).max(250, formErrorMessages.minMax(30, 250)),
+})
+export type PersonalData = z.infer<typeof personalSchema>
+type UserDemandResponse = {
+    message: string,
+}
+export type UserDemandParams = {
+    demand: number,
+    id: number
+}
+const updateUserDemand:MutationFunction<UserDemandResponse, UserDemandParams> = async ({demand, id}) => {
+    const {error} = await supabase.from('users').update({daily_fluid_intake: demand}).eq('id', id)
+    if(error){
+        throw new Error(error.message)
+    }
+    return {message: 'Demand updated successfully!'}
+}
 type SuccessEditFunction = () => unknown
+type SuccessEditDemandFn<T> = (data: UserDemandResponse, variables: T) => unknown
 export function useUserEdit(onSuccess?:SuccessEditFunction){
     const {mutate, isPending, isError, error, isSuccess} = useMutation({mutationKey: ['Update-User'], mutationFn: updateUserData, onSuccess})
+    return {mutate, isPending, isError, error, isSuccess}
+}
+export function useUserDemandEdit(onSuccess?:SuccessEditDemandFn<UserDemandParams>){
+    const {mutate, isPending, isError, error, isSuccess} = useMutation({mutationKey: ['Update-User-Demand'], mutationFn: updateUserDemand, onSuccess})
     return {mutate, isPending, isError, error, isSuccess}
 }
