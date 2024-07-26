@@ -7,9 +7,9 @@ import {zodResolver} from "@hookform/resolvers/zod";
 import {personalSchema, useUserDemandEdit} from "@/queries/user/edit";
 import useAuthStore, {UserData} from "@/stores/authStore";
 import {ErrorBox} from "@/components/Auth/ErrorBox";
-import {queryClient} from "@/utils/api";
 import {Keyboard} from "react-native";
 import useAccountSettingsStore from "@/stores/accountSettingsStore";
+import Toast from "react-native-toast-message";
 
 type FormValues = {
     weight: number
@@ -25,6 +25,7 @@ export function PersonalDataForm() {
             ...userData,
             dailyFluidIntake: variables.demand
         })
+        Toast.show({type: 'success', text1: 'Dane zostały zaktualizowane', position: 'bottom'})
         setIsRequestPerformed(false)
     }, () => setIsRequestPerformed(false))
     const methods = useForm<FormValues>({

@@ -3,7 +3,6 @@ import {AccountDataForm} from "@/components/AccountSettings/AccountDataForm";
 import {AccountDeleteBox} from "@/components/AccountSettings/AccountDeleteBox";
 import {useState} from "react";
 import {AccountDataCard} from "@/components/AccountSettings/AccountDataCard";
-import {Session} from "@supabase/supabase-js";
 import useAuthStore from "@/stores/authStore";
 import {Keyboard, ScrollView, TouchableWithoutFeedback} from "react-native";
 

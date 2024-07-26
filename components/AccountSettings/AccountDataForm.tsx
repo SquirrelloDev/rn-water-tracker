@@ -17,6 +17,7 @@ import {ErrorBox} from "@/components/Auth/ErrorBox";
 import {useState} from "react";
 import {PasswdRequirements} from "@/components/Auth/PasswdRequirements";
 import useAccountSettingsStore from "@/stores/accountSettingsStore";
+import Toast from "react-native-toast-message";
 
 interface AccountDataFormProps {
     email?: string | null
@@ -41,10 +42,7 @@ export function AccountDataForm({email}: AccountDataFormProps) {
     const {control, handleSubmit, watch} = methods
     const passwdWatch = watch('password')
     const {mutate, isPending, isError, error} = useUserEdit(() => {
-        // TODO: Change this later for toast
-        Alert.alert('Dane zaktualizowane', '', [
-            {text: 'Zamknij'}
-        ])
+        Toast.show({type: 'success', text1: 'Dane zostały zaktualizowane', position: 'bottom'})
     }, () => setIsRequestPerformed(false))
     const onSubmit = (data: EditUserSchema) => {
         const updateObj: UpdateUserParams = {
