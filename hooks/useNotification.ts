@@ -1,14 +1,16 @@
-import {useState} from "react";
 import {
-    cancelAllScheduledNotificationsAsync,
+    cancelAllScheduledNotificationsAsync, cancelScheduledNotificationAsync,
     getPermissionsAsync,
     requestPermissionsAsync,
     scheduleNotificationAsync
 } from "expo-notifications";
 import {Alert} from "react-native";
-
-export default function useNotification(){
-    const [notificationsAllowed, setNotificationsAllowed] = useState<boolean>(false)
+import useNotificationSettingsStore from "@/stores/notificationSettingsStore";
+export default function useNotification() {
+    const notificationsAllowed = useNotificationSettingsStore(state => state.notificationsAllowed)
+    const setNotificationsAllowed = useNotificationSettingsStore(state => state.setNotificationsAllowed)
+    const waterNotificationInterval: number = useNotificationSettingsStore(state => state.waterNotificationInterval)
+    const setWaterNotificationInterval = useNotificationSettingsStore(state => state.setWaterNotificationInterval)
     const permissionRequest = async () => {
         const notificationSettings = await getPermissionsAsync();
         if (!notificationSettings.granted) {
@@ -25,17 +27,17 @@ export default function useNotification(){
     }
     const toggleNotificationsHandler = async (currentSwitchValue: boolean) => {
         const isGranted = await permissionRequest()
-        if(!isGranted){
+        if (!isGranted) {
             Alert.alert('Nie zezwolono na powiadomienia!', 'Zezwól na powiadomienia w ustawieniach', [
                 {text: 'Zamknij'}
             ])
+            return
         }
 
-        if(currentSwitchValue){
+        if (currentSwitchValue) {
             await scheduleAllNotifications()
             setNotificationsAllowed(true)
-        }
-        else{
+        } else {
             await cancelAllScheduledNotificationsAsync()
             setNotificationsAllowed(false)
         }
@@ -49,8 +51,9 @@ export default function useNotification(){
 
             }, trigger: {
                 repeats: true,
-                seconds: 60 * 2
-            }
+                seconds: 60 * waterNotificationInterval
+            },
+            identifier: 'waterReminder'
         })
         const streakNotification = await scheduleNotificationAsync({
             content: {
@@ -60,8 +63,24 @@ export default function useNotification(){
             trigger: {
                 repeats: true,
                 seconds: 60 * 30
-            }
+            },
+            identifier: 'streakReminder'
         })
     }
-    return {notificationsAllowed, toggleNotificationsHandler}
+    const changeWaterInterval = async (interval: number) => {
+      await cancelScheduledNotificationAsync('waterReminder')
+        const newWaterNotification = await scheduleNotificationAsync({
+            content: {
+                body: 'Sięgnij po łyk napoju',
+                title: 'Pora na wodę!',
+
+            }, trigger: {
+                repeats: true,
+                seconds: 60 * interval
+            },
+            identifier: 'waterReminder'
+        })
+        setWaterNotificationInterval(interval)
+    }
+    return {notificationsAllowed, toggleNotificationsHandler, changeWaterInterval, waterNotificationInterval}
 }
