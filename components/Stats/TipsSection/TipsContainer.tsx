@@ -19,7 +19,7 @@ export function TipsContainer() {
         setSheetType(null)
         toggleSheet()
         navigation.navigate(appRoutes.notifications)
-    }, [])
+    }, [setSheetType, toggleSheet, navigation])
     const selectTipHandler = useCallback((idx: number) => {
         setTipIndex(idx)
     }, [])
