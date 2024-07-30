@@ -2,7 +2,7 @@ import {
     cancelAllScheduledNotificationsAsync, cancelScheduledNotificationAsync,
     getPermissionsAsync,
     requestPermissionsAsync,
-    scheduleNotificationAsync
+    scheduleNotificationAsync,
 } from "expo-notifications";
 import {Alert} from "react-native";
 import useNotificationSettingsStore from "@/stores/notificationSettingsStore";
@@ -46,8 +46,8 @@ export default function useNotification() {
     const scheduleAllNotifications = async () => {
         const waterNotification = await scheduleNotificationAsync({
             content: {
-                body: 'Sięgnij po łyk napoju',
                 title: 'Pora na wodę!',
+                body: 'Sięgnij po łyk napoju',
 
             }, trigger: {
                 repeats: true,
@@ -55,17 +55,18 @@ export default function useNotification() {
             },
             identifier: 'waterReminder'
         })
-        const streakNotification = await scheduleNotificationAsync({
-            content: {
-                title: 'Twoja passa zostanie utracona!',
-                body: 'Wypij szybko jakiś napój i wypełnij pierścień, by nie stracić passy!'
-            },
-            trigger: {
-                repeats: true,
-                seconds: 60 * 30
-            },
-            identifier: 'streakReminder'
-        })
+        // TODO: move this from local notification to the push notification (include as an update)
+        // const streakNotification = await scheduleNotificationAsync({
+        //     content: {
+        //         title: 'Twoja passa zostanie utracona!',
+        //         body: 'Wypij szybko jakiś napój i wypełnij pierścień, by nie stracić passy!'
+        //     },
+        //     trigger: {
+        //         repeats: true,
+        //         seconds: 60 * 30
+        //     },
+        //     identifier: 'streakReminder'
+        // })
     }
     const changeWaterInterval = async (interval: number) => {
       await cancelScheduledNotificationAsync('waterReminder')
@@ -73,6 +74,7 @@ export default function useNotification() {
             content: {
                 body: 'Sięgnij po łyk napoju',
                 title: 'Pora na wodę!',
+                sound: true
 
             }, trigger: {
                 repeats: true,
