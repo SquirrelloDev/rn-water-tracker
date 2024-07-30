@@ -5,6 +5,7 @@ export type Tip = {
     title: string
     description: string
     imageName: string
+    isReminder?: boolean
 }
 const tips: Tip[] = [
     {
@@ -84,6 +85,7 @@ const tips: Tip[] = [
         title: "Ustal przypomnienia",
         description: "W zabieganym dniu łatwo zapomnieć o piciu wody. Ustal przypomnienia w telefonie, aby regularnie sięgać po szklankę wody i utrzymać nawodnienie.",
         imageName: require(`@/assets/notification.jpg`),
+        isReminder: true
     },
     {
         id: uuidv4(),

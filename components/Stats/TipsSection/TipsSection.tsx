@@ -1,7 +1,6 @@
 import {StyledText, StyledView} from "@/components/StyledComponents/StyledComponents";
 import {Card} from "@/components/UI/Card";
 import {TipsContainer} from "@/components/Stats/TipsSection/TipsContainer";
-import {Image} from "react-native";
 
 export function TipsSection() {
     return (

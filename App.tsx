@@ -27,11 +27,18 @@ import {BugReportScreen} from "@/screens/Settings/BugReportScreen";
 import {FaqScreen} from "@/screens/Settings/FaqScreen";
 import {LogOutBtn} from "@/components/Auth/LogOutBtn";
 import Toast from "react-native-toast-message";
+import * as Notification from 'expo-notifications'
 
 const Stack = createNativeStackNavigator<RootStackParamList>()
 const BottomTab = createBottomTabNavigator()
 
-
+Notification.setNotificationHandler({
+    handleNotification: async () => ({
+        shouldShowAlert: true,
+        shouldPlaySound: false,
+        shouldSetBadge: false,
+    })
+})
 function BottomTabsNavigation() {
     return (
         <BottomTab.Navigator screenOptions={{
@@ -96,7 +103,7 @@ export default function App() {
                                                 headerBackTitle: 'Powrót',
                                             }}/>
                                             <Stack.Screen name={'Notifications'} component={NotificationsScreen} options={{
-                                                title: 'Ustawienia powiadomień',
+                                                title: 'Powiadomienia',
                                                 headerBackTitle: 'Powrót',
                                             }}/>
                                             <Stack.Screen name={'Updates'} component={UpdatesScreen} options={{
