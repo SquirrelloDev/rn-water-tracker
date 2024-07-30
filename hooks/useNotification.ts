@@ -6,12 +6,19 @@ import {
 } from "expo-notifications";
 import {Alert} from "react-native";
 import useNotificationSettingsStore from "@/stores/notificationSettingsStore";
+import {notificationSounds, Sounds} from "@/constants/notificationIntervals";
+import {useCallback} from "react";
+
 export default function useNotification() {
     const notificationsAllowed = useNotificationSettingsStore(state => state.notificationsAllowed)
     const setNotificationsAllowed = useNotificationSettingsStore(state => state.setNotificationsAllowed)
     const waterNotificationInterval: number = useNotificationSettingsStore(state => state.waterNotificationInterval)
     const setWaterNotificationInterval = useNotificationSettingsStore(state => state.setWaterNotificationInterval)
-    const permissionRequest = async () => {
+    const notificationSound: Sounds = useNotificationSettingsStore(state => state.notificationSound)
+    const setNotificationSound = useNotificationSettingsStore(state => state.setNotificationSound)
+    const soundEnabled = useNotificationSettingsStore(state => state.soundEnabled)
+    const setSoundEnabled = useNotificationSettingsStore(state => state.setSoundEnabled)
+    const permissionRequest = useCallback(async () => {
         const notificationSettings = await getPermissionsAsync();
         if (!notificationSettings.granted) {
             const res = await requestPermissionsAsync({
@@ -24,8 +31,8 @@ export default function useNotification() {
             return res.granted
         }
         return true
-    }
-    const toggleNotificationsHandler = async (currentSwitchValue: boolean) => {
+    }, [])
+    const toggleNotificationsHandler = useCallback(async (currentSwitchValue: boolean) => {
         const isGranted = await permissionRequest()
         if (!isGranted) {
             Alert.alert('Nie zezwolono na powiadomienia!', 'Zezwól na powiadomienia w ustawieniach', [
@@ -42,12 +49,13 @@ export default function useNotification() {
             setNotificationsAllowed(false)
         }
 
-    }
-    const scheduleAllNotifications = async () => {
+    }, [])
+    const scheduleAllNotifications = useCallback(async () => {
         const waterNotification = await scheduleNotificationAsync({
             content: {
                 title: 'Pora na wodę!',
                 body: 'Sięgnij po łyk napoju',
+                sound: soundEnabled ? (notificationSound.fileName ?? notificationSounds[0].fileName) : false
 
             }, trigger: {
                 repeats: true,
@@ -67,14 +75,14 @@ export default function useNotification() {
         //     },
         //     identifier: 'streakReminder'
         // })
-    }
-    const changeWaterInterval = async (interval: number) => {
-      await cancelScheduledNotificationAsync('waterReminder')
+    }, [])
+    const changeWaterInterval = useCallback(async (interval: number) => {
+        await cancelScheduledNotificationAsync('waterReminder')
         const newWaterNotification = await scheduleNotificationAsync({
             content: {
                 body: 'Sięgnij po łyk napoju',
                 title: 'Pora na wodę!',
-                sound: true
+                sound: soundEnabled ? (notificationSound.fileName ?? notificationSounds[0].fileName) : false
 
             }, trigger: {
                 repeats: true,
@@ -83,6 +91,21 @@ export default function useNotification() {
             identifier: 'waterReminder'
         })
         setWaterNotificationInterval(interval)
+    }, [])
+    const changeNotificationSound = useCallback((soundFile: Sounds) => {
+        setNotificationSound(soundFile)
+    }, [])
+    const toggleNotificationSounds = (value: boolean) => {
+        setSoundEnabled(value)
     }
-    return {notificationsAllowed, toggleNotificationsHandler, changeWaterInterval, waterNotificationInterval}
+    return {
+        notificationsAllowed,
+        toggleNotificationsHandler,
+        changeWaterInterval,
+        waterNotificationInterval,
+        changeNotificationSound,
+        toggleNotificationSounds,
+        soundEnabled,
+        notificationSound
+    }
 }
