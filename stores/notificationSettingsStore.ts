@@ -10,7 +10,7 @@ export interface NotificationSettingsStore {
     setWaterNotificationInterval: (interval: number) => void
 }
 
-const useNotificationSettingsStore = create()(persist<NotificationSettingsStore>((setState) => ({
+const useNotificationSettingsStore = create<NotificationSettingsStore>()(persist((setState) => ({
     notificationsAllowed: false,
     waterNotificationInterval: intervals[0].value,
     setNotificationsAllowed: (value) => {
