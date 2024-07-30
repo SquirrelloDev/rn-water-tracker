@@ -13,13 +13,15 @@ import {Ionicons} from "@expo/vector-icons";
 import {useBottomSheetStore} from "@/stores/bottomSheetStore";
 import {styled} from "nativewind";
 import {BlurView} from "expo-blur";
+import CustomButton from "@/components/UI/CustomButton";
 
 interface TipDetailsProps {
     tip: Tip
+    navigateToNotifications: () => void
 }
 const StyledBlurView = styled(BlurView)
 const StyledIcon = styled(Ionicons)
-export function TipDetails({tip}: TipDetailsProps) {
+export function TipDetails({tip, navigateToNotifications}: TipDetailsProps) {
     const bottomSheetRef = useRef<BottomSheetModal>(null)
     const setSheetType = useBottomSheetStore(state => state.setSheetType)
     const toggleSheet = useBottomSheetStore(state => state.toggleSheet)
@@ -43,6 +45,7 @@ export function TipDetails({tip}: TipDetailsProps) {
                     <StyledBlurView intensity={65} tint={'dark'} className={'px-4 py-6 mb-14 mx-3 overflow-hidden rounded-xl'}>
                         <StyledText className={'text-xl font-bold text-white mb-3'}>{tip.title}</StyledText>
                         <StyledText className={'text-base text-white'}>{tip.description}</StyledText>
+                        {tip.isReminder && <CustomButton title={'Przejdź do ustawień'} onPress={navigateToNotifications} />}
                     </StyledBlurView>
                 </StyledImageBackground>
             </StyledView>
