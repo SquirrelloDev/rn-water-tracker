@@ -1,12 +1,13 @@
-import {StyledText, StyledView} from "@/components/StyledComponents/StyledComponents";
+import {StyledView} from "@/components/StyledComponents/StyledComponents";
 import {NotificationIntervals} from "@/components/NotificationSettings/NotificationIntervals";
+import {NotificationExtraSettings} from "@/components/NotificationSettings/NotificationExtraSettings";
 export function NotificationSettings() {
 
     return (
         <StyledView>
-            <StyledText>Ustawienia</StyledText>
             <StyledView>
                 <NotificationIntervals />
+                <NotificationExtraSettings />
             </StyledView>
         </StyledView>
     );

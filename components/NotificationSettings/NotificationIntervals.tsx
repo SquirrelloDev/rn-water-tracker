@@ -11,9 +11,9 @@ export function NotificationIntervals() {
     return (
         <StyledView className={'my-4'}>
             <StyledView className={'my-1'}>
-                <StyledText className={'text-center font-medium uppercase text-sm'}>Interwał powiadomień</StyledText>
+                <StyledText className={'font-medium text-base px-3'}>Interwał powiadomień</StyledText>
             </StyledView>
-            <StyledView className={'flex-row flex-wrap items-center justify-center'}>
+            <StyledView className={'flex-row flex-wrap items-center justify-center bg-slate-100 rounded-xl m-3'}>
             {intervals.map(interval => (
                 <StyledPressable key={interval.title} className={'w-40 grow'} onPress={() => {
                     impactAsync(ImpactFeedbackStyle.Light)

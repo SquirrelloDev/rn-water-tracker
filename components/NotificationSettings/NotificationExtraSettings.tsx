@@ -28,8 +28,8 @@ export function NotificationExtraSettings() {
     }, [])
     return (
         <StyledView>
-            <StyledText className={'text-base m-3'}>Dźwięki</StyledText>
-            <StyledView className={'bg-white divide-y divide-slate-300'}>
+            <StyledText className={'text-base m-3 font-medium'}>Dźwięki</StyledText>
+            <StyledView className={'bg-white'}>
                 <StyledView className={'p-3 flex-row justify-between items-center'}>
                     <StyledView>
                         <StyledText className={'text-base'}>Dźwięki włączone</StyledText>
