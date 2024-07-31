@@ -11,7 +11,7 @@ export function TopBar({toggleInfoModal}: TopBarProps) {
 	const navigation = useNavigation<StackNavigation>()
 	return (
 		<StyledView className='flex-row justify-between items-center px-3'>
-				<IconButton icon='cog' color='black' size={35} onPress={() => {
+				<IconButton icon='settings' color='black' iconClassName={'text-black dark:text-white'} size={35} onPress={() => {
 					navigation.navigate(appRoutes.settings)
 				}} />
 			<StreakCounter toggleInfoModal={toggleInfoModal} />
