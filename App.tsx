@@ -28,6 +28,7 @@ import {FaqScreen} from "@/screens/Settings/FaqScreen";
 import {LogOutBtn} from "@/components/Auth/LogOutBtn";
 import Toast from "react-native-toast-message";
 import * as Notification from 'expo-notifications'
+import {useColorScheme} from "nativewind";
 
 const Stack = createNativeStackNavigator<RootStackParamList>()
 const BottomTab = createBottomTabNavigator()
@@ -64,9 +65,10 @@ function BottomTabsNavigation() {
 
 export default function App() {
     const session = useAuthStore(state => state.session)
+    const {colorScheme} = useColorScheme()
     return (
         <QueryClientProvider client={queryClient}>
-            <StatusBar style={'dark'}/>
+            <StatusBar style={colorScheme === 'dark' ? 'light' : 'dark'}/>
             <GestureHandlerRootView>
                 <BottomSheetModalProvider>
                     <SafeAreaProvider>
