@@ -30,14 +30,14 @@ export function StreakInfoModal({
             {currentStreak}
           </StyledText>
         </StyledView>
-        <StyledView className="bg-white p-4">
-          <StyledText className="font-bold text-2xl">Jak to działa?</StyledText>
-          <StyledText className="my-1 text-base">Wypełniaj dzienne cele w spożyciu wody, aby zwiększyć wynik swojej passy.</StyledText>
-          <StyledText className="my-1 text-base">Uważaj! Jeśli zapomnisz wypełnić swój cel, twoja cała passa przepada!</StyledText>
+        <StyledView className="bg-white p-4 dark:bg-neutral-800">
+          <StyledText className="font-bold text-2xl dark:text-white">Jak to działa?</StyledText>
+          <StyledText className="my-1 text-base dark:text-white">Wypełniaj dzienne cele w spożyciu wody, aby zwiększyć wynik swojej passy.</StyledText>
+          <StyledText className="my-1 text-base dark:text-white">Uważaj! Jeśli zapomnisz wypełnić swój cel, twoja cała passa przepada!</StyledText>
           {/*TODO: uncomment this after streak update*/}
           {/*<StyledText className="my-1 text-base">Aby nie zapomnieć o swojej passie, zezwól na powiadomienia w ustawieniach</StyledText>*/}
         </StyledView>
-        <StyledView className="bg-white rounded-b-2xl">
+        <StyledView className="bg-white rounded-b-2xl dark:bg-neutral-800">
           <CustomButton title={"Do dzieła!"} onPress={toggleInfoModal} />
         </StyledView>
       </StyledView>
