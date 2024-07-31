@@ -28,7 +28,7 @@ export function SignUpCredentialsForm({demand}: SignUpCredentialsFormProps) {
     }
     return (
             <StyledView className={'mt-4'}>
-                <StyledText className={'text-center text-xl font-bold'}>Podaj swoje dane, którymi będziesz się
+                <StyledText className={'text-center text-xl font-bold dark:text-white'}>Podaj swoje dane, którymi będziesz się
                     logować</StyledText>
                 {signUpStatus.isSignupError && <ErrorBox errorMessage={signUpStatus.signUpError!.message} />}
                 <FormProvider {...methods}>
