@@ -80,16 +80,16 @@ export function StreakModal({isVisible, toggleModal, currentStreak}: StreakModal
     }, [isVisible, applyAnimation])
     return (
         <Modal isVisible={isVisible} animationIn={"zoomIn"} animationOut={'zoomOut'} animationOutTiming={400}>
-            <AnimatedView className={'p-4 rounded-xl bg-white items-center'} style={modalAnimatedStyles}>
+            <AnimatedView className={'p-4 rounded-xl bg-white items-center dark:bg-neutral-800'} style={modalAnimatedStyles}>
                 <StyledView>
-                    <StyledText className={'my-4 text-4xl font-bold'}>Twoja passa</StyledText>
+                    <StyledText className={'my-4 text-4xl font-bold dark:text-white'}>Twoja passa</StyledText>
                 </StyledView>
                 <StyledView className={'relative my-2 px-2 justify-center items-center overflow-hidden'}>
-                    <AnimatedText style={animatedStyles2} className={'text-5xl pt-1.5 font-bold'}>{nextStreakValue.current}</AnimatedText>
-                    <AnimatedText style={animatedStyles} className={'text-5xl absolute'}>{currentStreak}</AnimatedText>
+                    <AnimatedText style={animatedStyles2} className={'text-5xl pt-1.5 font-bold dark:text-white'}>{nextStreakValue.current}</AnimatedText>
+                    <AnimatedText style={animatedStyles} className={'text-5xl absolute dark:text-white'}>{currentStreak}</AnimatedText>
                 </StyledView>
                 <AnimatedView className={'w-full absolute'} style={buttonAnimatedStyles}>
-                    <StyledText className={'text-center font-medium text-2xl my-1'}>Tak trzymaj!</StyledText>
+                    <StyledText className={'text-center font-medium text-2xl my-1 dark:text-white'}>Tak trzymaj!</StyledText>
                     <CustomButton title="Super!" onPress={() => {
                         resetAnimation()
                         toggleModal()
