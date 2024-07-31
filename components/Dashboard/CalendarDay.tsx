@@ -32,7 +32,7 @@ export function CalendarDay({day, index, snapToDay}:CalendarDayProps) {
 	// }
 
 	return (
-		<StyledPressable onPress={onPressHandler} disabled={isAfter} className={clsx('mx-3 rounded-full w-12 h-12 justify-center', isSameDate ? 'bg-blue-400' : 'border dark:border-white', isAfter && 'border-gray-400')}>
+		<StyledPressable onPress={onPressHandler} disabled={isAfter} className={clsx('mx-3 rounded-full w-12 h-12 justify-center', isSameDate ? 'bg-sky-400' : 'border dark:border-white', isAfter && 'border-gray-400')}>
 			<StyledText className={clsx('text-lg text-center dark:text-white', isSameDate && 'text-white font-semibold', isAfter && 'text-gray-400')}>{day.date}</StyledText>
 		</StyledPressable>
 	)

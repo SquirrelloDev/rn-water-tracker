@@ -75,7 +75,7 @@ export function EditEntryForm({drinkId}: EditEntryFormProps) {
 					<FormProvider {...methods}>
 					{isProgressError && <ErrorBox errorMessage={'Nie można pobrać danych'} />}
 					{isEditError && <ErrorBox errorMessage={`Wystąpił problem z wysłaniem danych: ${editError}`} />}
-						<StyledText className={'text-center font-bold text-xl'}>Edytuj wpis</StyledText>
+						<StyledText className={'text-center font-bold text-xl dark:text-white'}>Edytuj wpis</StyledText>
 						{(!isLoading && !isEntryDataLoading) && <DrinkSelectables data={data!} name={'drinkId'} control={control}/>}
 						<FormTextInput name={'intake'} defaultValue={`${getValues('intake')}`} control={control} placeholder={'Wartość w ml'} isRequired
 									   keyboardType={'number-pad'}/>

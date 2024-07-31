@@ -9,7 +9,8 @@ export function FormDatePicker<T extends FieldValues>({name, control, mode}:Form
 	return (
 		<Controller control={control} render={({field: {onChange, value}, fieldState: {isTouched}}) => (
 			<>
-			<RNDateTimePicker value={value ? value : new Date()} display={"default"} mode={mode} timeZoneName={'Europe/Warsaw'} onChange={(event, date) => onChange(date)} minimumDate={new Date(1970, 0, 1)}  maximumDate={new Date()} locale={'pl-PL'}/>
+			{/*	TODO: refactor datepicker for https://github.com/mmazzarolo/react-native-modal-datetime-picker*/}
+			<RNDateTimePicker value={value ? value : new Date()} display={"default"}  mode={mode} timeZoneName={'Europe/Warsaw'} onChange={(event, date) => onChange(date)} minimumDate={new Date(1970, 0, 1)}  maximumDate={new Date()} locale={'pl-PL'}/>
 			</>
 		)} name={name as Path<T>}/>
 	)

@@ -29,6 +29,7 @@ import {LogOutBtn} from "@/components/Auth/LogOutBtn";
 import Toast from "react-native-toast-message";
 import * as Notification from 'expo-notifications'
 import {useColorScheme} from "nativewind";
+import COLORS from "@/constants/theme/colors";
 
 const Stack = createNativeStackNavigator<RootStackParamList>()
 const BottomTab = createBottomTabNavigator()
@@ -41,9 +42,15 @@ Notification.setNotificationHandler({
     })
 })
 function BottomTabsNavigation() {
+    const {colorScheme} = useColorScheme()
     return (
         <BottomTab.Navigator screenOptions={{
-            headerShown: false
+            headerShown: false,
+            tabBarStyle: {
+                backgroundColor: COLORS[colorScheme].primary,
+                borderTopColor: COLORS[colorScheme].tabBarBorder
+            },
+            tabBarActiveTintColor: COLORS[colorScheme].accent
         }}>
             <BottomTab.Screen name='Dashboard' component={Dashboard} options={{
                 tabBarIcon: ({size, color}) => <IconButton icon={'water'} color={color} size={size}/>
