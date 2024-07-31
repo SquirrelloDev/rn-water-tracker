@@ -51,7 +51,8 @@ export const CustomBottomSheet = forwardRef<BottomSheetModal, CustomBottomSheetP
         }} handleStyle={{
             backgroundColor: COLORS[colorScheme].primary,
             borderTopStartRadius: 12,
-            borderTopEndRadius: 12
+            borderTopEndRadius: 12,
+            ...props.handleStyle
         }}>
             <BottomSheetView style={{flex: 1, backgroundColor: COLORS[colorScheme].primary}}>
                 {children}
