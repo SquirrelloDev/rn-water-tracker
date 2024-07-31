@@ -80,7 +80,15 @@ export default function App() {
                 <BottomSheetModalProvider>
                     <SafeAreaProvider>
                         <NavigationContainer>
-                            <Stack.Navigator initialRouteName={'index'}>
+                            <Stack.Navigator initialRouteName={'index'} screenOptions={{
+                                headerStyle: {
+                                    backgroundColor: COLORS[colorScheme].primary
+                                },
+                                headerTitleStyle: {
+                                    color: colorScheme === 'dark' ? COLORS.dark.white : COLORS.light.black
+                                },
+                                headerTintColor: COLORS[colorScheme].accent
+                            }}>
                                 <Stack.Screen name='Intro' component={IntroScreen} options={{
                                     headerShown: false,
                                 }}/>

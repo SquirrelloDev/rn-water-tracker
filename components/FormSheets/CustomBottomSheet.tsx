@@ -16,11 +16,11 @@ interface CustomBottomSheetProps extends BottomSheetProps {
 }
 
 export const CustomBottomSheet = forwardRef<BottomSheetModal, CustomBottomSheetProps>(({
-                                                                                           children,
-                                                                                           onDismiss,
-                                                                                           snapPoints,
-                                                                                           ...props
-                                                                                       }, forwardedRef) => {
+    children,
+    onDismiss,
+    snapPoints,
+    ...props
+    }, forwardedRef) => {
     const {colorScheme} = useColorScheme()
     const toggleSheet = useBottomSheetStore(state => state.toggleSheet)
     const setSheetType = useBottomSheetStore(state => state.setSheetType)

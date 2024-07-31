@@ -4,7 +4,7 @@ import {SocialMediaBtn} from "@/components/SocialMediaBtn";
 export function SettingsFooter() {
     return (
         <StyledView className={'mx-4 py-5'}>
-            <StyledText className={'text-base text-center'}>Odwiedź nas w mediach społecznościowych</StyledText>
+            <StyledText className={'text-base text-center dark:text-white'}>Odwiedź nas w mediach społecznościowych</StyledText>
             <StyledView className={'flex-row justify-around my-3'}>
                 <SocialMediaBtn smName={'instagram'} />
                 <SocialMediaBtn smName={'facebook'} />

@@ -29,8 +29,8 @@ export function AccountDeleteBox() {
     return (
         <Card classNames={'mt-4'}>
             {isError && <ErrorBox errorMessage={(error as Error).message} />}
-            <StyledText className={'text-lg font-bold'}>Usuwanie konta</StyledText>
-            <StyledText className={'text-base mb-2'}>Twoje konto zostanie usunięte na zawsze. Wszystkie dane zostaną
+            <StyledText className={'text-lg font-bold dark:text-white'}>Usuwanie konta</StyledText>
+            <StyledText className={'text-base mb-2 dark:text-white'}>Twoje konto zostanie usunięte na zawsze. Wszystkie dane zostaną
                 utracone bezpowrotnie</StyledText>
             <CustomButton title={'Usuń konto'} onPress={() => {
                 deleteAlert()

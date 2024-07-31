@@ -6,9 +6,9 @@ import useNotification from "@/hooks/useNotification";
 export function NotificationsScreen() {
     const {toggleNotificationsHandler, notificationsAllowed} = useNotification()
     return (
-        <StyledView className={'bg-white flex-1'}>
+        <StyledView className={'bg-white flex-1 dark:bg-neutral-900'}>
             <StyledView className={'flex-row items-center justify-between p-3'}>
-                <StyledText className={'text-base font-bold'}>Powiadomienia</StyledText>
+                <StyledText className={'text-base font-bold dark:text-white'}>Powiadomienia</StyledText>
                 <Switch value={notificationsAllowed} onValueChange={toggleNotificationsHandler} trackColor={{true: '#49c4e1'}}/>
             </StyledView>
             {notificationsAllowed && <NotificationSettings/>}

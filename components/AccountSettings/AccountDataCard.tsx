@@ -17,7 +17,7 @@ export function AccountDataCard({activateEdit, displayEmail}: AccountDataCardPro
                     <StyledIcon className={'text-blue-500'} name={'water'} size={24}/>
                 </StyledView>
                 <StyledView className={'ml-3'}>
-                    <StyledText className={'text-slate-500 font-medium w-36'} numberOfLines={1}>{displayEmail ? displayEmail : '🤨'}</StyledText>
+                    <StyledText className={'text-slate-500 font-medium w-36 dark:text-white'} numberOfLines={1}>{displayEmail ? displayEmail : '🤨'}</StyledText>
                 </StyledView>
             </StyledView>
             <StyledView className={'w-2/5'}>
