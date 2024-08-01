@@ -122,7 +122,7 @@ export default function App() {
                                                 headerBackTitle: 'Powrót'
                                             }}/>
                                             <Stack.Screen name={'Preferences'} component={PrefsScreen} options={{
-                                                title: 'Ustawienia aplikacji',
+                                                title: 'Motyw',
                                                 headerBackTitle: 'Powrót',
                                             }}/>
                                             <Stack.Screen name={'Notifications'} component={NotificationsScreen} options={{
