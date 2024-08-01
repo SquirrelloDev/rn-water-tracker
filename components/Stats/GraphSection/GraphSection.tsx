@@ -1,7 +1,7 @@
 import {StyledText, StyledView} from "@/components/StyledComponents/StyledComponents";
 import {CustomSegmentedControl} from "@/components/Stats/GraphSection/CustomSegmentedControl";
 import {useCallback, useState} from "react";
-import {VictoryBar, VictoryChart} from "victory-native";
+import {VictoryAxis, VictoryBar, VictoryChart} from "victory-native";
 import dayjs from "dayjs";
 import {DateRange} from "@/types/days";
 import useDateRange from "@/hooks/useDateRange";
@@ -13,6 +13,8 @@ import {GraphSkeleton} from "@/components/Stats/GraphSection/GraphSkeleton";
 import {NativeSyntheticEvent} from "react-native";
 import {NativeSegmentedControlIOSChangeEvent} from "@react-native-segmented-control/segmented-control";
 import {AverageConsumptionInfo} from "@/components/Stats/GraphSection/AverageConsumptionInfo";
+import {useColorScheme} from "nativewind";
+import COLORS from "@/constants/theme/colors";
 
 const segmentedControlValues = ['tygodniowe', 'miesięczne', 'roczne']
 const rangeValues: DateRange[] = ['week', 'month', 'year']
@@ -20,6 +22,7 @@ const rangeValues: DateRange[] = ['week', 'month', 'year']
 export function GraphSection() {
     const [selectedIndex, setSelectedIndex] = useState<number>(0)
     const [currentDate, setCurrentDate] = useState<dayjs.Dayjs>(dayjs())
+    const {colorScheme} = useColorScheme()
     const userData = useAuthStore(state => state.userData)
     const dateRange = useDateRange(rangeValues[selectedIndex], currentDate)
     const {
@@ -67,6 +70,16 @@ export function GraphSection() {
                 <StyledView className={'relative'}>
                     <StyledView className={'absolute bottom-0'}>
                         <VictoryChart domainPadding={{y: 5}} domain={{y: [0, selectedIndex > 1 ? userData!.dailyFluidIntake * currentDate.daysInMonth() : userData!.dailyFluidIntake]}}>
+                            <VictoryAxis style={{
+                                tickLabels: {
+                                    fill: colorScheme === 'dark' ? COLORS.dark.white : COLORS.light.black
+                                }
+                            }}/>
+                            <VictoryAxis dependentAxis style={{
+                                tickLabels: {
+                                    fill: colorScheme === 'dark' ? COLORS.dark.white : COLORS.light.black
+                                }
+                            }}/>
                         <VictoryBar data={chartData} x={'date'} y={'intake'} style={{data: {fill: '#49c4e1'}}}
                                     padding={{
                                         left: selectedIndex === 1 ? 10 : 50,

@@ -2,7 +2,7 @@ import {StyledText, StyledView} from "@/components/StyledComponents/StyledCompon
 
 export function BugReportScreen() {
     return (
-        <StyledView>
+        <StyledView className={'flex-1 dark:bg-neutral-900'}>
             <StyledText>BugReport</StyledText>
         </StyledView>
     );

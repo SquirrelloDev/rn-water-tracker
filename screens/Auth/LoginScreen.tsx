@@ -5,7 +5,7 @@ import {Keyboard, TouchableWithoutFeedback} from "react-native";
 export function LoginScreen() {
     return (
         <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-            <StyledView className={'flex-1 py-3'}>
+            <StyledView className={'flex-1 py-3 dark:bg-neutral-900'}>
                 <LoginForm/>
             </StyledView>
         </TouchableWithoutFeedback>

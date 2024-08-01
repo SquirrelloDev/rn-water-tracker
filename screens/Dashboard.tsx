@@ -34,7 +34,7 @@ export default function Dashboard(){
 		setModalInfoShown(prevState => !prevState)
 	}
 	return (
-		<StyledView style={[insetsStyles, {paddingBottom: 0}]} className="flex-1">
+		<StyledView style={[insetsStyles, {paddingBottom: 0}]} className="flex-1 dark:bg-neutral-900">
 			<StreakModal isVisible={streakModalShown} toggleModal={toggleStreakModal} currentStreak={currentStreak} />
 			<TopBar toggleInfoModal={toggleInfoModal}/>
 			{/*TODO: add card with current temperature and additional info*/}

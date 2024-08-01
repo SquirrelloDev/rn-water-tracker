@@ -58,7 +58,7 @@ export function CreateEntryForm() {
                 <FormProvider {...methods}>
                 {isCreateError && <ErrorBox errorMessage={'Nie można dodać rekordu'} />}
                 {isError && <ErrorBox errorMessage={'Nie można pobrać napojów'} />}
-                    <StyledText className={'text-center font-bold text-xl'}>Dodaj wpis</StyledText>
+                    <StyledText className={'text-center font-bold text-xl dark:text-white'}>Dodaj wpis</StyledText>
                     {!isLoading && <DrinkSelectables data={data!} name={'drinkId'} control={control}/>}
                     <FormTextInput name={'intake'} control={control} placeholder={'Wartość w ml'} isRequired
                                    keyboardType={'number-pad'}/>

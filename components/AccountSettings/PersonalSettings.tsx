@@ -6,7 +6,7 @@ import {Keyboard, TouchableWithoutFeedback} from "react-native";
 function PersonalSettings() {
     return (
         <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-            <StyledView className={'flex-1'}>
+            <StyledView className={'flex-1 dark:bg-neutral-900'}>
                 <Card classNames={'px-1'}>
                     <PersonalDataForm/>
                 </Card>

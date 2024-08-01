@@ -45,7 +45,7 @@ export function PersonalDataForm() {
     return (
         <FormProvider {...methods}>
             {isError && <ErrorBox errorMessage={(error as Error).message} />}
-            <StyledText className={'font-bold text-lg ml-6'}>Aktualizacja zapotrzebowania</StyledText>
+            <StyledText className={'font-bold text-lg ml-6 dark:text-white'}>Aktualizacja zapotrzebowania</StyledText>
             <FormTextInput name={'weight'} control={control} placeholder={'Waga w kg'} isRequired keyboardType={'numeric'}/>
             <DemandCard demand={demand === 0 ? userData.dailyFluidIntake : demand}/>
             <CustomButton title={'Zapisz'} onPress={handleSubmit(onSubmit)} isLoading={(isRequestPerformed || isPending)}/>

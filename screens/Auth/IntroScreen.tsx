@@ -8,7 +8,7 @@ import {RootStackParamList} from "@/types/navigation";
 export function IntroScreen({navigation}: NativeStackScreenProps<RootStackParamList, 'Intro'>) {
 	const insets = useSafeAreaStyle()
 	return (
-		<StyledView style={[insets]} className='flex-1'>
+		<StyledView style={[insets]} className='flex-1 dark:bg-neutral-900'>
 			<IntroCarousel />
 			<CustomButton title="Zarejestruj się" onPress={() => navigation.navigate('SignUpPersonalData')} />
 			<CustomButton title="Zaloguj się" onPress={() => navigation.navigate('Login')} variant={'outline'}/>

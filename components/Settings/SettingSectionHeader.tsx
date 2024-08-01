@@ -5,7 +5,7 @@ interface SettingSectionHeaderProps {
 export function SettingSectionHeader({title}: SettingSectionHeaderProps) {
     return (
         <StyledView className={'px-4 py-2'}>
-            <StyledText className={'text-xl font-bold'}>{title}</StyledText>
+            <StyledText className={'text-xl font-bold dark:text-white'}>{title}</StyledText>
         </StyledView>
     );
 }
