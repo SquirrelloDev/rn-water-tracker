@@ -30,6 +30,8 @@ import Toast from "react-native-toast-message";
 import * as Notification from 'expo-notifications'
 import {useColorScheme} from "nativewind";
 import COLORS from "@/constants/theme/colors";
+import {useLayoutEffect} from "react";
+import useUserPrefsStore from "@/stores/userPrefsStore";
 
 const Stack = createNativeStackNavigator<RootStackParamList>()
 const BottomTab = createBottomTabNavigator()
@@ -72,7 +74,11 @@ function BottomTabsNavigation() {
 
 export default function App() {
     const session = useAuthStore(state => state.session)
-    const {colorScheme} = useColorScheme()
+    const currentTheme = useUserPrefsStore(state => state.currentTheme)
+    const {colorScheme, setColorScheme} = useColorScheme()
+    useLayoutEffect(() => {
+        setColorScheme(currentTheme)
+    }, [currentTheme, setColorScheme])
     return (
         <QueryClientProvider client={queryClient}>
             <StatusBar style={colorScheme === 'dark' ? 'light' : 'dark'}/>
