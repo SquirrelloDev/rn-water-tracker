@@ -1,10 +1,12 @@
 import {StyledText, StyledView} from "@/components/StyledComponents/StyledComponents";
 import {SettingsList} from "@/components/Settings/SettingsList";
 import {SettingsFooter} from "@/components/Settings/SettingsFooter";
+import {useColorScheme} from "nativewind";
 
 export function SettingsScreen() {
+    const {colorScheme} = useColorScheme()
     return (
-        <StyledView>
+        <StyledView className={'dark:bg-neutral-900'}>
             <SettingsList/>
             <SettingsFooter />
         </StyledView>

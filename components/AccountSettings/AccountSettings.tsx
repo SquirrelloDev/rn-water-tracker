@@ -5,7 +5,8 @@ import {useState} from "react";
 import {AccountDataCard} from "@/components/AccountSettings/AccountDataCard";
 import useAuthStore from "@/stores/authStore";
 import {Keyboard, ScrollView, TouchableWithoutFeedback} from "react-native";
-
+import {styled} from "nativewind";
+const StyledScrollView = styled(ScrollView)
 function AccountSettings() {
     const session = useAuthStore(state => state.session)
     const userEmail = session && session.user.email
@@ -14,7 +15,7 @@ function AccountSettings() {
         setAccountDataProccessActive(true)
     }
     return (
-        <ScrollView>
+        <StyledScrollView className={'dark:bg-neutral-900'}>
             <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
             <StyledView className={'flex-1 mt-5'}>
                 {!accountDataProccessActive ?
@@ -23,7 +24,7 @@ function AccountSettings() {
                 <AccountDeleteBox />
             </StyledView>
             </TouchableWithoutFeedback>
-        </ScrollView>
+        </StyledScrollView>
     );
 }
 

@@ -2,7 +2,7 @@ import {StyledText, StyledView} from "@/components/StyledComponents/StyledCompon
 
 export function UpdatesScreen() {
     return (
-        <StyledView>
+        <StyledView className={'flex-1 dark:bg-neutral-900'}>
             <StyledText>updates</StyledText>
         </StyledView>
     );

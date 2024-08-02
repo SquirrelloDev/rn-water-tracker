@@ -30,7 +30,7 @@ function NotificationSound({soundObj, setNotificationSound, index, selectedIndex
     }, [sound])
     return (
         <StyledPressable className={'p-3 mx-2 active:opacity-50 flex-row justify-between items-center'} onPress={playSound}>
-            <StyledText className={'text-lg font-medium'}>{soundObj.title}</StyledText>
+            <StyledText className={'text-lg font-medium dark:text-white'}>{soundObj.title}</StyledText>
             <StyledView className={'w-7 h-7 border-2 border-amber-400 rounded-full items-center justify-center'}>
                 {index === selectedIndex && <StyledView className={'w-5 h-5 bg-amber-400 rounded-full'}></StyledView>}
             </StyledView>

@@ -28,6 +28,10 @@ import {FaqScreen} from "@/screens/Settings/FaqScreen";
 import {LogOutBtn} from "@/components/Auth/LogOutBtn";
 import Toast from "react-native-toast-message";
 import * as Notification from 'expo-notifications'
+import {useColorScheme} from "nativewind";
+import COLORS from "@/constants/theme/colors";
+import {useLayoutEffect} from "react";
+import useUserPrefsStore from "@/stores/userPrefsStore";
 
 const Stack = createNativeStackNavigator<RootStackParamList>()
 const BottomTab = createBottomTabNavigator()
@@ -40,9 +44,15 @@ Notification.setNotificationHandler({
     })
 })
 function BottomTabsNavigation() {
+    const {colorScheme} = useColorScheme()
     return (
         <BottomTab.Navigator screenOptions={{
-            headerShown: false
+            headerShown: false,
+            tabBarStyle: {
+                backgroundColor: COLORS[colorScheme].primary,
+                borderTopColor: COLORS[colorScheme].tabBarBorder
+            },
+            tabBarActiveTintColor: COLORS[colorScheme].accent
         }}>
             <BottomTab.Screen name='Dashboard' component={Dashboard} options={{
                 tabBarIcon: ({size, color}) => <IconButton icon={'water'} color={color} size={size}/>
@@ -64,14 +74,27 @@ function BottomTabsNavigation() {
 
 export default function App() {
     const session = useAuthStore(state => state.session)
+    const currentTheme = useUserPrefsStore(state => state.currentTheme)
+    const {colorScheme, setColorScheme} = useColorScheme()
+    useLayoutEffect(() => {
+        setColorScheme(currentTheme)
+    }, [currentTheme, setColorScheme])
     return (
         <QueryClientProvider client={queryClient}>
-            <StatusBar style={'dark'}/>
+            <StatusBar style={colorScheme === 'dark' ? 'light' : 'dark'}/>
             <GestureHandlerRootView>
                 <BottomSheetModalProvider>
                     <SafeAreaProvider>
                         <NavigationContainer>
-                            <Stack.Navigator initialRouteName={'index'}>
+                            <Stack.Navigator initialRouteName={'index'} screenOptions={{
+                                headerStyle: {
+                                    backgroundColor: COLORS[colorScheme].primary
+                                },
+                                headerTitleStyle: {
+                                    color: colorScheme === 'dark' ? COLORS.dark.white : COLORS.light.black
+                                },
+                                headerTintColor: COLORS[colorScheme].accent
+                            }}>
                                 <Stack.Screen name='Intro' component={IntroScreen} options={{
                                     headerShown: false,
                                 }}/>
@@ -99,7 +122,7 @@ export default function App() {
                                                 headerBackTitle: 'Powrót'
                                             }}/>
                                             <Stack.Screen name={'Preferences'} component={PrefsScreen} options={{
-                                                title: 'Ustawienia aplikacji',
+                                                title: 'Motyw',
                                                 headerBackTitle: 'Powrót',
                                             }}/>
                                             <Stack.Screen name={'Notifications'} component={NotificationsScreen} options={{
