@@ -4,9 +4,8 @@ import {SettingsFooter} from "@/components/Settings/SettingsFooter";
 import {useColorScheme} from "nativewind";
 
 export function SettingsScreen() {
-    const {colorScheme} = useColorScheme()
     return (
-        <StyledView className={'dark:bg-neutral-900'}>
+        <StyledView className={'flex-1 dark:bg-neutral-900'}>
             <SettingsList/>
             <SettingsFooter />
         </StyledView>
