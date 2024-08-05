@@ -69,7 +69,7 @@ export function EditEntryForm({drinkId}: EditEntryFormProps) {
 		setDatepickerShown(false)
 	}, [])
 	return (
-		<CustomBottomSheet ref={modalRef} onDismiss={onDismiss}>
+		<CustomBottomSheet ref={modalRef} onDismiss={onDismiss} snapPoints={['55%']}>
 			{entryData && (
 				<TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
 					<FormProvider {...methods}>
