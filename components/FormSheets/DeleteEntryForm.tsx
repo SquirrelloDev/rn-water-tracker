@@ -56,7 +56,7 @@ export function DeleteEntryForm({drinkId, isStreakActive, userProgress, userDail
                     {isError && <ErrorBox errorMessage={`Nie można usunąć wpisu: ${error}`}/>}
                     <StyledText className={'text-center font-bold text-xl dark:text-white'}>Czy na pewno chcesz usunąć
                         wpis?</StyledText>
-                    <CustomButton title={'Usuń'} onPress={confirmDelete} isLoading={isPending}/>
+                    <CustomButton title={'Usuń'} actionColor={'danger'} onPress={confirmDelete} isLoading={isPending}/>
                     <CustomButton title={'Anuluj'} onPress={() => bottomSheetRef.current?.dismiss()} variant={'outline'}
                                   isLoading={isPending}/>
                 </StyledView>

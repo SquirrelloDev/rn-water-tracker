@@ -13,6 +13,8 @@ import Animated, {
 import {FINAL_VALUES, INITIAL_VALUES} from "@/constants/animation_values/streakModalValues";
 import * as Haptics from "expo-haptics";
 import {NotificationFeedbackType} from "expo-haptics";
+import {useColorScheme} from "nativewind";
+import COLORS from "@/constants/theme/colors";
 
 interface StreakModalProps {
     currentStreak: number
@@ -22,6 +24,8 @@ interface StreakModalProps {
 const AnimatedText = Animated.createAnimatedComponent(StyledText)
 const AnimatedView = Animated.createAnimatedComponent(StyledView)
 export function StreakModal({isVisible, toggleModal, currentStreak}: StreakModalProps) {
+    const {colorScheme} = useColorScheme()
+
     const positionValue = useSharedValue(INITIAL_VALUES.counterPositionValue)
     const newStreakValue = useSharedValue(INITIAL_VALUES.counterFontValue)
     const colorValue = useSharedValue(INITIAL_VALUES.counterColorValue)
@@ -37,7 +41,7 @@ export function StreakModal({isVisible, toggleModal, currentStreak}: StreakModal
     const animatedStyles2 = useAnimatedStyle(() => ({
         transform: [{translateY: withTiming(defferedPosVal.value, {duration: FINAL_VALUES.delays.counterSequence, easing: Easing.bezier(0.86, -0.05, 0.25, 1)})}],
         fontSize: withDelay(1, withSpring(newStreakValue.value)),
-        color: interpolateColor(colorValue.value, [0,1], ['black', 'orange'])
+        color: interpolateColor(colorValue.value, [0,1], [colorScheme === 'dark' ? COLORS.dark.white : COLORS.light.black, 'orange'])
     }))
     const buttonAnimatedStyles = useAnimatedStyle(() => ({
         transform: [{translateY: withDelay(FINAL_VALUES.delays.buttonSequence, withSpring(transformButtonValue.value))}],
