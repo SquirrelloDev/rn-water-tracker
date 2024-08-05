@@ -24,8 +24,8 @@ export function CreateEntryForm() {
     const userData = useAuthStore(state => state.userData)
     const [datepickerShown, setDatepickerShown] = useState<boolean>(false)
     const modalRef = useRef<BottomSheetModal>(null)
-    const {data, isLoading, isError, error} = useDrinkListing()
-    const {mutate, isPending, isError: isCreateError, error: createError} = useProgressCreate(() => {
+    const {data, isLoading, isError} = useDrinkListing()
+    const {mutate, isPending, isError: isCreateError} = useProgressCreate(() => {
         modalRef.current?.dismiss()
         queryClient.invalidateQueries({queryKey: [listuserQKString]})
         queryClient.invalidateQueries({queryKey: [listProgressByRangeQKString]})

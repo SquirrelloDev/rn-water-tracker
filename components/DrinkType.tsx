@@ -1,21 +1,27 @@
-import {StyledPressable, StyledText, StyledView} from "@/components/StyledComponents/StyledComponents";
 import clsx from "clsx";
 import {useFormContext} from "react-hook-form";
+import {styled} from "nativewind";
+import {Ionicons} from "@expo/vector-icons";
+import {IconButton} from "@/components/UI/IconButton";
+import {impactAsync, ImpactFeedbackStyle} from "expo-haptics";
+
 interface DrinkTypeProps {
-	name: string,
-	id: number
-	onChange: (...event: any[]) => void
+    name: string,
+    id: number
+    index: number
+    onChange: (...event: any[]) => void
 
 }
-export function DrinkType({name, id, onChange}: DrinkTypeProps) {
-	const {watch} = useFormContext()
-	const selectedDrinkId = watch('drinkId')
-	const setDrinkId = () => {
-	  onChange(id)
-	}
-	return (
-		<StyledPressable className={clsx('py-4 px-2 mx-2 bg-slate-200 rounded', selectedDrinkId === id && 'border border-blue-400')} onPress={setDrinkId}>
-			<StyledText>{name}</StyledText>
-		</StyledPressable>
-	)
+const drinkTypesColors = ['#49c4e1', '#c7782e', '#c7972e', '#be3838', '#66c232']
+
+export function DrinkType({id, onChange, index}: DrinkTypeProps) {
+    const {watch} = useFormContext()
+    const selectedDrinkId = watch('drinkId')
+    const setDrinkId = () => {
+        impactAsync(ImpactFeedbackStyle.Soft)
+        onChange(id)
+    }
+    return (
+        <IconButton icon={'water'} color={drinkTypesColors[index]} size={24} onPress={setDrinkId} wrapperClassName={clsx('mx-2 bg-white w-14 h-14 rounded-full justify-center items-center', selectedDrinkId === id && 'border-2 border-blue-400')}/>
+    )
 }
