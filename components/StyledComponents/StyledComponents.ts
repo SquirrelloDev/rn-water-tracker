@@ -1,5 +1,5 @@
 import {styled} from "nativewind";
-import {ImageBackground, Pressable, Text, TextInput, View, Image} from "react-native";
+import {ImageBackground, Pressable, Text, TextInput, View, Image, ScrollView} from "react-native";
 import {LinearGradient} from "expo-linear-gradient";
 
 export const StyledView = styled(View)
@@ -9,3 +9,4 @@ export const StyledLinearGradient = styled(LinearGradient)
 export const StyledTextInput = styled(TextInput)
 export const StyledImageBackground = styled(ImageBackground)
 export const StyledImage = styled(Image)
+export const StyledScrollView = styled(ScrollView)
