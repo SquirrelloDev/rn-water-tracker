@@ -22,7 +22,7 @@ export default function CustomButton({title, onPress, isLoading, variant = 'soli
                 <StyledView className={'flex-row justify-center'}>
                 {isLoading && <ActivityIndicator color={variant === 'solid' ? '#fff' : '#000'}/>}
                 <StyledText
-                    className={clsx('text-center text-base font-medium', textColorValues, isLoading &&  'ml-2', isLoading && loadingTextStyles())}>{title}</StyledText>
+                    className={clsx('text-center text-base font-medium dark:text-white', textColorValues, isLoading &&  'ml-2', isLoading && loadingTextStyles())}>{title}</StyledText>
                 </StyledView>
             </StyledPressable>
         </StyledView>
