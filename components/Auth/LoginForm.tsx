@@ -20,7 +20,7 @@ export function LoginForm() {
 	}
 	return (
 		<>
-			<StyledText className={'text-3xl text-center font-bold'}>Zaloguj się</StyledText>
+			<StyledText className={'text-3xl text-center font-bold dark:text-white'}>Zaloguj się</StyledText>
 			{loginStatus.isLoginError && <ErrorBox errorMessage={loginStatus.loginError!.message} />}
 			<FormProvider {...methods}>
 			<StyledView className={'pt-4'}>
