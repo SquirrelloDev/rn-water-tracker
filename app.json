@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Water guard",
-    "slug": "water-guard",
+    "name": "Drink guard",
+    "slug": "drink-guard",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
