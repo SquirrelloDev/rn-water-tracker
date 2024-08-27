@@ -1,10 +1,7 @@
 import {Card} from "@/components/UI/Card";
-import {StyledText, StyledView} from "@/components/StyledComponents/StyledComponents";
+import {StyledIcon, StyledText, StyledView} from "@/components/StyledComponents/StyledComponents";
 import CustomButton from "@/components/UI/CustomButton";
-import {Ionicons} from "@expo/vector-icons";
-import {styled} from "nativewind";
 
-const StyledIcon = styled(Ionicons)
 interface AccountDataCardProps {
     activateEdit: () => void
     displayEmail?: string | null

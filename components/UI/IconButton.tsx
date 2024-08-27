@@ -1,6 +1,5 @@
 import {Ionicons} from "@expo/vector-icons";
-import {StyledPressable} from "@/components/StyledComponents/StyledComponents";
-import {styled} from "nativewind";
+import {StyledIcon, StyledPressable} from "@/components/StyledComponents/StyledComponents";
 interface IconButtonProps {
 	icon: keyof typeof Ionicons.glyphMap,
 	color: string,
@@ -9,7 +8,6 @@ interface IconButtonProps {
 	wrapperClassName?: string
 	iconClassName?: string
 }
-const StyledIcon = styled(Ionicons)
 export function IconButton({icon, size, color, onPress, wrapperClassName, iconClassName}:IconButtonProps) {
 	return (
 		<StyledPressable onPress={onPress} className={wrapperClassName}>
