@@ -1,4 +1,3 @@
-import {Day} from "@/types/days";
 import {create} from "zustand";
 import dayjs from "dayjs";
 
