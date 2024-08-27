@@ -1,15 +1,11 @@
-import {StyledPressable, StyledText, StyledView} from "@/components/StyledComponents/StyledComponents";
+import {StyledIcon, StyledPressable, StyledText, StyledView} from "@/components/StyledComponents/StyledComponents";
 import {useNavigation} from "@react-navigation/native";
 import {StackNavigation} from "@/types/navigation";
 import {SettingItemType} from "@/constants/settings";
-import {styled} from "nativewind";
-import {Ionicons} from "@expo/vector-icons";
 
 interface SettingItemProps {
     item: SettingItemType
 }
-
-const StyledIcon = styled(Ionicons)
 
 export function SettingItem({item}: SettingItemProps) {
     const navigation = useNavigation<StackNavigation>()

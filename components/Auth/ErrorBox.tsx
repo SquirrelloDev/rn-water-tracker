@@ -1,10 +1,7 @@
-import {StyledText, StyledView} from "@/components/StyledComponents/StyledComponents";
-import {Ionicons} from "@expo/vector-icons";
-import {styled} from "nativewind";
+import {StyledIcon, StyledText, StyledView} from "@/components/StyledComponents/StyledComponents";
 interface ErrorBoxProps {
 	errorMessage: string
 }
-const StyledIcon = styled(Ionicons)
 export function ErrorBox({errorMessage}:ErrorBoxProps) {
 	return (
 		<StyledView className={'m-3 p-3 bg-red-500 rounded-xl relative z-0 overflow-hidden'}>

@@ -1,7 +1,5 @@
 import clsx from "clsx";
 import {useFormContext} from "react-hook-form";
-import {styled} from "nativewind";
-import {Ionicons} from "@expo/vector-icons";
 import {IconButton} from "@/components/UI/IconButton";
 import {impactAsync, ImpactFeedbackStyle} from "expo-haptics";
 

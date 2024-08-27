@@ -1,5 +1,6 @@
 import {CustomBottomSheet} from "@/components/FormSheets/CustomBottomSheet";
 import {
+    StyledIcon,
     StyledImageBackground,
     StyledPressable,
     StyledText,
@@ -9,7 +10,6 @@ import {Tip} from "@/constants/tips";
 import {useRef} from "react";
 import {BottomSheetModal} from "@gorhom/bottom-sheet";
 import {ImageSourcePropType} from "react-native";
-import {Ionicons} from "@expo/vector-icons";
 import {useBottomSheetStore} from "@/stores/bottomSheetStore";
 import {styled, useColorScheme} from "nativewind";
 import {BlurView} from "expo-blur";
@@ -21,7 +21,6 @@ interface TipDetailsProps {
     navigateToNotifications: () => void
 }
 const StyledBlurView = styled(BlurView)
-const StyledIcon = styled(Ionicons)
 export function TipDetails({tip, navigateToNotifications}: TipDetailsProps) {
     const bottomSheetRef = useRef<BottomSheetModal>(null)
     const setSheetType = useBottomSheetStore(state => state.setSheetType)

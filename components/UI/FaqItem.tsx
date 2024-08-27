@@ -1,4 +1,4 @@
-import {StyledPressable, StyledText, StyledView} from "@/components/StyledComponents/StyledComponents";
+import {StyledIcon, StyledPressable, StyledText, StyledView} from "@/components/StyledComponents/StyledComponents";
 import {FaqQuestion} from "@/constants/faqQuestions";
 import {styled} from "nativewind";
 import {Ionicons} from "@expo/vector-icons";
@@ -18,7 +18,6 @@ interface FaqItemProps {
     item: FaqQuestion
 }
 
-const StyledIcon = styled(Ionicons)
 const AnimatedIcon = Animated.createAnimatedComponent(StyledIcon)
 const AnimatedView = Animated.createAnimatedComponent(StyledView)
 

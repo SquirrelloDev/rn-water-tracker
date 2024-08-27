@@ -1,10 +1,9 @@
-import {TextInput, TextInputProps} from "react-native";
+import {TextInputProps} from "react-native";
 import clsx from "clsx";
 import {Ionicons} from "@expo/vector-icons";
-import {styled, useColorScheme} from "nativewind";
-import {ForwardedRef, forwardRef} from "react";
+import {useColorScheme} from "nativewind";
 import {Control, Controller, FieldValues, Path} from "react-hook-form";
-import {StyledText, StyledTextInput, StyledView} from "@/components/StyledComponents/StyledComponents";
+import {StyledIcon, StyledText, StyledTextInput, StyledView} from "@/components/StyledComponents/StyledComponents";
 import COLORS from "@/constants/theme/colors";
 
 interface CustomTextInputProps<T extends FieldValues> extends TextInputProps  {
@@ -13,8 +12,6 @@ interface CustomTextInputProps<T extends FieldValues> extends TextInputProps  {
     name: string,
     control: Control<T>
 }
-
-const StyledIcon = styled(Ionicons)
 
 export const FormTextInput = <T extends FieldValues>({placeholder, keyboardType, name, control, iconName, isRequired = false, ...props}: CustomTextInputProps<T>) => (
     <Controller render={({field: {value, onBlur, onChange}, formState: {errors}, fieldState: {isTouched}}) => {
